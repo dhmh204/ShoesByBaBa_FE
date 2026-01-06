@@ -91,13 +91,69 @@ label {
   text-decoration: underline;
   color: #184cfa;
 }
-/* =============== */
 
-/* Hiệu ứng xuất hiện dropdown (tùy chọn) */
-.header-action_dropdown {
+
+
+/* =============== */
+.header-action__dropdown {
+    width: auto;
+    min-width: 260px; 
+    position: absolute;
+    top: calc(100% + 15px);
+    left: auto;
+    right: -15px;
+    z-index: 990;
+    min-width: 280px;
+    border-radius: 3px;
+    color: #677279;
+    background: #fff;
+    border: solid 1px #dfe3e8;
+    box-shadow: 0 1px 5px 2px rgba(0, 0, 0, 0.1);
+}
+
+.header-dropdown_content {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    padding: 20px 20px;
+}
+.sitenav-account .site_account_panel_list {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    transition: height 0.2s ease-in-out;
+}
+
+.sitenav-account .site_account_panel_list .site_account_info {
+    text-align: left;
+    font-size: 14px;
+}
+.sitenav-account .site_account_panel_list .site_account_header {
+    margin: 0 0 20px;
+    padding-bottom: 8px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+}
+.site_account_header {
+    margin: 0 0 20px;
+    padding-bottom: 8px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+}
+.site_account_header .site_account_title {
+  color: #3d0f0f !important;
+  font-weight: 700;
+}
+
+.site_account_inner ul li{
+  color: #000;
+}
+
+.header-action__ropdown {
     display: none;
 }
 
-.header-action_dropdown.active {
+.header-action__dropdown.active {
     display: block;
 }
