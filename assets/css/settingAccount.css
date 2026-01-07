@@ -1,0 +1,77 @@
+
+/* --------------------------------- */
+.wrap_inforAccount {
+    margin: 20px;
+}
+.wrap_inforAccount .title-detail {
+    line-height: 32px;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 700;
+    position: relative;
+    padding-left: 10px;
+    border-radius: 4px;
+    border-left: solid 3px #1351c0;
+}
+.wrap_inforAccount p {
+    font-size: 16px;
+    line-height: 21px;
+    margin: 16px 0;
+    font-weight: 500;
+}
+
+.wrap_inforAccount span {
+    color: #808080;
+    min-width: 115px;
+    display: inline-block;
+}
+
+.wrap_inforAccount .btn-update {
+    padding: 8px 20px;
+    background: #1351c0;
+    color: #fff;
+    cursor: pointer;
+    z-index: 2;
+    border-radius: 8px;
+}
+.wrap_inforAccount .btn-update i {
+    margin-right: 4px;
+}
+.wrap_inforAccount .btn-update a {
+    color: #fff;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+.customer-table-wrap {
+    padding: 8px 0;
+    padding-top: 20px;
+    border-top: 1px solid #cccc;
+}
+.customer-table-wrap .title-detail {
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    position: relative;
+    padding-bottom: 8px;
+}
+.table-responsive-overflow {
+    position: relative;
+    overflow: hidden;
+}
+table.table-customers {
+    width: 100%;
+    background: #fff;
+}
+table.table-customers tbody tr:nth-of-type(even), table.table-customers thead {
+    background: #f4f8fb;
+}
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: none;
+}
+.table td, .table th {
+    padding: .75rem;
+    vertical-align: top;
+    border-top: none;
+}

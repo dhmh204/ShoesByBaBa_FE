@@ -1,0 +1,13 @@
+.action_update {
+    justify-content: center;
+    gap: 16px;
+}
+.action_update input {
+    padding: 8px 20px;
+    background: #1351c0;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 2;
+    border-radius: 8px;
+}

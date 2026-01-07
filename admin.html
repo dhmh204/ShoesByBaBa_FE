@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Quản Trị - Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="./assets/css/admin.css">
+</head>
+<body class="bg-light"> 
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="#"><i class="fa-solid fa-user-shield"></i> ADMIN MANAGER</a>
+            <div class="d-flex">
+                <a href="index.html" class="btn btn-outline-light btn-sm" target="_blank">Xem Trang Chủ <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <ul class="nav nav-pills mb-4 nav-justified" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active fw-bold" id="tab-product" data-bs-toggle="pill" data-bs-target="#content-product" type="button">
+                    <i class="fa-solid fa-shoe-prints"></i> THÊM SẢN PHẨM
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link fw-bold" id="tab-category" data-bs-toggle="pill" data-bs-target="#content-category" type="button">
+                    <i class="fa-solid fa-list"></i> THÊM DANH MỤC
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link fw-bold" id="tab-brand" data-bs-toggle="pill" data-bs-target="#content-brand" type="button">
+                    <i class="fa-solid fa-copyright"></i> THÊM THƯƠNG HIỆU
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link fw-bold" id="tab-order" data-bs-toggle="pill" data-bs-target="#content-order" type="button" onclick="loadOrders()">
+                    <i class="fa-solid fa-truck-fast"></i> QUẢN LÝ ĐƠN HÀNG
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="pills-tabContent">
+            
+            <div class="tab-pane fade show active" id="content-product" role="tabpanel">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h4 class="card-title text-primary mb-4">Nhập thông tin giày mới</h4>
+                        <form id="productForm">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Tên giày</label>
+                                    <input type="text" id="tenGiay" class="form-control" placeholder="VD: Nike Air Force 1" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Giá bán (VNĐ)</label>
+                                    <input type="number" id="gia" class="form-control" placeholder="VD: 2500000" required>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Danh mục</label>
+                                    <div class="input-group">
+                                        <select id="danhMucId" class="form-select" required>
+                                            <option value="">-- Chọn danh mục --</option>
+                                        </select>
+                                        <button class="btn btn-outline-secondary" type="button" onclick="switchToTab('tab-category')">+</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Thương hiệu</label>
+                                    <div class="input-group">
+                                        <select id="thuongHieuId" class="form-select" required>
+                                            <option value="">-- Chọn thương hiệu --</option>
+                                        </select>
+                                        <button class="btn btn-outline-secondary" type="button" onclick="switchToTab('tab-brand')">+</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Mô tả sản phẩm</label>
+                                <textarea id="moTa" class="form-control" rows="3"></textarea>
+                            </div>
+
+                            <div class="mb-3 border p-3 rounded bg-white">
+                                <label class="form-label fw-bold">Hình ảnh</label>
+                                <div class="input-group mb-2">
+                                    <input type="file" class="form-control" id="imageInput" multiple>
+                                    <button class="btn btn-primary" type="button" onclick="uploadImage()">
+                                        <i class="fa-solid fa-cloud-arrow-up"></i> Tải lên
+                                    </button>
+                                </div>
+                                <div id="imagePreviewContainer" class="d-flex gap-2 flex-wrap"></div>
+                                <small id="uploadStatus" class="text-muted"></small>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <label class="form-label fw-bold">Size & Số lượng</label>
+                                    <button type="button" class="btn btn-sm btn-info text-white" onclick="addVariantRow()">+ Thêm dòng</button>
+                                </div>
+                                <div id="variantContainer"></div>
+                            </div>
+
+                            <hr>
+                            <button type="submit" class="btn btn-success w-100 py-2 fw-bold text-uppercase">Hoàn tất đăng bán</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="content-category" role="tabpanel">
+                <div class="card shadow-sm" style="max-width: 600px; margin: auto;">
+                    <div class="card-body">
+                        <h4 class="card-title text-success mb-4">Thêm Danh Mục Mới</h4>
+                        <form id="categoryForm">
+                            <div class="mb-3">
+                                <label class="form-label">Tên danh mục</label>
+                                <input type="text" id="catName" class="form-control" placeholder="VD: Sneaker, Sandal, Boot..." required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Mô tả (tùy chọn)</label>
+                                <input type="text" id="catDesc" class="form-control" placeholder="Mô tả ngắn...">
+                            </div>
+                            <button type="submit" class="btn btn-success w-100">Lưu Danh Mục</button>
+                        </form>
+                        <div class="mt-4">
+                            <h6>Danh mục hiện có:</h6>
+                            <ul id="existing-categories" class="list-group list-group-flush small-list"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="content-brand" role="tabpanel">
+                <div class="card shadow-sm" style="max-width: 600px; margin: auto;">
+                    <div class="card-body">
+                        <h4 class="card-title text-warning mb-4">Thêm Thương Hiệu Mới</h4>
+                        <form id="brandForm">
+                            <div class="mb-3">
+                                <label class="form-label">Tên thương hiệu</label>
+                                <input type="text" id="brandName" class="form-control" placeholder="VD: Nike, Adidas, Biti's..." required>
+                            </div>
+                            <button type="submit" class="btn btn-warning text-white w-100">Lưu Thương Hiệu</button>
+                        </form>
+                        <div class="mt-4">
+                            <h6>Thương hiệu hiện có:</h6>
+                            <ul id="existing-brands" class="list-group list-group-flush small-list"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="content-order" role="tabpanel">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="card-title text-danger"><i class="fa-solid fa-list-check"></i> Danh Sách Đơn Hàng</h4>
+                            <button class="btn btn-sm btn-outline-primary" onclick="loadOrders()"><i class="fa-solid fa-rotate"></i> Làm mới</button>
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table class="table table-hover table-bordered align-middle">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Mã Đơn</th>
+                                        <th>Ngày đặt</th>
+                                        <th>Khách hàng</th>
+                                        <th>Sản phẩm</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Trạng thái</th>
+                                        <th>Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="order-table-body">
+                                    <tr><td colspan="7" class="text-center">Đang tải dữ liệu...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/admin.js"></script>
+</body>
+</html>
