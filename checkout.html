@@ -13,15 +13,12 @@
       href="//theme.hstatic.net/1000230642/1001205219/14/favicon-new.png?v=9515"
       type="image/png"
     />
-    <title>Biti's Hunter - Trang Chủ</title>
+    <title>Thanh toán - Biti's Hunter </title>
 
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="assets/css/homePage.css" />
-    <link rel="stylesheet" href="assets/css/style.css" />
-
     <meta
       name="description"
       content="Trang bán hàng chính thức trực thuộc công ty TNHH Bình Tiên (Biti’s), kênh bán hàng trực tuyến sản phẩm giày dép Biti's Việt Nam"
@@ -48,6 +45,8 @@
       as="script"
       type="text/javascript"
     />
+    <link rel="stylesheet" href="assets/css/checkout.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
 <!--START HEADER -->
@@ -886,44 +885,143 @@
 </div>
 <!--END HEADER -->
 
-<div class="main-content-wrapper" style="padding: 30px 0;">
-    <div class="container">
-        <div style="background: #f5f5f5; padding: 10px 20px; border-radius: 4px; margin-bottom: 30px;">
-            <a href="index.html" style="text-decoration:none; color:#666;">Trang chủ</a> / 
-            <strong id="collection-title">Tất cả sản phẩm</strong>
-        </div>
-
-        <div class="row">
-            <aside class="col-lg-3 d-none d-lg-block">
-                <div style="border-bottom: 2px solid #ec1c24; margin-bottom: 15px;">
-                    <h3 style="font-size: 18px; margin: 0; padding-bottom: 5px;">DANH MỤC</h3>
-                </div>
-                <ul id="sidebar-categories" style="list-style: none; padding: 0; line-height: 2.5;">
-                    <li><a href="collections.html" style="text-decoration:none; color:#333;">Tất cả sản phẩm</a></li>
-                </ul>
-            </aside>
-
-            <div class="col-lg-9 col-12">
-                <div class="section-header" style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
-                    <h2 style="font-size: 20px; font-weight: bold;" id="page-heading">TẤT CẢ SẢN PHẨM</h2>
-                    
-                    <select id="sort-select" style="padding: 5px; border: 1px solid #ddd;" onchange="handleSort()">
-                        <option value="default">Mặc định</option>
-                        <option value="price-asc">Giá: Rẻ đến Đắt</option>
-                        <option value="price-desc">Giá: Đắt đến Rẻ</option>
-                        <option value="name-asc">Tên: A-Z</option>
-                    </select>
-                </div>
-
-                <div class="product-list-grid" id="collection-product-container">
-                    <p style="text-align:center; width:100%;">Đang tải dữ liệu...</p>
-                </div>
-                
-                <div id="pagination" style="text-align:center; margin-top:30px;"></div>
-            </div>
-        </div>
+<!--STAR CHECKOUT -->
+<div class="checkout-container">
+    <div class="main-content">
+    <div class="checkout-header">
+        <h1 class="logo-text">BITI'S HUNTER</h1>
+        <ul class="breadcrumb">
+        <li><a href="cart.html">Giỏ hàng</a></li>
+        <li><i class="fa-solid fa-angle-right"></i></li>
+        <li>Thông tin giao hàng</li>
+        <li><i class="fa-solid fa-angle-right"></i></li>
+        <li class="active">Phương thức thanh toán</li>
+        </ul>
+    </div>
+    <div class="section-group">
+<h3 class="section-title">Thông tin giao hàng</h3>
+<div class="form-row">
+    <div class="form-group full">
+        <input type="text" id="customerName" placeholder="Họ và tên" class="input-control" required />
     </div>
 </div>
+<div class="form-row two-col">
+    <div class="form-group">
+        <input type="email" id="customerEmail" placeholder="Email" class="input-control" />
+    </div>
+    <div class="form-group">
+        <input type="tel" id="customerPhone" placeholder="Số điện thoại" class="input-control" required />
+    </div>
+</div>
+<div class="form-row">
+    <div class="form-group full">
+        <input type="text" id="customerAddress" placeholder="Địa chỉ (Số nhà, tên đường...)" class="input-control" required />
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group full">
+        <textarea id="orderNote" placeholder="Ghi chú (Tùy chọn)" class="input-control"></textarea>
+    </div>
+</div>
+</div>
+    <div class="section-group">
+        <h3 class="section-title">Phương thức vận chuyển</h3>
+        <div class="shipping-method">
+        <div class="method-item">
+            <span class="radio-mark selected"
+            ><i class="fa-solid fa-circle-check"></i
+            ></span>
+            <span class="method-name">Giao hàng tiêu chuẩn</span>
+            <span class="method-price">Miễn phí</span>
+        </div>
+        </div>
+    </div>
+    <div class="section-group">
+        <h3 class="section-title">Phương thức thanh toán</h3>
+        <div class="payment-methods">
+        <label class="payment-item active" onclick="selectPayment(this)">
+            <input type="radio" name="payment" checked />
+            <div class="payment-header">
+            <i class="fa-solid fa-money-bill-wave icon-payment"></i>
+            <span>Thanh toán khi nhận hàng (COD)</span>
+            </div>
+        </label>
+        <label class="payment-item" onclick="selectPayment(this)">
+            <input type="radio" name="payment" />
+            <div class="payment-header">
+            <img
+                src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png"
+                class="icon-img"
+            />
+            <span>Ví điện tử MoMo</span>
+            </div>
+        </label>
+        <label class="payment-item" onclick="selectPayment(this)">
+            <input type="radio" name="payment" />
+            <div class="payment-header">
+            <i class="fa-solid fa-building-columns icon-payment"></i>
+            <span>Chuyển khoản ngân hàng</span>
+            </div>
+            <div class="payment-desc">
+            Vui lòng chuyển khoản tới STK: 1903... (Techcombank)
+            </div>
+        </label>
+        </div>
+    </div>
+    <div class="checkout-actions">
+        <a href="cart.html" class="back-link">Quay lại giỏ hàng</a>
+        <button class="btn-complete">HOÀN TẤT ĐƠN HÀNG</button>
+    </div>
+    </div>
+    <div class="sidebar-summary">
+    <h3 class="summary-title">Đơn hàng (2 sản phẩm)</h3>
+    <div class="product-list-summary">
+        <div class="summary-item">
+        <div class="img-badge-wrap">
+            <img
+            src="https://product.hstatic.net/1000230642/product/bsb000900xdl__3__5f3e9700388349258287d35165913454_master.jpg"
+            />
+            <span class="qty-badge">1</span>
+        </div>
+        <div class="item-details">
+            <p class="name">Giày Tập Đi Biti's Bé Trai</p>
+            <p class="variant">Xanh Dương Lợt / 22</p>
+        </div>
+        <span class="price">240.000₫</span>
+        </div>
+        <div class="summary-item">
+        <div class="img-badge-wrap">
+            <img
+            src="https://product.hstatic.net/1000230642/product/dsmh10600xam__1__7d14068597394d1b84931969038e9389_master.jpg"
+            />
+            <span class="qty-badge">1</span>
+        </div>
+        <div class="item-details">
+            <p class="name">Biti's Hunter X Dune</p>
+            <p class="variant">Xám / 40</p>
+        </div>
+        <span class="price">1.128.000₫</span>
+        </div>
+    </div>
+    <div class="discount-box">
+        <input type="text" placeholder="Nhập mã giảm giá" />
+        <button>Áp dụng</button>
+    </div>
+    <div class="pricing-summary">
+        <div class="price-row">
+        <span>Tạm tính</span> <span>1.368.000₫</span>
+        </div>
+        <div class="price-row">
+        <span>Phí vận chuyển</span> <span>Miễn phí</span>
+        </div>
+        <div class="price-row total-row">
+        <span>Tổng cộng</span> <span class="total-price">1.368.000₫</span>
+        </div>
+    </div>
+    </div>
+</div>
+<!--END CHECKOUT -->
 
 <!--  SECTION FOOTER-->
 <section class="section-footer-gallery">
@@ -988,7 +1086,7 @@
 </section>
 <!--  SECTION FOOTER-->
 
-<!-- FOOTER -->
+<!--  START FOOTER-->
 <footer class="mainFooter ">
 	<div class="footer-container">
 		<div class="footer-expand-title">
@@ -1024,7 +1122,7 @@
 							<div class="content-footer block-collapse">				
 								<ul class="footerNav-link">
 										<li class="item">
-											<a href="./tracking.html" title="Trạng thái đơn hàng" data-vn="Trạng thái đơn hàng"><span>Trạng thái đơn hàng</span></a>
+											<a href="/pages/tra-cuu-tinh-trang-don-hang" title="Trạng thái đơn hàng" data-vn="Trạng thái đơn hàng"><span>Trạng thái đơn hàng</span></a>
 										</li>
 										<li class="item">
 											<a href="/pages/q-a" title="Hình thức giao hàng" data-vn="Hình thức giao hàng"><span>Hình thức giao hàng</span></a>
@@ -1130,7 +1228,7 @@
 							</div>
 							<div class="copyright-footer">
 								Copyright © 2025 
-								<a href="./index.html"> Biti's</a>. 
+								<a href="https://bitis.com.vn"> Biti's</a>. 
 								<a target="_blank" href="https://www.haravan.com" rel="noreferrer">
 									Powered by Haravan Enterprise
 								</a>
@@ -1149,8 +1247,10 @@
         </div>
     </div>    
 </footer>
-<script src="assets/js/header.js"></script>
-<script src="assets/services/header.js"></script>
-<script src="assets/services/collections.js"></script>
+<!--  END FOOTER-->
+<script src="./assets/js/checkout.js"></script>
+<script src="./assets/services/checkout.js"></script>
+<script src="./assets/js/header.js"></script>
 </body>
 </html>
+

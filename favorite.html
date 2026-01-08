@@ -886,45 +886,138 @@
 </div>
 <!--END HEADER -->
 
-<div class="main-content-wrapper" style="padding: 30px 0;">
+<div class="main-content-wrapper" style="padding: 50px 0;">
     <div class="container">
-        <div style="background: #f5f5f5; padding: 10px 20px; border-radius: 4px; margin-bottom: 30px;">
-            <a href="index.html" style="text-decoration:none; color:#666;">Trang chủ</a> / 
-            <strong id="collection-title">Tất cả sản phẩm</strong>
+        <div class="section-header" style="text-align: center; margin-bottom: 30px;">
+            <h2 class="title-decoration">SẢN PHẨM YÊU THÍCH</h2>
         </div>
-
-        <div class="row">
-            <aside class="col-lg-3 d-none d-lg-block">
-                <div style="border-bottom: 2px solid #ec1c24; margin-bottom: 15px;">
-                    <h3 style="font-size: 18px; margin: 0; padding-bottom: 5px;">DANH MỤC</h3>
+        <div class="wishlist-empty" style="text-align: center; display: none;">
+            <i class="fa-regular fa-heart" style="font-size: 50px; color: #ccc;"></i>
+            <p>Chưa có sản phẩm nào trong danh sách yêu thích.</p>
+            <a href="collections.html" class="button">TIẾP TỤC MUA SẮM</a>
+        </div>
+        <div class="product-list-grid">
+            <div
+              class="product-item"
+              onclick="window.location.href='productDetail.html'"
+            >
+              <div class="prod-image-wrap">
+                <span class="badge badge-new">Mới</span>
+                <div class="btn-wishlist">
+                  <i class="fa-solid fa-heart"></i>
                 </div>
-                <ul id="sidebar-categories" style="list-style: none; padding: 0; line-height: 2.5;">
-                    <li><a href="collections.html" style="text-decoration:none; color:#333;">Tất cả sản phẩm</a></li>
-                </ul>
-            </aside>
-
-            <div class="col-lg-9 col-12">
-                <div class="section-header" style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
-                    <h2 style="font-size: 20px; font-weight: bold;" id="page-heading">TẤT CẢ SẢN PHẨM</h2>
-                    
-                    <select id="sort-select" style="padding: 5px; border: 1px solid #ddd;" onchange="handleSort()">
-                        <option value="default">Mặc định</option>
-                        <option value="price-asc">Giá: Rẻ đến Đắt</option>
-                        <option value="price-desc">Giá: Đắt đến Rẻ</option>
-                        <option value="name-asc">Tên: A-Z</option>
-                    </select>
+                <img
+                  src="assets/images/anh1.jpg"
+                  class="img-front"
+                  onerror="this.src='https://product.hstatic.net/1000230642/product/dsmh10600xam__1__7d14068597394d1b84931969038e9389_master.jpg'"
+                />
+                <img
+                  src="assets/images/anh2.jpg"
+                  class="img-back"
+                  onerror="this.src='https://product.hstatic.net/1000230642/product/dsmh10600xam__3__d2089293144a425ba40432321855792c_master.jpg'"
+                />
+              </div>
+              <div class="prod-details">
+                <div class="prod-meta">
+                  <span>6 Size</span><span>+1 Màu</span>
                 </div>
-
-                <div class="product-list-grid" id="collection-product-container">
-                    <p style="text-align:center; width:100%;">Đang tải dữ liệu...</p>
+                <h3 class="prod-title">Biti's Hunter X Dune - Grey</h3>
+                <div class="prod-price">
+                  <span class="curr-price">1.128.000 ₫</span>
+                  <span class="sold-count">Đã bán: 120</span>
                 </div>
-                
-                <div id="pagination" style="text-align:center; margin-top:30px;"></div>
+              </div>
             </div>
-        </div>
+
+            <div class="product-item">
+              <div class="prod-image-wrap">
+                <span class="badge badge-new">Mới</span>
+                <div class="btn-wishlist">
+                  <i class="fa-solid fa-heart"></i>
+                </div>
+                <img
+                  src="assets/images/anh1.jpg"
+                  class="img-front"
+                  onerror="this.src='https://product.hstatic.net/1000230642/product/03500trg__1__0d0337583685418b955745d774a3875a_master.jpg'"
+                />
+                <img
+                  src="assets/images/anh2.jpg"
+                  class="img-back"
+                  onerror="this.src='https://product.hstatic.net/1000230642/product/03500trg__3__721d02028741405e838b971a815a5105_master.jpg'"
+                />
+              </div>
+              <div class="prod-details">
+                <div class="prod-meta">
+                  <span>7 Size</span><span>+2 Màu</span>
+                </div>
+                <h3 class="prod-title">Biti's Hunter Core - White</h3>
+                <div class="prod-price">
+                  <span class="curr-price">760.000 ₫</span>
+                  <span class="sold-count">Đã bán: 300+</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="product-item">
+              <div class="prod-image-wrap">
+                <span class="badge badge-sale">-20%</span>
+                <div class="btn-wishlist">
+                  <i class="fa-solid fa-heart"></i>
+                </div>
+                <img
+                  src="assets/images/anh1.jpg"
+                  class="img-front"
+                  onerror="this.src='https://product.hstatic.net/1000230642/product/dsmh09700den__1__e3926880099540c7866847863f667104_master.jpg'"
+                />
+                <img
+                  src="assets/images/anh2.jpg"
+                  class="img-back"
+                  onerror="this.src='https://product.hstatic.net/1000230642/product/dsmh09700den__3__f4846467000d4133b3815c1e780775d7_master.jpg'"
+                />
+              </div>
+              <div class="prod-details">
+                <div class="prod-meta">
+                  <span>5 Size</span><span>+3 Màu</span>
+                </div>
+                <h3 class="prod-title">Biti's Hunter Street - Black</h3>
+                <div class="prod-price">
+                  <span class="curr-price">850.000 ₫</span>
+                  <span class="sold-count">Đã bán: 45</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="product-item">
+              <div class="prod-image-wrap">
+                <span class="badge badge-hot">Hot</span>
+                <div class="btn-wishlist">
+                  <i class="fa-solid fa-heart"></i>
+                </div>
+                <img
+                  src="assets/images/anh1.jpg"
+                  class="img-front"
+                  onerror="this.src='https://product.hstatic.net/1000230642/product/dsw08700hong__1__7d560790875347209930477174706346_master.jpg'"
+                />
+                <img
+                  src="assets/images/anh2.jpg"
+                  class="img-back"
+                  onerror="this.src='https://product.hstatic.net/1000230642/product/dsw08700hong__3__54964177570440339075775531065586_master.jpg'"
+                />
+              </div>
+              <div class="prod-details">
+                <div class="prod-meta">
+                  <span>5 Size</span><span>1 Màu</span>
+                </div>
+                <h3 class="prod-title">Biti's Hunter - Pink</h3>
+                <div class="prod-price">
+                  <span class="curr-price">920.000 ₫</span>
+                  <span class="sold-count">Đã bán: 8</span>
+                </div>
+              </div>
+            </div>
+          </div>
     </div>
 </div>
-
 <!--  SECTION FOOTER-->
 <section class="section-footer-gallery">
     <div class="wraplist-container-gallery">	
@@ -987,8 +1080,7 @@
 	</div>
 </section>
 <!--  SECTION FOOTER-->
-
-<!-- FOOTER -->
+    <!-- FOOTER -->
 <footer class="mainFooter ">
 	<div class="footer-container">
 		<div class="footer-expand-title">
@@ -1149,8 +1241,7 @@
         </div>
     </div>    
 </footer>
+<script src="assets/js/homePage.js"></script>
 <script src="assets/js/header.js"></script>
-<script src="assets/services/header.js"></script>
-<script src="assets/services/collections.js"></script>
 </body>
 </html>
