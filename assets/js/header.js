@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
         dropdownMenu.classList.toggle('d-none'); 
     });
 
-    // 2. (Tùy chọn) Click ra ngoài để đóng menu
     document.addEventListener('click', function(e) {
         if (!accountHandle.contains(e.target) && !dropdownMenu.contains(e.target)) {
             dropdownMenu.classList.add('d-none');

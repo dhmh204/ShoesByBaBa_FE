@@ -20,7 +20,6 @@ label {
 
 /* --------COMMON-------- */
 
-
 .layout-account .wrapbox-heading-account {
   padding: 22px;
 }
@@ -91,9 +90,6 @@ label {
   text-decoration: underline;
   color: #184cfa;
 }
-
-
-
 /* =============== */
 .header-action__dropdown {
     width: auto;

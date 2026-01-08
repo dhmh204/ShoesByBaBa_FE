@@ -19,8 +19,8 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="assets/css/HomePage.css" />
-    <link rel="stylesheet" href="assets/css/style_.css" />
+    <link rel="stylesheet" href="assets/css/homePage.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
 
     <meta
       name="description"
@@ -50,330 +50,842 @@
     />
   </head>
   <body>
-  <!-- HEADER -->
+<!--START HEADER -->
 <div class="topbar">
 <div class="container-fluid">
-    <div class="topbar-content d-flex align-items-center justify-content-between">
-        <div class="left-topbar d-flex flex-wrap align-items-center">
-            <div class="hotline-left">
-                <span>Hotline:</span>
-                <span><a href="tel:0966158666">0966158666</a></span>
-                <span>(8h – 21h30)</span>
-            </div>
-            <div class="aff-left">
-                <a href="contact.html" data-vn="Liên hệ hợp tác"><span>Liên hệ hợp tác</span></a>
-            </div>
-        </div>
-        <div class="right-topbar d-flex">
-            <ul class="d-flex align-items-center">
-                <li><a href="tracking.html" data-vn="Kiểm tra đơn hàng"><span>Theo dõi đơn hàng</span></a></li>
-
-        <li>
-            <div class="module_translate">
-            <div class="module_translate_mask">
-                <span>VN</span> <i class="fa fa-chevron-down" aria-hidden="true"></i>
-            </div>
-            <div class="module_translate_main">
-                <a href="#" onclick="return false;" data-pick="">VN</a>
-                <a href="#" onclick="return false;" data-pick="en">EN</a>
-            </div>
-            </div>
-        </li>
-            <li class="bitis-b2b">
-                <a href="https://b2b.bitis.com.vn/?utm_source=trade&amp;utm_medium=b2b_header" aria-label="B2B action" target="_blank">
-                    <img style="width: 120px; height: 28px;" src="https://file.hstatic.net/1000230642/file/b2b_161ba831bf784bd3b60d4787af503cb2.jpg" alt="B2B action" width="120" height="28">
-                </a>
-            </li>
-            </ul>
-        </div>
-    </div>
+	<div class="topbar-content d-flex align-items-center justify-content-between">
+		<div class="left-topbar d-flex flex-wrap align-items-center">
+			<div class="hotline-left">
+				<span>Hotline:</span>
+				<span><a href="tel:0966158666">0966158666</a></span>
+				<span>(8h – 21h30)</span>
+			</div>
+			<div class="aff-left">
+				<a href="/pages/lien-he-hop-tac" data-vn="Liên hệ hợp tác"><span>Liên hệ hợp tác</span></a>
+			</div>
+		</div>
+		<div class="right-topbar d-flex">
+			<ul class="d-flex align-items-center">
+				<li>
+					<a href="/pages/tra-cuu-tinh-trang-don-hang" data-vn="Kiểm tra đơn hàng"><span>Theo dõi đơn
+							hàng</span></a>
+				</li>
+				<li>
+					<div class="module_translate">
+						<div class="module_translate_mask">
+							<span>VN</span> <i class="fa fa-chevron-down" aria-hidden="true"></i>
+						</div>
+						<div class="module_translate_main">
+							<a href="#" onclick="return false;" data-pick="">VN</a>
+							<a href="#" onclick="return false;" data-pick="en">EN</a>
+						</div>
+					</div>
+				</li>
+				<li class="bitis-b2b">
+					<a href="https://b2b.bitis.com.vn/?utm_source=trade&amp;utm_medium=b2b_header"
+						aria-label="B2B action" target="_blank">
+						<img style="width: 120px; height: 28px;"
+							src="https://file.hstatic.net/1000230642/file/b2b_161ba831bf784bd3b60d4787af503cb2.jpg"
+							alt="B2B action" width="120" height="28">
+					</a>
+				</li>
+			</ul>
+			<!--<div class="ml-3 topbar-language d-none">
+			<button class="active_lang" data-toggle="dropdown"><img src="//theme.hstatic.net/1000230642/1000679613/14/vi.png" alt="vietnam"></button>
+			<ul class="dropdown-menu dropdown-menu-right">
+				<li><a class="VI" href="javascript:void(0)"><img src="//theme.hstatic.net/1000230642/1000679613/14/vi.png" alt="VietNam"> VietNam</a></li>
+				<li><a class="EN" href="javascript:void(0)"><img src="//theme.hstatic.net/1000230642/1000679613/14/en.png" alt="English"> English</a></li>
+				<li><a class="CN" href="javascript:void(0)"><img src="//theme.hstatic.net/1000230642/1000679613/14/cn.jpg" alt="Chinese"> Chinese</a></li>
+			</ul>
+		</div>-->
+		</div>
+	</div>
 </div>
 </div>
 <div class="mainHeader--height" style="min-height: 70px;">
-    <header class="mainHeader  mainHeader_temp02  " id="site-header">
-        <div class="mainHeader-middle">
-            <div class="container-fluid">
-                <div class="flex-container-header">
-                    <div class="header-wrap-iconav header-wrap-action d-sm-block d-lg-none">
-                        <div class="header-action">
-                            <div class="header-action-item header-action_menu">							
-                                <div class="header-action_text">
-                                    <a class="header-action__link header-action_clicked" href="#" id="site-menu-handle" aria-label="Menu" title="Menu">
-                                        <span class="box-icon">								
-                                            <span class="hamburger-menu" aria-hidden="true">
-                                                <span class="bar"></span>
-                                            </span>
-                                            <span class="box-icon--close">
-                                                <svg viewBox="0 0 19 19" role="presentation"><path d="M9.1923882 8.39339828l7.7781745-7.7781746 1.4142136 1.41421357-7.7781746 7.77817459 7.7781746 7.77817456L16.9705627 19l-7.7781745-7.7781746L1.41421356 19 0 17.5857864l7.7781746-7.77817456L0 2.02943725 1.41421356.61522369 9.1923882 8.39339828z" fill-rule="evenodd"></path></svg>
-                                            </span>											
-                                        </span>	
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="header-wrap-logo">
-                        <div class="wrap-logo" itemscope="" itemtype="http://schema.org/Organization">
-                                    <a href="index.html" itemprop="url" arial-label="Biti's" title="Logo Bitis">
-                                        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 408.11 257.56">
-                                            <path class="cls-1" d="M304.54,7.18l7.67-2.69c17.18-6,37.4-5.91,54.63-.14,14,4.67,29.93,14.84,31.35,31l.25,2.73-22,28,0,.11L364.71,81a23.66,23.66,0,1,1,14.92,44.81C400,151,391,195.13,347.76,201.8l-.52.08H288.3V150.7h19c-.86-.59-1.7-1.21-2.54-1.87l-.13-.1-.12-.11c-8.17-7.07-13.18-15.24-15.17-24.46-1.34,1.76-2.72,3.45-4.11,5l-2.07,2.39H270.94v70.37H193.6a42.82,42.82,0,0,1-36.92-25.43v25.44h-52V177.3a58.49,58.49,0,0,1-6.38,9l-.13.15-.14.15a52.59,52.59,0,0,1-56,12.89c-18.52-6.88-30-23-32.22-42.44l0-.39v-87l52.56,0,.12,31.07A51.29,51.29,0,0,1,104,125c.23.36.45.72.66,1.09V104.46h3.18A35.64,35.64,0,0,1,93.65,76.39l-.07-7h59.18v-.3h49.32a42,42,0,0,1,25.34-37l-16.83,1.82L252,15.78a104.61,104.61,0,0,1,52.5-8.6M204.79,85.4V98h7.62a42,42,0,0,1-7.62-12.63m63.46,19.05h1.54l.07-1.22q-.79.63-1.6,1.22M275.33,98h15.34l.06-.32,43.69.13c1-44.3-35.75-73.46-78.88-68.79l-3.81.41A41.81,41.81,0,0,1,275.33,98m-124.61,6.46h2V102.8q-1,.86-2,1.65m68.18,46.24v-9.48H204.79v9a1,1,0,0,0,.36.53Zm131.86-41.45a23.58,23.58,0,0,1-.84-6.27c0-.07,0-.14,0-.21l-5,5.29a18.8,18.8,0,0,0,3.12.78q1.37.18,2.7.42"></path><path class="cls-2" d="M373.56,86.24A16.74,16.74,0,1,1,356.84,103a16.77,16.77,0,0,1,16.73-16.74m0,2.67A14.07,14.07,0,1,0,387.62,103a14.09,14.09,0,0,0-14.05-14.07"></path><path class="cls-2" d="M366.67,112V94.1h9.26A5.58,5.58,0,0,1,380.62,96a4.91,4.91,0,0,1,1.07,3.11,4.78,4.78,0,0,1-.76,2.67,3.87,3.87,0,0,1-2.1,1.61,3.66,3.66,0,0,1,1.73,1.24,6.49,6.49,0,0,1,.61,3.29c0,1.22,0,2.08.06,2.56a1.06,1.06,0,0,0,.75,1v.5h-4.23a10.21,10.21,0,0,1-.31-1.47,17.63,17.63,0,0,1-.1-2.17,5.07,5.07,0,0,0-.43-2.61q-.56-.77-2.57-.77h-3.92v7Zm3.76-10h4.48a3.56,3.56,0,0,0,2.24-.57,2.67,2.67,0,0,0,.2-3.38,2.7,2.7,0,0,0-2.19-.82h-4.74Z"></path><path class="cls-2" d="M254.81,22.13c46.7-5.05,88.6,26.89,86.5,77.4l27.48-34.81C356.43,23.27,305.6,0,254.81,22.13"></path><path class="cls-2" d="M268.56,124.66c4.73-5.77,7.71-12.24,8.14-19.74h16.14c-3,7.36-8.52,14.78-12.83,19.75Z"></path><path class="cls-2" d="M296.37,104.62c-3.74,18.1,2.58,30,12.67,38.77A39.7,39.7,0,0,0,336.39,152c3.83.14,4.45,5.44.16,5.67H295.23V195H346.7c50.57-7.81,46.36-73.28.46-79.26-3.56-.45-15.51-3.64-8.62-11Z"></path><rect class="cls-3" x="225.83" y="111.38" width="38.19" height="83.64"></rect><path class="cls-2" d="M159.67,76h38.19V105h18.45v29.33H197.87v16.42c.41,3.88,3,5.83,5.75,6.92l18.08,0L216.44,195H193.94c-18.27-.91-33.36-15.76-34.27-35.26Z"></path><rect class="cls-3" x="111.56" y="111.38" width="38.19" height="83.64"></rect><path class="cls-2" d="M158,76.32a28.71,28.71,0,0,1-57.41,0Z"></path><path class="cls-2" d="M16.59,76.57v79.71C21.14,196.5,67.75,207.9,93,181.79c27.22-31.67,3.34-73.71-32-74.13v36.7c8.35-.2,9,7.78,5.89,11.11-4.06,3.48-9.95,2.35-11.26-3.36l-.3-75.49Z"></path><path class="cls-4" d="M243.86,35.6A34.91,34.91,0,1,1,209,70.51,35,35,0,0,1,243.86,35.6"></path><path class="cls-4" d="M314.5,11c31.21.78,57.62,18.82,58.63,48L391.3,35.91C389.37,14.1,347.76-.64,314.5,11"></path>
-                                        </svg>
-                                    </a>
-                        </div>
-                    </div>
-                    <div class="header-wrap-menu d-none d-md-none d-lg-block">
-                        <nav class="navbar-mainmenu">
-                            <ul class="menuList-primary">
-                                <li class="has-submenu">
-                                    <a href="about.html" target="_blank" data-vn="VỀ BITI'S"> 
-                                        <span>VỀ BITI'S</span>
-                                    </a>
-                                </li>
-                                <li class="has-submenu  ">
-                                    <a href="collections.html" data-vn="NHÃN HIỆU"> 
-                                        <span>NHÃN HIỆU</span>
-                                        <i class="fa fa-chevron-down" aria-hidden="true"></i>											
-                                    </a>
-                                    <ul class="menuList-submain">
-                                                <li class="">
-                                                    <a href="collections.html"> 
-                                                        BITI'S HUNTER
-                                                    </a>
-                                                </li>
-                                                </ul>
-                                </li>
-                                <li class="has-submenu  ">
-                                    <a href="collections.html" data-vn="NAM"> 
-                                        <span>NAM</span>
-                                        <i class="fa fa-chevron-down" aria-hidden="true"></i>											
-                                    </a>
-                                </li>
-                                <li class="has-submenu  ">
-                                    <a href="collections.html" data-vn="NỮ"> 
-                                        <span>NỮ</span>
-                                        <i class="fa fa-chevron-down" aria-hidden="true"></i>											
-                                    </a>
-                                </li>
-                                </ul>
-                        </nav>
-                    </div>	
-                    <div class="header-wrap-action ">
-                        <div class="header-action">					
-                            
-                            <div class="header-action-item header-action_search d-none d-xl-block">							
-                                <div class="header-action-item header-wrap-search header-action_search d-xxl-block">		
-                                    <div class="header-search sitenav-content sitenav-search">
-                                       <div class="search-box wpo-wrapper-search">
-                                        <form action="collections.html" class="searchform searchform-categoris ultimate-search">
-                                            <div class="wpo-search-inner">
-                                                <input required="" class="input-search d-xxl-block" name="q" maxlength="40" autocomplete="off" type="text" size="20" data-vn="Bạn cần tìm gì..." placeholder="Bạn cần tìm gì...">
-                                            </div>
-                                            <button type="submit" class="btn-search btn" id="search-header-btn" aria-label="button search">
-                                                <svg version="1.1" class="svg search" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 27" style="enable-background:new 0 0 24 27;" xml:space="preserve"><path d="M10,2C4.5,2,0,6.5,0,12s4.5,10,10,10s10-4.5,10-10S15.5,2,10,2z M10,19c-3.9,0-7-3.1-7-7s3.1-7,7-7s7,3.1,7,7S13.9,19,10,19z"></path><rect x="17" y="17" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -9.2844 19.5856)" width="4" height="8"></rect></svg>
-                                            </button>
-                                        </form>
-                                    </div>
-                                    </div>
-                                </div>	
-                            </div>
-                            
-                            <div class="header-action-item header-action_account">							
-                                <div class="header-action_text">
-                                    <a class="header-action__link  header-action_clicked " href="dangnhap.html" id="site-account-handle" aria-label="Tài khoản" title="Tài khoản">
-                                        <span class="box-icon">	
-                                            <svg class="svg-ico-account" ... > </svg>
-                                            <span class="box-icon--close">
-                                                <svg viewBox="0 0 19 19" role="presentation"><path d="M9.1923882 8.39339828l7.7781745-7.7781746 1.4142136 1.41421357-7.7781746 7.77817459 7.7781746 7.77817456L16.9705627 19l-7.7781745-7.7781746L1.41421356 19 0 17.5857864l7.7781746-7.77817456L0 2.02943725 1.41421356.61522369 9.1923882 8.39339828z" fill-rule="evenodd"></path></svg>
-                                            </span>											
-                                        </span>								
-                                    </a>
-                                </div>
-                                
-                          <div class="header-action_dropdown">
-                                    <div class="header-dropdown_content">
-                                        <div class="sitenav-content sitenav-search">
-                                            <p class="boxtitle">Tìm kiếm</p>											
-                                            <div class="search-box wpo-wrapper-search">
-                                                <form action="/search" class="searchform searchform-categoris ultimate-search">
-                                                    <div class="wpo-search-inner">
-                                                        <input type="hidden" name="type" value="product">
-                                                        <input required="" id="inputSearchAuto" class="input-search" name="q" maxlength="40" autocomplete="off" type="text" size="20" data-vn="Tìm kiếm sản phẩm..." placeholder="Tìm kiếm sản phẩm...">
-                                                    </div>
-                                                    <button type="submit" class="btn-search btn" id="search-header-btn" aria-label="button search">
-                                                        <svg version="1.1" class="svg search" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 27" style="enable-background:new 0 0 24 27;" xml:space="preserve"><path d="M10,2C4.5,2,0,6.5,0,12s4.5,10,10,10s10-4.5,10-10S15.5,2,10,2z M10,19c-3.9,0-7-3.1-7-7s3.1-7,7-7s7,3.1,7,7S13.9,19,10,19z"></path><rect x="17" y="17" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -9.2844 19.5856)" width="4" height="8"></rect></svg>
-                                                    </button>
-                                                </form>
-                                                <div id="ajaxSearchResults" class="smart-search-wrapper ajaxSearchResults" style="display: none">
-                                                    <div class="resultsContent"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="header-action-item header-action_account">							
-                                <div class="header-action_text">
-                                    <a class="header-action__link  header-action_clicked " href="./caidattaikhoan.html" id="site-account-handle" aria-label="Tài khoản" title="Tài khoản">
-                                        <span class="box-icon">	
-                                            <svg class="svg-ico-account" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="512" height="512" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve"><g><g xmlns="http://www.w3.org/2000/svg"><g><path d="M510.702,438.722c-2.251-10.813-12.84-17.754-23.657-15.503c-10.814,2.251-17.755,12.843-15.503,23.656 c1.297,6.229-0.248,12.613-4.236,17.519c-2.31,2.841-7.461,7.606-15.999,7.606H60.693c-8.538,0-13.689-4.766-15.999-7.606 c-3.989-4.905-5.533-11.29-4.236-17.519c20.756-99.695,108.691-172.521,210.24-174.977c1.759,0.068,3.526,0.102,5.302,0.102 c1.782,0,3.556-0.035,5.322-0.103c71.532,1.716,137.648,37.947,177.687,97.66c6.151,9.175,18.574,11.625,27.75,5.474 c9.174-6.151,11.625-18.575,5.473-27.749c-32.817-48.944-80.47-84.534-134.804-102.417C370.538,220.036,392,180.477,392,136 C392,61.01,330.991,0,256,0S120,61.01,120,136c0,44.504,21.488,84.084,54.633,108.911c-30.368,9.998-58.863,25.555-83.803,46.069 c-45.732,37.617-77.529,90.086-89.532,147.742c-3.762,18.067,0.745,36.623,12.363,50.909C25.222,503.847,42.365,512,60.693,512 h390.613c18.329,0,35.472-8.153,47.032-22.369C509.958,475.345,514.464,456.789,510.702,438.722z M160,136 c0-52.935,43.065-96,96-96s96,43.065,96,96c0,51.305-40.455,93.339-91.141,95.878c-1.617-0.03-3.237-0.045-4.859-0.045 c-1.614,0-3.228,0.016-4.84,0.046C200.465,229.35,160,187.312,160,136z" fill="#000000" data-original="#000000"></path></g></g><g xmlns="http://www.w3.org/2000/svg"></g><g xmlns="http://www.w3.org/2000/svg"></g><g xmlns="http://www.w3.org/2000/svg"></g><g xmlns="http://www.w3.org/2000/svg"></g><g xmlns="http://www.w3.org/2000/svg"></g><g xmlns="http://www.w3.org/2000/svg"></g><g xmlns="http://www.w3.org/2000/svg"></g><g xmlns="http://www.w3.org/2000/svg"></g><g xmlns="http://www.w3.org/2000/svg"></g><g xmlns="http://www.w3.org/2000/svg"></g><g xmlns="http://www.w3.org/2000/svg"></g><g xmlns="http://www.w3.org/2000/svg"></g><g xmlns="http://www.w3.org/2000/svg"></g><g xmlns="http://www.w3.org/2000/svg"></g><g xmlns="http://www.w3.org/2000/svg"></g></g></svg>
-                                            <span class="box-icon--close">
-                                                <svg viewBox="0 0 19 19" role="presentation"><path d="M9.1923882 8.39339828l7.7781745-7.7781746 1.4142136 1.41421357-7.7781746 7.77817459 7.7781746 7.77817456L16.9705627 19l-7.7781745-7.7781746L1.41421356 19 0 17.5857864l7.7781746-7.77817456L0 2.02943725 1.41421356.61522369 9.1923882 8.39339828z" fill-rule="evenodd"></path></svg>
-                                            </span>											
-                                        </span>								
-                                    </a>
-                                    <span class="box-triangle">
-                                        <svg viewBox="0 0 20 9" role="presentation">
-                                            <path d="M.47108938 9c.2694725-.26871321.57077721-.56867841.90388257-.89986354C3.12384116 6.36134886 5.74788116 3.76338565 9.2467995.30653888c.4145057-.4095171 1.0844277-.40860098 1.4977971.00205122L19.4935156 9H.47108938z" fill="#ffffff"></path>
-                                        </svg>
-                                    </span>
-                                </div>
-                                
-                                <div class="header-action_dropdown header-action_widthAuto ">
-                                    <div class="header-dropdown_content">
-                                        <div class="site_account sitenav-account  sitenav-account_info " id="siteNav-account">
-                                            <div class="site_account_panel_list">
-                                                <div class="site_account_info">
-                                                        <div class="site_account_header">
-                                                        <h2 class="site_account_title size-small heading">Thông tin tài khoản</h2>
-                                                    </div>
-                                                    <div class="site_account_inner">
-                                                        <ul>
-                                                            <li class="user-name"><span>Đào Anh </span></li>
-                                                            <li><a href="/account">Tài khoản của tôi</a></li>
-                                                            <li><a href="/account/addresses">Danh sách địa chỉ</a></li>
-                                                            <li><a href="/account/logout">Đăng xuất</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+<header class="mainHeader  mainHeader_temp02  " id="site-header">
+	<div class="mainHeader-middle">
+		<div class="container-fluid">
+			<div class="flex-container-header">
+				<div class="header-wrap-iconav header-wrap-action d-sm-block d-lg-none">
+					<div class="header-action">
+						<div class="header-action-item header-action_menu">
+							<div class="header-action_text">
+								<a class="header-action__link header-action_clicked" href="#"
+									id="site-menu-handle" aria-label="Menu" title="Menu">
+									<span class="box-icon">
+										<span class="hamburger-menu" aria-hidden="true">
+											<span class="bar"></span>
+										</span>
+										<span class="box-icon--close">
+											<svg viewBox="0 0 19 19" role="presentation">
+												<path
+													d="M9.1923882 8.39339828l7.7781745-7.7781746 1.4142136 1.41421357-7.7781746 7.77817459 7.7781746 7.77817456L16.9705627 19l-7.7781745-7.7781746L1.41421356 19 0 17.5857864l7.7781746-7.77817456L0 2.02943725 1.41421356.61522369 9.1923882 8.39339828z"
+													fill-rule="evenodd"></path>
+											</svg>
+										</span>
+									</span>
+								</a>
+								<span class="box-triangle">
+									<svg viewBox="0 0 20 9" role="presentation">
+										<path
+											d="M.47108938 9c.2694725-.26871321.57077721-.56867841.90388257-.89986354C3.12384116 6.36134886 5.74788116 3.76338565 9.2467995.30653888c.4145057-.4095171 1.0844277-.40860098 1.4977971.00205122L19.4935156 9H.47108938z"
+											fill="#ffffff"></path>
+									</svg>
+								</span>
+							</div>
+							<div class="header-action_dropdown">
+								<div class="header-dropdown_content">
+									<div class="sitenav-menu menu-mobile" id="siteNav-menu">
+										<div class="menu-mobile--wrap">
+											<div class="menu-mobile--bottom">
+												<nav id="mp-menu" class="mp-menu mp-cover">
+												</nav>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="header-action-item header-action-language">
+							<div class="module_translate">
+								<div class="module_translate_mask">
+									<span>VN</span> <i class="fa fa-chevron-down" aria-hidden="true"></i>
+								</div>
+								<div class="module_translate_main">
+									<a href="#" onclick="return false;" data-pick="">VN</a>
+									<a href="#" onclick="return false;" data-pick="en">EN</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="header-wrap-logo">
+					<div class="wrap-logo" itemscope="" itemtype="http://schema.org/Organization">
+						<a href="https://bitis.com.vn" itemprop="url" arial-label="Biti's" title="Logo Bitis">
+							<svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 408.11 257.56">
+								<defs>
+									<style>
+										.cls-1 {
+											fill: #fff;
+										}
 
-                                    </div>
-                                </div>
-                                                        
-                            </div>
-                            <div class="header-action-item header-action_wishlist">							
-                                <div class="header-action_text">
-                                    <a class="header-action__link" href="./favorite.html" aria-label="Tài khoản" title="Tài khoản">
-                                        <span class="box-icon">	
-                                            <div class="icon-wishtlist"></div>
-                                            <span class="box-icon--close">
-                                                <svg viewBox="0 0 19 19" role="presentation"><path d="M9.1923882 8.39339828l7.7781745-7.7781746 1.4142136 1.41421357-7.7781746 7.77817459 7.7781746 7.77817456L16.9705627 19l-7.7781745-7.7781746L1.41421356 19 0 17.5857864l7.7781746-7.77817456L0 2.02943725 1.41421356.61522369 9.1923882 8.39339828z" fill-rule="evenodd"></path></svg>
-                                            </span>				
-                                            <!-- <span class="count-holder">
-                                                <span class="count" id="onAppWishList_numberLike" style="display: block;">0</span>
-                                            </span> -->
-                                        </span>								
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="header-action-item header-action_cart">							
-                                <div class="header-action_text">
-                                    <a class="header-action__link  header-action_clicked " href="#" id="site-cart-handle" aria-label="Giỏ hàng" title="Giỏ hàng">				
-                                        <span class="box-icon">	
-                                            <svg class="svg-ico-cart" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="512" height="512" x="0" y="0" viewBox="0 0 32 32" style="enable-background:new 0 0 512 512" xml:space="preserve"><g><g xmlns="http://www.w3.org/2000/svg" id="Layer_2" data-name="Layer 2"><path d="m16 17.82a6 6 0 0 1 -5.89-4.82 1 1 0 0 1 1-1.15 1 1 0 0 1 1 .83 4 4 0 0 0 7.83 0 1 1 0 0 1 1-.83 1 1 0 0 1 1 1.15 6 6 0 0 1 -5.94 4.82z" fill="#000000" data-original="#000000" class=""></path><path d="m24.9 31h-17.8a3 3 0 0 1 -3-3.15l.81-17.24a3 3 0 0 1 3-2.87h16.18a3 3 0 0 1 3 2.87l.81 17.24a3 3 0 0 1 -3 3.15zm-16.99-21.25a1 1 0 0 0 -1 1l-.81 17.2a1 1 0 0 0 1 1.05h17.8a1 1 0 0 0 1-1.05l-.81-17.24a1 1 0 0 0 -1-1z" fill="#000000" data-original="#000000" class=""></path><path d="m22 8.75h-2v-1.75a4 4 0 0 0 -8 0v1.75h-2v-1.75a6 6 0 0 1 12 0z" fill="#000000" data-original="#000000" class=""></path></g></g></svg>
-                                            <span class="box-icon--close">
-                                                <svg viewBox="0 0 19 19" role="presentation"><path d="M9.1923882 8.39339828l7.7781745-7.7781746 1.4142136 1.41421357-7.7781746 7.77817459 7.7781746 7.77817456L16.9705627 19l-7.7781745-7.7781746L1.41421356 19 0 17.5857864l7.7781746-7.77817456L0 2.02943725 1.41421356.61522369 9.1923882 8.39339828z" fill-rule="evenodd"></path></svg>
-                                            </span>			
-                                            <!-- <span class="count-holder">
-                                                <span class="count">0</span>
-                                            </span>		 -->
-                                        </span>							
-                                    </a>
-                                    <span class="box-triangle">
-                                        <svg viewBox="0 0 20 9" role="presentation">
-                                            <path d="M.47108938 9c.2694725-.26871321.57077721-.56867841.90388257-.89986354C3.12384116 6.36134886 5.74788116 3.76338565 9.2467995.30653888c.4145057-.4095171 1.0844277-.40860098 1.4977971.00205122L19.4935156 9H.47108938z" fill="#ffffff"></path>
-                                        </svg>
-                                    </span>
-                                </div>
-                                
-                                <div class="header-action_dropdown">
-                                    <div class="header-dropdown_content">
-                                        <div class="sitenav-content sitenav-cart">
-                                            <p class="boxtitle">Giỏ hàng</p>
-                                            <div class="cart-view clearfix">
-                                                <div class="cart-view-scroll">
-                                                    <table id="clone-item-cart" class="table-clone-cart">
-                                                        <tbody><tr class="mini-cart__item d-none">
-                                                            <td class="mini-cart__left"><a class="mnc-link" href="#" title=""><img src="" alt=""></a></td>
-                                                            <td class="mini-cart__right">
-                                                                <p class="mini-cart__title">	
-                                                                    <a class="mnc-title mnc-link" href="#" title=""></a>
-                                                                    <span class="mnc-variant">	</span>	
-                                                                </p>
-                                                                <div class="mini-cart__quantity">
-                                                                    <input class="qty-value" type="text" readonly="" name="mnc-quantity" value="">
-                                                                </div>
-                                                                <div class="mini-cart__price">
-                                                                    <span class="mnc-price">0 ₫</span> 
-                                                                    <del class="mnc-ori-price"></del>
-                                                                </div>
-                                                                <div class="mini-cart__remove"></div>	
-                                                            </td>
-                                                        </tr>   
-                                                    </tbody></table>
-                                                    <table id="cart-view">
-                                                        <tbody>
-                                                            <tr class="mini-cart__empty">
-                                                                <td>			
-                                                                    <div class="svgico-mini-cart">
-                                                                        <svg width="81" height="70" viewBox="0 0 81 70"><g transform="translate(0 2)" stroke-width="4" fill="none" fill-rule="evenodd"><circle stroke-linecap="square" cx="34" cy="60" r="6"></circle><circle stroke-linecap="square" cx="67" cy="60" r="6"></circle><path d="M22.9360352 15h54.8070373l-4.3391876 30H30.3387146L19.6676025 0H.99560547"></path></g></svg>
-                                                                    </div>					
-                                                                    Hiện chưa có sản phẩm					
-                                                                </td>								
-                                                            </tr>
-                                                            
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="cart-view-line"></div>
-                                                <div id="pe-buy-x-select-y-btn"></div>
-                                                <div class="cart-view-total">
-                                                    <table class="table-total">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td class="mnc-total text-left">TỔNG TIỀN:</td>
-                                                                <td class="mnc-total text-right" id="total-view-cart">0 ₫</td>
-                                                            </tr>
-                                                            <tr class="mini-cart__button">
-                                                                <td colspan="2"><a href="./giohang.html" class="linktocart button ">Xem giỏ hàng</a></td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>     
-                            </div>
-                        </div>
-                
-                        <div class="header-search-mobile ">
-                            <div class=" search-box wpo-wrapper-search">
-                                <form action="collections.html" class="searchform-mobile searchform-categoris ultimate-search">
-                                    <div class="wpo-search-inner">
-                                        <input type="hidden" name="type" value="product">
-                                        <input required="" id="inputSearchAuto-mb" class="input-search" name="q" maxlength="40" autocomplete="off" type="text" size="20" placeholder="Bạn cần tìm gì...">
-                                    </div>
-                                    <button type="submit" class="btn-search btn" id="search-header-btn-mb" aria-label="button search">
-                                        <span class="search-icon"><svg version="1.1" class="svg search" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 27" style="enable-background:new 0 0 24 27;" xml:space="preserve"><path d="M10,2C4.5,2,0,6.5,0,12s4.5,10,10,10s10-4.5,10-10S15.5,2,10,2z M10,19c-3.9,0-7-3.1-7-7s3.1-7,7-7s7,3.1,7,7S13.9,19,10,19z"></path><rect x="17" y="17" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -9.2844 19.5856)" width="4" height="8"></rect></svg></span>	
-                                        <span class="search-close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg></span>	
-                                    </button>
-                                </form>
-                                <div id="ajaxSearchResults-mb" class="smart-search-wrapper ajaxSearchResults" style="display: none">
-                                    <div class="resultsContent"></div>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>  
+										.cls-1,
+										.cls-2,
+										.cls-4 {
+											fill-rule: evenodd;
+										}
+
+										.cls-2,
+										.cls-3 {
+											fill: #034ea1;
+										}
+
+										.cls-4,
+										.cls-5 {
+											fill: #ec1c24;
+										}
+
+										.cls-6 {
+											fill: none;
+										}
+									</style>
+								</defs>
+								<path class="cls-1"
+									d="M304.54,7.18l7.67-2.69c17.18-6,37.4-5.91,54.63-.14,14,4.67,29.93,14.84,31.35,31l.25,2.73-22,28,0,.11L364.71,81a23.66,23.66,0,1,1,14.92,44.81C400,151,391,195.13,347.76,201.8l-.52.08H288.3V150.7h19c-.86-.59-1.7-1.21-2.54-1.87l-.13-.1-.12-.11c-8.17-7.07-13.18-15.24-15.17-24.46-1.34,1.76-2.72,3.45-4.11,5l-2.07,2.39H270.94v70.37H193.6a42.82,42.82,0,0,1-36.92-25.43v25.44h-52V177.3a58.49,58.49,0,0,1-6.38,9l-.13.15-.14.15a52.59,52.59,0,0,1-56,12.89c-18.52-6.88-30-23-32.22-42.44l0-.39v-87l52.56,0,.12,31.07A51.29,51.29,0,0,1,104,125c.23.36.45.72.66,1.09V104.46h3.18A35.64,35.64,0,0,1,93.65,76.39l-.07-7h59.18v-.3h49.32a42,42,0,0,1,25.34-37l-16.83,1.82L252,15.78a104.61,104.61,0,0,1,52.5-8.6M204.79,85.4V98h7.62a42,42,0,0,1-7.62-12.63m63.46,19.05h1.54l.07-1.22q-.79.63-1.6,1.22M275.33,98h15.34l.06-.32,43.69.13c1-44.3-35.75-73.46-78.88-68.79l-3.81.41A41.81,41.81,0,0,1,275.33,98m-124.61,6.46h2V102.8q-1,.86-2,1.65m68.18,46.24v-9.48H204.79v9a1,1,0,0,0,.36.53Zm131.86-41.45a23.58,23.58,0,0,1-.84-6.27c0-.07,0-.14,0-.21l-5,5.29a18.8,18.8,0,0,0,3.12.78q1.37.18,2.7.42">
+								</path>
+								<path class="cls-2"
+									d="M373.56,86.24A16.74,16.74,0,1,1,356.84,103a16.77,16.77,0,0,1,16.73-16.74m0,2.67A14.07,14.07,0,1,0,387.62,103a14.09,14.09,0,0,0-14.05-14.07">
+								</path>
+								<path class="cls-2"
+									d="M366.67,112V94.1h9.26A5.58,5.58,0,0,1,380.62,96a4.91,4.91,0,0,1,1.07,3.11,4.78,4.78,0,0,1-.76,2.67,3.87,3.87,0,0,1-2.1,1.61,3.66,3.66,0,0,1,1.73,1.24,6.49,6.49,0,0,1,.61,3.29c0,1.22,0,2.08.06,2.56a1.06,1.06,0,0,0,.75,1v.5h-4.23a10.21,10.21,0,0,1-.31-1.47,17.63,17.63,0,0,1-.1-2.17,5.07,5.07,0,0,0-.43-2.61q-.56-.77-2.57-.77h-3.92v7Zm3.76-10h4.48a3.56,3.56,0,0,0,2.24-.57,2.67,2.67,0,0,0,.2-3.38,2.7,2.7,0,0,0-2.19-.82h-4.74Z">
+								</path>
+								<path class="cls-2"
+									d="M254.81,22.13c46.7-5.05,88.6,26.89,86.5,77.4l27.48-34.81C356.43,23.27,305.6,0,254.81,22.13">
+								</path>
+								<path class="cls-2"
+									d="M268.56,124.66c4.73-5.77,7.71-12.24,8.14-19.74h16.14c-3,7.36-8.52,14.78-12.83,19.75Z">
+								</path>
+								<path class="cls-2"
+									d="M296.37,104.62c-3.74,18.1,2.58,30,12.67,38.77A39.7,39.7,0,0,0,336.39,152c3.83.14,4.45,5.44.16,5.67H295.23V195H346.7c50.57-7.81,46.36-73.28.46-79.26-3.56-.45-15.51-3.64-8.62-11Z">
+								</path>
+								<rect class="cls-3" x="225.83" y="111.38" width="38.19" height="83.64"></rect>
+								<path class="cls-2"
+									d="M159.67,76h38.19V105h18.45v29.33H197.87v16.42c.41,3.88,3,5.83,5.75,6.92l18.08,0L216.44,195H193.94c-18.27-.91-33.36-15.76-34.27-35.26Z">
+								</path>
+								<rect class="cls-3" x="111.56" y="111.38" width="38.19" height="83.64"></rect>
+								<path class="cls-2" d="M158,76.32a28.71,28.71,0,0,1-57.41,0Z"></path>
+								<path class="cls-2"
+									d="M16.59,76.57v79.71C21.14,196.5,67.75,207.9,93,181.79c27.22-31.67,3.34-73.71-32-74.13v36.7c8.35-.2,9,7.78,5.89,11.11-4.06,3.48-9.95,2.35-11.26-3.36l-.3-75.49Z">
+								</path>
+								<path class="cls-4"
+									d="M243.86,35.6A34.91,34.91,0,1,1,209,70.51,35,35,0,0,1,243.86,35.6"></path>
+								<path class="cls-4"
+									d="M314.5,11c31.21.78,57.62,18.82,58.63,48L391.3,35.91C389.37,14.1,347.76-.64,314.5,11">
+								</path>
+								<polygon class="cls-5"
+									points="17.84 222.4 21.37 222.4 21.37 249.32 17.32 249.32 3.6 227.58 3.53 249.32 0 249.32 0 222.4 4.34 222.41 17.77 244.15 17.84 222.4">
+								</polygon>
+								<path class="cls-5"
+									d="M31.28,235.66H28.2a5.83,5.83,0,0,1,2.25-5,9.83,9.83,0,0,1,5.85-1.5,10,10,0,0,1,4.2.83,4.76,4.76,0,0,1,3.08,4.65v11.24q0,1.2,1.13,1.2l1.05-.14v2.4l-.88.24a3.43,3.43,0,0,1-.92.13,3.6,3.6,0,0,1-2.81-.94,3,3,0,0,1-.64-2.06,11.13,11.13,0,0,1-2.59,2.1,9.17,9.17,0,0,1-4.54,1.13A6.32,6.32,0,0,1,29,248.34a5.32,5.32,0,0,1-1.73-4.13,6.08,6.08,0,0,1,.94-3.41,6.66,6.66,0,0,1,5.06-2.73l5.4-.68a1.83,1.83,0,0,0,1.16-.45,2.58,2.58,0,0,0,.56-1.88q0-3.22-4.58-3.22a4.38,4.38,0,0,0-3.56,1.35,5.17,5.17,0,0,0-.94,2.47m9.07,6.79v-3.19a3.59,3.59,0,0,1-1.47.63q-1.05.26-3.68.59a7.41,7.41,0,0,0-3.57,1.11,2.52,2.52,0,0,0-.94,2,3.51,3.51,0,0,0,.85,2.54,3.65,3.65,0,0,0,2.7.87,7.12,7.12,0,0,0,4.27-1.33,3.93,3.93,0,0,0,1.85-3.26">
+								</path>
+								<polygon class="cls-5"
+									points="35.96 223.97 33.48 227.43 30.55 227.42 34.23 222.17 37.75 222.17 41.43 227.42 38.43 227.41 35.96 223.97">
+								</polygon>
+								<path class="cls-5"
+									d="M66.29,236v13.35H63V237.25a6.63,6.63,0,0,0-.86-3.86,3.89,3.89,0,0,0-3.34-1.31,4.64,4.64,0,0,0-3.26,1.24q-1.91,1.72-1.91,5.29v10.72h-3.3V229.67h3.07v2.78a11,11,0,0,1,2-2,6.72,6.72,0,0,1,4-1.28A7.58,7.58,0,0,1,64,230.41q2.29,1.69,2.29,5.55">
+								</path>
+								<path class="cls-5"
+									d="M88.56,229.67v18a12.7,12.7,0,0,1-1.16,6q-2.1,3.9-8,3.9a9.16,9.16,0,0,1-4.35-.94,6.09,6.09,0,0,1-3.15-4.9h3.3a3.56,3.56,0,0,0,1.44,2.34,5.09,5.09,0,0,0,3,.8q3.6,0,4.87-2.47a9.61,9.61,0,0,0,.75-4.27v-1l-.07.15a5.4,5.4,0,0,1-2,1.87,6.46,6.46,0,0,1-3.3.82,7.51,7.51,0,0,1-6.83-3.71,13.74,13.74,0,0,1-1.8-7.31,10.89,10.89,0,0,1,2.19-7,7.23,7.23,0,0,1,6-2.76,6.45,6.45,0,0,1,4,1.2,8.78,8.78,0,0,1,1.87,2.1l.07-2.77Zm-13.79,9.74a10.05,10.05,0,0,0,1.33,5.49A4.34,4.34,0,0,0,80,247a4.94,4.94,0,0,0,3.48-1.31,6.84,6.84,0,0,0,1.91-5.28,13.62,13.62,0,0,0-.86-5.32,5,5,0,0,0-9-.26,11.38,11.38,0,0,0-.75,4.61">
+								</path>
+								<path class="cls-5"
+									d="M121.26,236v13.35H118V237.25a6.63,6.63,0,0,0-.86-3.86,3.89,3.89,0,0,0-3.34-1.31,4.64,4.64,0,0,0-3.26,1.24q-1.91,1.72-1.91,5.29v10.72h-3.3V229.67h3.07v2.78a11,11,0,0,1,2-2,6.73,6.73,0,0,1,4-1.28,7.59,7.59,0,0,1,4.61,1.28q2.28,1.69,2.29,5.55">
+								</path>
+								<path class="cls-5" d="M130.63,226.16h-3.3V222.4h3.3Zm0,23.16h-3.3V229.67h3.3Z">
+								</path>
+								<path class="cls-5"
+									d="M152.08,249.32h-3.16v-2.86l-.14-.07a7.39,7.39,0,0,1-2.5,2.64,7,7,0,0,1-3.69.88,6.77,6.77,0,0,1-4.21-1.27,5.73,5.73,0,0,1-2.13-4.87v-14.1h3.3v13a4.46,4.46,0,0,0,1.09,3.34,3.7,3.7,0,0,0,2.74.94,4.73,4.73,0,0,0,4.24-2.18,7.72,7.72,0,0,0,1.17-4.35v-10.8h3.3Z">
+								</path>
+								<path class="cls-5"
+									d="M172,249.32h-3.16V222.4h3.3v9.74a6.85,6.85,0,0,1,5.77-3,7.33,7.33,0,0,1,6,2.81,10.74,10.74,0,0,1,2.14,6.94,13.8,13.8,0,0,1-1.8,7.28,7.48,7.48,0,0,1-6.82,3.75,6.06,6.06,0,0,1-3.71-1.09,6.83,6.83,0,0,1-1.69-2Zm10.63-9.9a11.28,11.28,0,0,0-.75-4.57,4.6,4.6,0,0,0-4.56-2.77,4.5,4.5,0,0,0-4.45,3,13.71,13.71,0,0,0-.86,5.36,6.79,6.79,0,0,0,1.91,5.25,5,5,0,0,0,3.48,1.35,4.35,4.35,0,0,0,3.93-2.06,10.2,10.2,0,0,0,1.31-5.51">
+								</path>
+								<path class="cls-5"
+									d="M194.08,235.66H191a5.83,5.83,0,0,1,2.25-5,9.83,9.83,0,0,1,5.85-1.5,10,10,0,0,1,4.2.83,4.76,4.76,0,0,1,3.07,4.65v11.24c0,.8.38,1.2,1.13,1.2l1-.14v2.4l-.88.24a3.43,3.43,0,0,1-.92.13,3.6,3.6,0,0,1-2.81-.94,3,3,0,0,1-.64-2.06,11.09,11.09,0,0,1-2.59,2.1,9.17,9.17,0,0,1-4.54,1.13,6.32,6.32,0,0,1-4.43-1.57,5.32,5.32,0,0,1-1.73-4.13,6.08,6.08,0,0,1,.94-3.41,6.66,6.66,0,0,1,5.06-2.73l5.4-.68a1.84,1.84,0,0,0,1.16-.45,2.58,2.58,0,0,0,.56-1.88q0-3.22-4.58-3.22a4.38,4.38,0,0,0-3.56,1.35,5.16,5.16,0,0,0-.94,2.47m9.07,6.79v-3.19a3.59,3.59,0,0,1-1.47.63q-1.06.26-3.68.59a7.38,7.38,0,0,0-3.57,1.11,2.52,2.52,0,0,0-.94,2,3.49,3.49,0,0,0,.85,2.54,3.63,3.63,0,0,0,2.7.87,7.12,7.12,0,0,0,4.27-1.33,3.93,3.93,0,0,0,1.85-3.26">
+								</path>
+								<polygon class="cls-5"
+									points="199.25 227.05 194.3 221.78 198.43 221.78 201.73 227.05 199.25 227.05">
+								</polygon>
+								<path class="cls-5"
+									d="M229.09,236v13.35h-3.3V237.25a6.63,6.63,0,0,0-.86-3.86,3.89,3.89,0,0,0-3.34-1.31,4.65,4.65,0,0,0-3.26,1.24q-1.91,1.72-1.91,5.29v10.72h-3.3V229.67h3.07v2.78a11,11,0,0,1,2-2,6.72,6.72,0,0,1,4-1.28,7.58,7.58,0,0,1,4.61,1.28q2.29,1.69,2.29,5.55">
+								</path>
+								<path class="cls-5"
+									d="M261.57,236.26h-3.23a5.2,5.2,0,0,0-1.46-3.09,4.44,4.44,0,0,0-3.19-1.1,4.61,4.61,0,0,0-4.2,2.36,9.77,9.77,0,0,0-1.2,5.06,10.78,10.78,0,0,0,1,5A4.6,4.6,0,0,0,253.7,247a4.2,4.2,0,0,0,3-1.24,5.91,5.91,0,0,0,1.69-3.41h3.23a9.22,9.22,0,0,1-2,5,7.41,7.41,0,0,1-6,2.63,8,8,0,0,1-6.41-2.76,10.6,10.6,0,0,1-2.36-7.14,12.13,12.13,0,0,1,2.25-7.72,8.6,8.6,0,0,1,7.2-3.15,6.81,6.81,0,0,1,5.48,2.29,8.37,8.37,0,0,1,1.88,4.84">
+								</path>
+								<path class="cls-5"
+									d="M282,236v13.35h-3.3V236.49a5.36,5.36,0,0,0-.75-3.22,3.7,3.7,0,0,0-3.15-1.2,5.15,5.15,0,0,0-3.74,1.39,6.89,6.89,0,0,0-1.72,5.14v10.72H266V222.4h3.3v9.89a10.29,10.29,0,0,1,2.06-2,6.44,6.44,0,0,1,3.71-1.13,7.58,7.58,0,0,1,4.61,1.28Q282,232.1,282,236">
+								</path>
+								<path class="cls-5"
+									d="M290.89,235.66h-3.07a5.83,5.83,0,0,1,2.25-5,9.84,9.84,0,0,1,5.86-1.5,10,10,0,0,1,4.2.83,4.76,4.76,0,0,1,3.08,4.65v11.24c0,.8.37,1.2,1.13,1.2l1-.14v2.4l-.88.24a3.44,3.44,0,0,1-.92.13,3.61,3.61,0,0,1-2.81-.94,3,3,0,0,1-.63-2.06,11,11,0,0,1-2.59,2.1,9.19,9.19,0,0,1-4.54,1.13,6.33,6.33,0,0,1-4.43-1.57,5.33,5.33,0,0,1-1.72-4.13,6.07,6.07,0,0,1,.94-3.41,6.66,6.66,0,0,1,5.06-2.73l5.4-.68a1.84,1.84,0,0,0,1.16-.45,2.59,2.59,0,0,0,.56-1.88q0-3.22-4.58-3.22a4.38,4.38,0,0,0-3.56,1.35,5.21,5.21,0,0,0-.94,2.47m9.08,6.79v-3.19a3.6,3.6,0,0,1-1.47.63q-1.06.26-3.68.59a7.41,7.41,0,0,0-3.57,1.11,2.52,2.52,0,0,0-.94,2,3.47,3.47,0,0,0,.85,2.54,3.63,3.63,0,0,0,2.7.87,7.13,7.13,0,0,0,4.27-1.33,3.93,3.93,0,0,0,1.85-3.26">
+								</path>
+								<polygon class="cls-5"
+									points="295.57 223.97 293.09 227.43 290.16 227.42 293.84 222.17 297.36 222.17 301.04 227.42 298.04 227.41 295.57 223.97">
+								</polygon>
+								<path class="cls-5"
+									d="M325.9,236v13.35h-3.3V237.25a6.63,6.63,0,0,0-.86-3.86,3.89,3.89,0,0,0-3.34-1.31,4.66,4.66,0,0,0-3.26,1.24q-1.91,1.72-1.91,5.29v10.72h-3.3V229.67H313v2.78a10.88,10.88,0,0,1,2-2,6.7,6.7,0,0,1,4-1.28,7.59,7.59,0,0,1,4.61,1.28q2.29,1.69,2.29,5.55">
+								</path>
+								<polygon class="cls-5"
+									points="360.61 222.41 364.73 222.4 354.91 249.32 351 249.32 341.18 222.4 345.23 222.4 352.96 245.31 360.61 222.41">
+								</polygon>
+								<path class="cls-5" d="M372.92,226.16h-3.3V222.4h3.3Zm0,23.16h-3.3V229.67h3.3Z">
+								</path>
+								<path class="cls-5"
+									d="M391.81,243.18h3.3a7.58,7.58,0,0,1-.87,2.36,8,8,0,0,1-2.66,3,7.66,7.66,0,0,1-1.8.93,11,11,0,0,1-3.52.49,8,8,0,0,1-6.42-2.76,10.6,10.6,0,0,1-2.36-7.14,12.11,12.11,0,0,1,2.25-7.72,8.6,8.6,0,0,1,7.2-3.15,7.14,7.14,0,0,1,6.26,3.06q2.14,3.06,2.14,8.35H381a7.06,7.06,0,0,0,1.44,4.77,6,6,0,0,0,7.93.33,4,4,0,0,0,1.43-2.46M381,237.91H392a6.24,6.24,0,0,0-1.24-4,5.5,5.5,0,0,0-8.1,0,5.86,5.86,0,0,0-1.61,4.08">
+								</path>
+								<path class="cls-5"
+									d="M386.53,224,384,227.43h-2.94l3.68-5.25h3.53l3.68,5.25h-3Zm1.87,32h-3.3v-3.76h3.3Z">
+								</path>
+								<path class="cls-5"
+									d="M408.11,232.44h-3.16v12.75a1.31,1.31,0,0,0,.72,1.31,3.09,3.09,0,0,0,1.24.19h1.2v2.63l-2.48.3a3.8,3.8,0,0,1-3.23-1.24,5,5,0,0,1-.75-3v-12.9h-2.7v-2.77h2.7v-5.48h3.3v5.48h3.16Z">
+								</path>
+								<rect class="cls-6" width="408.11" height="257.56"></rect>
+							</svg>
+							<span style="display:none">Biti's</span>
+						</a>
+					</div>
+				</div>
+				<div class="header-wrap-menu d-none d-md-none d-lg-block">
+					<nav class="navbar-mainmenu">
+						<ul class="menuList-primary">
+							<li class="has-submenu  ">
+								<a href="/pages/corporate" target="_blank" data-vn="VỀ BITI'S">
+									<span>VỀ BITI'S</span>
+								</a>
+							</li>
+							<li class="has-submenu  ">
+								<a href="/" data-vn="NHÃN HIỆU">
+									<span>NHÃN HIỆU</span>
+									<i class="fa fa-chevron-down" aria-hidden="true"></i>
+								</a>
+								<ul class="menuList-submain">
+									<li class="">
+										<a href="/collections/cac-san-pham-thuoc-nhan-hieu-biti-s-hunter">
+											BITI'S HUNTER
+										</a>
+									</li>
+									<li class="">
+										<a href="/collections/cac-san-pham-thuoc-nhan-hieu-gosto-by-biti-s">
+											GOSTO
+										</a>
+									</li>
+									<li class="">
+										<a href="/collections/cac-san-pham-thuoc-nhan-hieu-embrace">
+											ÊMBRACE
+										</a>
+									</li>
+									<li class="">
+										<a href="/collections/helio">
+											HELIO BY BITIS
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li class="has-submenu  ">
+								<a href="/collections/nam" data-vn="NAM">
+									<span>NAM</span>
+									<i class="fa fa-chevron-down" aria-hidden="true"></i>
+								</a>
+								<ul class="menuList-submain">
+									<li class="">
+										<a href="/collections/hunter-nam">
+											Hunter
+										</a>
+									</li>
+									<li class="">
+										<a href="/collections/sandal-nam">
+											Sandal
+										</a>
+									</li>
+									<li class="">
+										<a href="/collections/giay-the-thao-nam">
+											Giày Thể Thao
+										</a>
+									</li>
+									<li class="">
+										<a href="/collections/giay-chay-bo-di-bo-nam">
+											Giày Chạy Bộ &amp; Đi Bộ
+										</a>
+									</li>
+									<li class="">
+										<a href="/collections/giay-tay-nam">
+											Giày Tây
+										</a>
+									</li>
+									<li class="">
+										<a href="/collections/dep-nam">
+											Dép - Hài
+										</a>
+									</li>
+									<li class="">
+										<a href="/collections/new-balo-tui-nam">
+											Balo
+										</a>
+									</li>
+									<li class="">
+										<a href="/collections/quan-ao">
+											Quần Áo
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li class="has-submenu  ">
+								<a href="/collections/nu" data-vn="NỮ">
+									<span>NỮ</span>
+									<i class="fa fa-chevron-down" aria-hidden="true"></i>
+								</a>
+								<ul class="menuList-submain">
+									<li class="">
+										<a href="/collections/hunter-nu">
+											Hunter
+										</a>
+									</li>
+									<li class="">
+										<a href="/collections/sandal-nu-1">
+											Sandal
+										</a>
+									</li>
+									<li class="">
+										<a href="/collections/giay-the-thao-nu">
+											Giày Thể Thao
+										</a>
+									</li>
+									<li class="">
+										<a href="/collections/giay-chay-bo-nu">
+											Giày Chạy Bộ &amp; Đi Bộ
+										</a>
+									</li>
+									<li class="">
+										<a href="/collections/giay-cao-got">
+											Giày Cao Gót
+										</a>
+									</li>
+									<li class="">
+										<a href="/collections/giay-bup-be-nu">
+											Giày Búp Bê
+										</a>
+									</li>
+									<li class="">
+										<a href="/collections/dep-nu">
+											Dép - Hài
+										</a>
+									</li>
+									<li class="">
+										<a href="/collections/tui-xach-vi">
+											Túi Xách - Ví
+										</a>
+									</li>
+									<li class="">
+										<a href="/collections/balo-tui-xach">
+											Balo
+										</a>
+									</li>
+									<li class="">
+										<a href="/collections/quan-ao">
+											Quần Áo
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li class="has-submenu ">
+								<a href="/collections/teen-nam" data-vn="TEEN NAM">
+									<span>TEEN NAM</span>
+									<i class="fa fa-chevron-down" aria-hidden="true"></i>
+								</a>
+								<ul class="menuList-submain">
+									<li class="">
+										<a href="/collections/giay-the-thao-teen-nam">
+											Giày Thể Thao
+										</a>
+									</li>
+									<li class="">
+										<a href="/collections/sandal-teen-nam">
+											Sandal
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li class="has-submenu  ">
+								<a href="/collections/teen-nu" data-vn="TEEN NỮ">
+									<span>TEEN NỮ</span>
+									<i class="fa fa-chevron-down" aria-hidden="true"></i>
+								</a>
+								<ul class="menuList-submain">
+									<li class="">
+										<a href="/collections/giay-the-thao-teen-nu">
+											Giày Thể Thao
+										</a>
+									</li>
+									<li class="">
+										<a href="/collections/sandal-teen-nu">
+											Sandal
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li class="has-submenu">
+								<a href="/collections/be-trai" data-vn="BÉ TRAI">
+									<span>BÉ TRAI</span>
+									<i class="fa fa-chevron-down" aria-hidden="true"></i>
+								</a>
+								<ul class="menuList-submain">
+									<li class="">
+										<a href="/collections/giay-the-thao-be-trai">
+											Giày Thể Thao
+										</a>
+									</li>
+									<li class="">
+										<a href="/collections/sandal-be-trai">
+											Sandal
+										</a>
+									</li>
+									<li class="">
+										<a href="/collections/dep-be-trai">
+											Dép
+										</a>
+									</li>
+									<li class="">
+										<a href="/collections/giay-tap-di-cho-be">
+											Giày &amp; Sandal Tập Đi
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li class="has-submenu  ">
+								<a href="/collections/be-gai" data-vn="BÉ GÁI">
+									<span>BÉ GÁI</span>
+									<i class="fa fa-chevron-down" aria-hidden="true"></i>
+								</a>
+								<ul class="menuList-submain">
+									<li class="">
+										<a href="/collections/giay-the-thao-be-gai">
+											Giày Thể Thao
+										</a>
+									</li>
+									<li class="">
+										<a href="/collections/sandal-be-gai">
+											Sandal
+										</a>
+									</li>
+									<li class="">
+										<a href="/collections/dep-be-gai">
+											Dép Bé Gái
+										</a>
+									</li>
+									<li class="">
+										<a href="/collections/giay-tap-di-cho-be">
+											Giày &amp; Sandal Tập Đi
+										</a>
+									</li>
+									<li class="">
+										<a href="/collections/giay-bup-be-be-gai">
+											Giày Búp Bê
+										</a>
+									</li>
+								</ul>
+							</li>
+
+						</ul>
+					</nav>
+				</div>
+				<div class="header-wrap-action ">
+					<div class="header-action">
+						<div class="header-action-item header-action_search d-none d-xl-block">
+							<div class="header-action-item header-wrap-search header-action_search d-xxl-block">
+								<div class="header-search sitenav-content sitenav-search">
+									<div class="search-box wpo-wrapper-search">
+										<form action="/search"
+											class="searchform searchform-categoris ultimate-search">
+											<div class="wpo-search-inner">
+												<input required="" "inputSearchAuto"
+													class="input-search d-xxl-block" name="q" maxlength="40"
+													autocomplete="off" type="text" size="20"
+													data-vn="Bạn cần tìm gì..." placeholder="Bạn cần tìm gì...">
+											</div>
+											<button type="submit" class="btn-search btn" id="search-header-btn"
+												aria-label="button search">
+												<svg version="1.1" class="svg search"
+													xmlns="http://www.w3.org/2000/svg"
+													xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+													viewBox="0 0 24 27" style="enable-background:new 0 0 24 27;"
+													xml:space="preserve">
+													<path
+														d="M10,2C4.5,2,0,6.5,0,12s4.5,10,10,10s10-4.5,10-10S15.5,2,10,2z M10,19c-3.9,0-7-3.1-7-7s3.1-7,7-7s7,3.1,7,7S13.9,19,10,19z">
+													</path>
+													<rect x="17" y="17"
+														transform="matrix(0.7071 -0.7071 0.7071 0.7071 -9.2844 19.5856)"
+														width="4" height="8"></rect>
+												</svg>
+											</button>
+										</form>
+										<div id="ajaxSearchResults"
+											class="smart-search-wrapper ajaxSearchResults"
+											style="display: none">
+											<div class="resultsContent"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="header-action_dropdown">
+								<div class="header-dropdown_content">
+									<div class="sitenav-content sitenav-search">
+										<p class="boxtitle">Tìm kiếm</p>
+										<div class="search-box wpo-wrapper-search">
+											<form action="/search"
+												class="searchform searchform-categoris ultimate-search">
+												<div class="wpo-search-inner">
+													<input type="hidden" name="type" value="product">
+													<input required="" id="inputSearchAuto" class="input-search"
+														name="q" maxlength="40" autocomplete="off" type="text"
+														size="20" data-vn="Tìm kiếm sản phẩm..."
+														placeholder="Tìm kiếm sản phẩm...">
+												</div>
+												<button type="submit" class="btn-search btn"
+													id="search-header-btn" aria-label="button search">
+													<svg version="1.1" class="svg search"
+														xmlns="http://www.w3.org/2000/svg"
+														xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+														y="0px" viewBox="0 0 24 27"
+														style="enable-background:new 0 0 24 27;"
+														xml:space="preserve">
+														<path
+															d="M10,2C4.5,2,0,6.5,0,12s4.5,10,10,10s10-4.5,10-10S15.5,2,10,2z M10,19c-3.9,0-7-3.1-7-7s3.1-7,7-7s7,3.1,7,7S13.9,19,10,19z">
+														</path>
+														<rect x="17" y="17"
+															transform="matrix(0.7071 -0.7071 0.7071 0.7071 -9.2844 19.5856)"
+															width="4" height="8"></rect>
+													</svg>
+												</button>
+											</form>
+											<div id="ajaxSearchResults"
+												class="smart-search-wrapper ajaxSearchResults"
+												style="display: none">
+												<div class="resultsContent"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="header-action-item header-action_account">
+							<div class="header-action_text">
+								<a class="header-action__link  header-action_clicked " href="#"
+									id="site-account-handle" aria-label="Tài khoản" title="Tài khoản">
+									<span class="box-icon">
+										<svg class="svg-ico-account" xmlns="http://www.w3.org/2000/svg"
+											version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+											xmlns:svgjs="http://svgjs.com/svgjs" width="512" height="512" x="0"
+											y="0" viewBox="0 0 512 512"
+											style="enable-background:new 0 0 512 512" xml:space="preserve">
+											<g>
+												<g xmlns="http://www.w3.org/2000/svg">
+													<g>
+														<path
+															d="M510.702,438.722c-2.251-10.813-12.84-17.754-23.657-15.503c-10.814,2.251-17.755,12.843-15.503,23.656 c1.297,6.229-0.248,12.613-4.236,17.519c-2.31,2.841-7.461,7.606-15.999,7.606H60.693c-8.538,0-13.689-4.766-15.999-7.606 c-3.989-4.905-5.533-11.29-4.236-17.519c20.756-99.695,108.691-172.521,210.24-174.977c1.759,0.068,3.526,0.102,5.302,0.102 c1.782,0,3.556-0.035,5.322-0.103c71.532,1.716,137.648,37.947,177.687,97.66c6.151,9.175,18.574,11.625,27.75,5.474 c9.174-6.151,11.625-18.575,5.473-27.749c-32.817-48.944-80.47-84.534-134.804-102.417C370.538,220.036,392,180.477,392,136 C392,61.01,330.991,0,256,0S120,61.01,120,136c0,44.504,21.488,84.084,54.633,108.911c-30.368,9.998-58.863,25.555-83.803,46.069 c-45.732,37.617-77.529,90.086-89.532,147.742c-3.762,18.067,0.745,36.623,12.363,50.909C25.222,503.847,42.365,512,60.693,512 h390.613c18.329,0,35.472-8.153,47.032-22.369C509.958,475.345,514.464,456.789,510.702,438.722z M160,136 c0-52.935,43.065-96,96-96s96,43.065,96,96c0,51.305-40.455,93.339-91.141,95.878c-1.617-0.03-3.237-0.045-4.859-0.045 c-1.614,0-3.228,0.016-4.84,0.046C200.465,229.35,160,187.312,160,136z"
+															fill="#000000" data-original="#000000"></path>
+													</g>
+												</g>
+												<g xmlns="http://www.w3.org/2000/svg"></g>
+												<g xmlns="http://www.w3.org/2000/svg"></g>
+												<g xmlns="http://www.w3.org/2000/svg"></g>
+												<g xmlns="http://www.w3.org/2000/svg"></g>
+												<g xmlns="http://www.w3.org/2000/svg"></g>
+												<g xmlns="http://www.w3.org/2000/svg"></g>
+												<g xmlns="http://www.w3.org/2000/svg"></g>
+												<g xmlns="http://www.w3.org/2000/svg"></g>
+												<g xmlns="http://www.w3.org/2000/svg"></g>
+												<g xmlns="http://www.w3.org/2000/svg"></g>
+												<g xmlns="http://www.w3.org/2000/svg"></g>
+												<g xmlns="http://www.w3.org/2000/svg"></g>
+												<g xmlns="http://www.w3.org/2000/svg"></g>
+												<g xmlns="http://www.w3.org/2000/svg"></g>
+												<g xmlns="http://www.w3.org/2000/svg"></g>
+											</g>
+										</svg>
+										<span class="box-icon--close">
+											<svg viewBox="0 0 19 19" role="presentation">
+												<path
+													d="M9.1923882 8.39339828l7.7781745-7.7781746 1.4142136 1.41421357-7.7781746 7.77817459 7.7781746 7.77817456L16.9705627 19l-7.7781745-7.7781746L1.41421356 19 0 17.5857864l7.7781746-7.77817456L0 2.02943725 1.41421356.61522369 9.1923882 8.39339828z"
+													fill-rule="evenodd"></path>
+											</svg>
+										</span>
+									</span>
+								</a>
+								<span class="box-triangle">
+									<svg viewBox="0 0 20 9" role="presentation">
+										<path
+											d="M.47108938 9c.2694725-.26871321.57077721-.56867841.90388257-.89986354C3.12384116 6.36134886 5.74788116 3.76338565 9.2467995.30653888c.4145057-.4095171 1.0844277-.40860098 1.4977971.00205122L19.4935156 9H.47108938z"
+											fill="#ffffff"></path>
+									</svg>
+								</span>
+							</div>
+
+							<div class="header-action__dropdown header-action__widthAuto d-none">
+								<div class="header-dropdown_content">
+									<div class="site_account sitenav-account  sitenav-account_info "
+										id="siteNav-account">
+										<div class="site_account_panel_list">
+											<div class="site_account_info">
+												<div class="site_account_header">
+													<h2 class="site_account_title size-small heading">Thông tin
+														tài khoản</h2>
+												</div>
+												<div class="site_account_inner">
+													<ul>
+														<li><a href="./settingAccount.html">Tài khoản của tôi</a></li>
+														<li><a href="./historyOrder.html">Lịch sử đặt hàng</a>
+														</li>
+														<li><a href="./login.html">Đăng xuất</a></li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="header-action-item header-action_wishlist">
+							<div class="header-action_text">
+								<a class="header-action__link" href="/pages/favorite" aria-label="Tài khoản"
+									title="Tài khoản">
+									<span class="box-icon">
+										<div class="icon-wishtlist"></div>
+										<span class="box-icon--close">
+											<svg viewBox="0 0 19 19" role="presentation">
+												<path
+													d="M9.1923882 8.39339828l7.7781745-7.7781746 1.4142136 1.41421357-7.7781746 7.77817459 7.7781746 7.77817456L16.9705627 19l-7.7781745-7.7781746L1.41421356 19 0 17.5857864l7.7781746-7.77817456L0 2.02943725 1.41421356.61522369 9.1923882 8.39339828z"
+													fill-rule="evenodd"></path>
+											</svg>
+										</span>
+										<span class="count-holder">
+											<span class="count" id="onAppWishList_numberLike"
+												style="display: block;">0</span>
+										</span>
+									</span>
+								</a>
+							</div>
+						</div>
+						<div class="header-action-item header-action_cart">
+							<div class="header-action_text">
+								<a class="header-action__link  header-action_clicked " href="#"
+									id="site-cart-handle" aria-label="Giỏ hàng" title="Giỏ hàng">
+									<span class="box-icon">
+										<svg class="svg-ico-cart" xmlns="http://www.w3.org/2000/svg"
+											version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+											xmlns:svgjs="http://svgjs.com/svgjs" width="512" height="512" x="0"
+											y="0" viewBox="0 0 32 32" style="enable-background:new 0 0 512 512"
+											xml:space="preserve">
+											<g>
+												<g xmlns="http://www.w3.org/2000/svg" id="Layer_2"
+													data-name="Layer 2">
+													<path
+														d="m16 17.82a6 6 0 0 1 -5.89-4.82 1 1 0 0 1 1-1.15 1 1 0 0 1 1 .83 4 4 0 0 0 7.83 0 1 1 0 0 1 1-.83 1 1 0 0 1 1 1.15 6 6 0 0 1 -5.94 4.82z"
+														fill="#000000" data-original="#000000" class=""></path>
+													<path
+														d="m24.9 31h-17.8a3 3 0 0 1 -3-3.15l.81-17.24a3 3 0 0 1 3-2.87h16.18a3 3 0 0 1 3 2.87l.81 17.24a3 3 0 0 1 -3 3.15zm-16.99-21.25a1 1 0 0 0 -1 1l-.81 17.2a1 1 0 0 0 1 1.05h17.8a1 1 0 0 0 1-1.05l-.81-17.24a1 1 0 0 0 -1-1z"
+														fill="#000000" data-original="#000000" class=""></path>
+													<path
+														d="m22 8.75h-2v-1.75a4 4 0 0 0 -8 0v1.75h-2v-1.75a6 6 0 0 1 12 0z"
+														fill="#000000" data-original="#000000" class=""></path>
+												</g>
+											</g>
+										</svg>
+										<span class="box-icon--close">
+											<svg viewBox="0 0 19 19" role="presentation">
+												<path
+													d="M9.1923882 8.39339828l7.7781745-7.7781746 1.4142136 1.41421357-7.7781746 7.77817459 7.7781746 7.77817456L16.9705627 19l-7.7781745-7.7781746L1.41421356 19 0 17.5857864l7.7781746-7.77817456L0 2.02943725 1.41421356.61522369 9.1923882 8.39339828z"
+													fill-rule="evenodd"></path>
+											</svg>
+										</span>
+										<span class="count-holder">
+											<span class="count">0</span>
+										</span>
+									</span>
+								</a>
+								<span class="box-triangle">
+									<svg viewBox="0 0 20 9" role="presentation">
+										<path
+											d="M.47108938 9c.2694725-.26871321.57077721-.56867841.90388257-.89986354C3.12384116 6.36134886 5.74788116 3.76338565 9.2467995.30653888c.4145057-.4095171 1.0844277-.40860098 1.4977971.00205122L19.4935156 9H.47108938z"
+											fill="#ffffff"></path>
+									</svg>
+								</span>
+							</div>
+
+							<div class="header-action_dropdown">
+								<div class="header-dropdown_content">
+									<div class="sitenav-content sitenav-cart">
+										<p class="boxtitle">Giỏ hàng</p>
+										<div class="cart-view clearfix">
+											<div class="cart-view-scroll">
+												<table id="clone-item-cart" class="table-clone-cart">
+													<tbody>
+														<tr class="mini-cart__item d-none">
+															<td class="mini-cart__left"><a class="mnc-link"
+																	href="#" title=""><img src="" alt=""></a>
+															</td>
+															<td class="mini-cart__right">
+																<p class="mini-cart__title">
+																	<a class="mnc-title mnc-link" href="#"
+																		title=""></a>
+																	<span class="mnc-variant"> </span>
+																</p>
+																<div class="mini-cart__quantity">
+																	<input class="qty-value" type="text"
+																		readonly="" name="mnc-quantity"
+																		value="">
+																</div>
+																<div class="mini-cart__price">
+																	<span class="mnc-price">0 ₫</span>
+																	<del class="mnc-ori-price"></del>
+																</div>
+																<div class="mini-cart__remove"></div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+												<table id="cart-view">
+													<tbody>
+														<tr class="mini-cart__empty">
+															<td>
+																<div class="svgico-mini-cart">
+																	<svg width="81" height="70"
+																		viewBox="0 0 81 70">
+																		<g transform="translate(0 2)"
+																			stroke-width="4" fill="none"
+																			fill-rule="evenodd">
+																			<circle stroke-linecap="square"
+																				cx="34" cy="60" r="6"></circle>
+																			<circle stroke-linecap="square"
+																				cx="67" cy="60" r="6"></circle>
+																			<path
+																				d="M22.9360352 15h54.8070373l-4.3391876 30H30.3387146L19.6676025 0H.99560547">
+																			</path>
+																		</g>
+																	</svg>
+																</div>
+																Hiện chưa có sản phẩm
+															</td>
+														</tr>
+
+													</tbody>
+												</table>
+											</div>
+											<div class="cart-view-line"></div>
+											<div id="pe-buy-x-select-y-btn"></div>
+											<div class="cart-view-total">
+												<table class="table-total">
+													<tbody>
+														<tr>
+															<td class="mnc-total text-left">TỔNG TIỀN:</td>
+															<td class="mnc-total text-right"
+																id="total-view-cart">0 ₫</td>
+														</tr>
+														<tr class="mini-cart__button">
+															<td colspan="2"><a href="/cart"
+																	class="linktocart button ">Xem giỏ hàng</a>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="header-search-mobile ">
+		<div class=" search-box wpo-wrapper-search">
+			<form action="/search" class="searchform-mobile searchform-categoris ultimate-search">
+				<div class="wpo-search-inner">
+					<input type="hidden" name="type" value="product">
+					<input required="" id="inputSearchAuto-mb" class="input-search" name="q" maxlength="40"
+						autocomplete="off" type="text" size="20" placeholder="Bạn cần tìm gì...">
+				</div>
+				<button type="submit" class="btn-search btn" id="search-header-btn-mb"
+					aria-label="button search">
+					<span class="search-icon"><svg version="1.1" class="svg search"
+							xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+							x="0px" y="0px" viewBox="0 0 24 27" style="enable-background:new 0 0 24 27;"
+							xml:space="preserve">
+							<path
+								d="M10,2C4.5,2,0,6.5,0,12s4.5,10,10,10s10-4.5,10-10S15.5,2,10,2z M10,19c-3.9,0-7-3.1-7-7s3.1-7,7-7s7,3.1,7,7S13.9,19,10,19z">
+							</path>
+							<rect x="17" y="17" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -9.2844 19.5856)"
+								width="4" height="8"></rect>
+						</svg></span>
+					<span class="search-close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+							viewBox="0 0 24 24">
+							<path
+								d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z">
+							</path>
+						</svg></span>
+				</button>
+			</form>
+			<div id="ajaxSearchResults-mb" class="smart-search-wrapper ajaxSearchResults" style="display: none">
+				<div class="resultsContent"></div>
+			</div>
+		</div>
+	</div>
+</header>
+</div>
 </div>
 <!--END HEADER -->
+
 <div class="main-content-wrapper" style="padding: 30px 0;">
     <div class="container">
         <div style="background: #f5f5f5; padding: 10px 20px; border-radius: 4px; margin-bottom: 30px;">
@@ -413,11 +925,7 @@
     </div>
 </div>
 
-<script src="assets/js/header.js"></script>
-<script src="assets/js/collections.js"></script>
-</body>
-</html>
-    <!--  SECTION FOOTER-->
+<!--  SECTION FOOTER-->
 <section class="section-footer-gallery">
     <div class="wraplist-container-gallery">	
         <div class="rowFlex-gallery">
@@ -479,7 +987,8 @@
 	</div>
 </section>
 <!--  SECTION FOOTER-->
-    <!-- FOOTER -->
+
+<!-- FOOTER -->
 <footer class="mainFooter ">
 	<div class="footer-container">
 		<div class="footer-expand-title">
@@ -642,8 +1151,6 @@
 </footer>
 <script src="assets/js/header.js"></script>
 <script src="assets/services/header.js"></script>
-
 <script src="assets/services/collections.js"></script>
-
-  </body>
+</body>
 </html>
