@@ -3,15 +3,12 @@ document.addEventListener('DOMContentLoaded', async function () {
     if (!container) return;
 
     try {
-        // Fetch products from API
         const response = await fetch('http://127.0.0.1:8000/products?page=1&page_size=8');
         const result = await response.json();
 
         if (response.ok && (result.code === "200" || result.status === "success")) {
-            // Assuming data is in result.data.items or result.data based on common patterns
             let products = result.data.items || result.data || [];
             
-            // Chỉ hiển thị sản phẩm đang kinh doanh (active)
             const activeProducts = products.filter(p => p.status === 'active');
             
             renderProducts(container, activeProducts);
@@ -40,13 +37,11 @@ function renderProducts(container, products) {
     `;
 
     products.forEach(product => {
-        // Format price to Vietnamese currency
         const price = product.price ? product.price.toLocaleString('vi-VN') : 'Liên hệ';
         const image = product.image_url || (product.image_urls && product.image_urls[0]?.url) || product.thumbnail || product.image || 'https://theme.hstatic.net/1000230642/1001205219/14/no-image.jpg';
         
         const image2 = (product.image_urls && product.image_urls.length > 1) ? product.image_urls[1].url : null;
         
-        // Mocking some data if not present in API result
         const category = product.category_name || product.category || "Biti's Hunter";
         const brand = "ShoesByBaBa";
 
@@ -87,7 +82,6 @@ function renderProducts(container, products) {
 
     container.innerHTML = html;
 
-    // Add wishlist toggle logic for newly rendered elements
     const wishButtons = container.querySelectorAll('.btn-wishlist');
     wishButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {

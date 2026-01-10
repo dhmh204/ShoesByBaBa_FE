@@ -59,8 +59,7 @@ async function trackOrder() {
 
         const detailCards = document.querySelectorAll('.detail-card');
         
-        // Cập nhật Thông tin nhận hàng
-        detailCards[0].innerHTML = `
+       detailCards[0].innerHTML = `
             <h3>Thông tin nhận hàng</h3>
             <p><strong>Người nhận:</strong> ${addressInfo.recipient_name || 'N/A'}</p>
             <p><strong>Điện thoại:</strong> ${addressInfo.recipient_phone || 'N/A'}</p>

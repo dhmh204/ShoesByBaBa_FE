@@ -12,17 +12,14 @@ document.addEventListener('DOMContentLoaded', function () {
         changePasswordForm.addEventListener('submit', async function (e) {
             e.preventDefault();
 
-            // 1. Lấy dữ liệu từ input
             const currentPassword = document.getElementById('current_pass').value;
             const newPassword = document.getElementById('new_pass').value;
             const verifyNewPassword = document.getElementById('verify_new_pass').value;
             const token = localStorage.getItem('token');
 
-            // Reset trạng thái thông báo
             errorDiv.classList.add('d-none');
             infoDiv.classList.add('d-none');
 
-            // 2. Kiểm tra logic Client
             if (!token) {
                 showError("Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại.");
                 return;
@@ -34,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             try {
-                // Lưu ý: Kiểm tra URL này có cần /auth/ phía trước không (ví dụ: http://localhost:8000/auth/change-password)
                 const response = await fetch('http://localhost:8000/change-password', {
                     method: 'POST',
                     headers: {
@@ -49,18 +45,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 const result = await response.json();
 
-                // Kiểm tra mã code trả về từ Backend (result.code)
-                if (result.code === "200") {
-                    // --- THAY ĐỔI TẠI ĐÂY ---
+                 if (result.code === "200") {
                     showInfo("Đổi mật khẩu thành công!");
-                    
-                    // Giữ nguyên Token, chỉ chuyển hướng trang sau 2 giây
                     setTimeout(() => {
                         window.location.href = "settingAccount.html";
                     }, 2000);
                 } else {
-                    // Nếu lỗi (Ví dụ: sai mật khẩu cũ)
-                    showError(result.message || "Đổi mật khẩu không thành công.");
+                     showError(result.message || "Đổi mật khẩu không thành công.");
                 }
 
             } catch (error) {
@@ -80,7 +71,6 @@ document.addEventListener('DOMContentLoaded', function () {
         infoDiv.textContent = message;
         infoDiv.classList.remove('d-none');
         errorDiv.classList.add('d-none');
-        // Thêm màu xanh cho thông báo thành công (nếu cần)
         infoDiv.style.backgroundColor = "#d4edda";
         infoDiv.style.color = "#3FFF00";
         infoDiv.style.borderColor = "#c3e6cb";
