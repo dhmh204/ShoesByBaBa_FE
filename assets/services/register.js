@@ -52,6 +52,26 @@ document.addEventListener('DOMContentLoaded', function () {
     let userEmail = ""; 
     let userPassword = "";
 
+    const errorDiv = document.getElementById('error');
+    const errorText = document.getElementById('error-text');
+
+    function showError(message) {
+        if (errorDiv && errorText) {
+            errorText.textContent = message;
+            errorDiv.classList.remove('d-none');
+            errorDiv.style.display = "flex";
+        } else {
+            alert(message);
+        }
+    }
+
+    function hideError() {
+        if (errorDiv) {
+            errorDiv.classList.add('d-none');
+            errorDiv.style.display = "none";
+        }
+    }
+
     otpInputs.forEach((input, index) => {
         input.addEventListener('input', (e) => {
             if (e.target.value.length > 0 && index < otpInputs.length - 1) {
@@ -80,6 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
             };
 
             try {
+                hideError();
                 const response = await fetch('http://localhost:8000/register', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -96,12 +117,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     steps[0].querySelector('.step-circle').innerHTML = '<span class="check-icon"></span>';
                     steps[1].classList.add('active');
 
-                    alert("Mã OTP đã được gửi đến email của bạn.");
+                    // alert("Mã OTP đã được gửi đến email của bạn.");
                 } else {
-                    alert("Lỗi: " + result.message);
+                    showError(result.message || "Đăng ký thất bại!");
                 }
             } catch (error) {
-                alert("Không thể kết nối tới máy chủ.");
+                console.error("Registration error:", error);
+                showError("Không thể kết nối tới máy chủ.");
             }
         });
     }
@@ -116,6 +138,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             try {
+                hideError();
                 const verifyRes = await fetch('http://localhost:8000/verify-otp', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -155,9 +178,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         }, 2000);
                     }
                 } else {
-                    alert("Mã OTP không hợp lệ.");
+                    alert(verifyResult.message || "Mã OTP không hợp lệ.");
                 }
             } catch (error) {
+                console.error("Verification error:", error);
                 alert("Lỗi hệ thống xác thực.");
             }
         });

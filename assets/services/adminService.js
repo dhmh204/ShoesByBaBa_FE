@@ -105,6 +105,23 @@ const AdminService = {
         return await this.handleResponse(response);
     },
 
+    async updateCategory(id, catData) {
+        const response = await fetch(`${BASE_URL}/categories/${id}`, {
+            method: 'PUT',
+            headers: this.getHeaders(false),
+            body: JSON.stringify(catData)
+        });
+        return await this.handleResponse(response);
+    },
+
+    async deleteCategory(id) {
+        const response = await fetch(`${BASE_URL}/categories/${id}`, {
+            method: 'DELETE',
+            headers: this.getHeaders(false)
+        });
+        return await this.handleResponse(response);
+    },
+
     // BRANDS
     async getBrands() {
         const response = await fetch(`${BASE_URL}/brands`);
@@ -116,6 +133,23 @@ const AdminService = {
             method: 'POST',
             headers: this.getHeaders(false),
             body: JSON.stringify(brandData)
+        });
+        return await this.handleResponse(response);
+    },
+
+    async updateBrand(id, brandData) {
+        const response = await fetch(`${BASE_URL}/brands/${id}`, {
+            method: 'PUT',
+            headers: this.getHeaders(false),
+            body: JSON.stringify(brandData)
+        });
+        return await this.handleResponse(response);
+    },
+
+    async deleteBrand(id) {
+        const response = await fetch(`${BASE_URL}/brands/${id}`, {
+            method: 'DELETE',
+            headers: this.getHeaders(false)
         });
         return await this.handleResponse(response);
     },
@@ -155,6 +189,22 @@ const AdminService = {
             method: 'PUT',
             headers: this.getHeaders(),
             body: JSON.stringify({ status: status })
+        });
+        return await this.handleResponse(response);
+    },
+
+    // REVIEWS
+    async getAllReviews(page = 1, pageSize = 20) {
+        const response = await fetch(`${BASE_URL}/reviews/admin/all?page=${page}&size=${pageSize}`, {
+            headers: this.getHeaders()
+        });
+        return await this.handleResponse(response);
+    },
+
+    async deleteReview(id) {
+        const response = await fetch(`${BASE_URL}/reviews/${id}`, {
+            method: 'DELETE',
+            headers: this.getHeaders()
         });
         return await this.handleResponse(response);
     }

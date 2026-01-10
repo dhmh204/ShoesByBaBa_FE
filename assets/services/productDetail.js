@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (response.ok && (result.code === "200" || result.status === "success" || result.id)) {
             currentProduct = result.data || result; 
             renderProductDetail(currentProduct);
+            fetchAndRenderReviews(productId);
         } else {
             console.error("Lỗi API:", result);
             alert("Không thể tải thông tin sản phẩm!");
@@ -322,3 +323,90 @@ window.toggleWishlist = toggleWishlist;
 window.updateQty = updateQty;
 window.selectDetailColor = selectDetailColor;
 window.selectDetailSize = selectDetailSize;
+
+// --- REVIEWS LOGIC ---
+async function fetchAndRenderReviews(productId, page = 1) {
+    const size = 5;
+    const reviewListContainer = document.getElementById('product-reviews-list');
+    const reviewCountSpan = document.getElementById('review-count');
+    const paginationContainer = document.getElementById('reviews-pagination');
+
+    try {
+        const response = await fetch(`${BASE_URL}/reviews?product_id=${productId}&page=${page}&size=${size}`);
+        const result = await response.json();
+
+        if (response.ok) {
+            const reviews = result.data || [];
+            const total = (result.pagination && result.pagination.total) || 0;
+            
+            reviewCountSpan.innerText = total;
+            renderReviews(reviews, reviewListContainer);
+            renderReviewPagination(total, size, page, productId, paginationContainer);
+        } else {
+            console.error("Reviews API error:", result);
+            reviewListContainer.innerHTML = '<p class="no-reviews-msg">Không thể tải đánh giá lúc này.</p>';
+        }
+    } catch (error) {
+        console.error("Fetch Reviews Error:", error);
+        reviewListContainer.innerHTML = '<p class="no-reviews-msg">Lỗi kết nối khi tải đánh giá.</p>';
+    }
+}
+
+function renderReviews(reviews, container) {
+    if (reviews.length === 0) {
+        container.innerHTML = '<p class="no-reviews-msg">Sản phẩm này chưa có đánh giá nào. Hãy là người đầu tiên đánh giá!</p>';
+        return;
+    }
+
+    container.innerHTML = reviews.map(review => {
+        const stars = Array(5).fill(0).map((_, i) => 
+            `<i class="${i < review.rating ? 'fa-solid' : 'fa-regular'} fa-star"></i>`
+        ).join('');
+
+        const date = new Date(review.created_at).toLocaleDateString('vi-VN', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        // Get initials for avatar
+        const initials = review.user_name ? review.user_name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) : '?';
+
+        return `
+            <div class="review-item">
+                <div class="review-user-avatar">
+                   ${initials}
+                </div>
+                <div class="review-content-main">
+                    <div class="review-header">
+                        <div>
+                            <div class="review-username">${review.user_name || 'Khách hàng'}</div>
+                            <div class="review-stars">${stars}</div>
+                        </div>
+                        <div class="review-date">${date}</div>
+                    </div>
+                    <div class="review-comment">
+                        ${review.comment || 'Không có nhận xét.'}
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function renderReviewPagination(total, limit, currentPage, productId, container) {
+    const totalPages = Math.ceil(total / limit);
+    if (totalPages <= 1) {
+        container.innerHTML = '';
+        return;
+    }
+
+    let html = '';
+    for (let i = 1; i <= totalPages; i++) {
+        html += `<button class="pagination-btn ${i === currentPage ? 'active' : ''}" onclick="fetchAndRenderReviews(${productId}, ${i})">${i}</button>`;
+    }
+    container.innerHTML = html;
+}
+
+// Exposure
+window.fetchAndRenderReviews = fetchAndRenderReviews;

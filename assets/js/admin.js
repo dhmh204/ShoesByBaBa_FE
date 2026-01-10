@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Kiểm tra Token trước khi vào trang Admin
     const token = localStorage.getItem('token');
     if (!token) {
         alert("Bạn cần đăng nhập để truy cập trang quản trị!");
@@ -7,14 +6,14 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
-    // Load metadata trước để có Mapping ID -> Tên, sau đó mới load sản phẩm
     loadMetadata().then(() => {
         loadProducts();
     });
     setupTabSwitching();
 });
 
-let productModal;
+let productModal, categoryModal, brandModal;
+let selectedFiles = [];
 
 // TAB SWITCHING
 function setupTabSwitching() {
@@ -26,7 +25,6 @@ function setupTabSwitching() {
 
             e.preventDefault();
             
-            // UI Update
             navLinks.forEach(l => l.classList.remove('active'));
             this.classList.add('active');
 
@@ -35,20 +33,24 @@ function setupTabSwitching() {
             });
             document.getElementById(`tab-${tabId}`).classList.remove('d-none');
 
-            // Load specifically for orders tab
-            if (tabId === 'orders') {
-                loadOrders();
+            // Load data based on tab
+            switch(tabId) {
+                case 'products': loadProducts(); break;
+                case 'categories': loadCategories(); break;
+                case 'brands': loadBrands(); break;
+                case 'orders': loadOrders(); break;
+                case 'reviews': loadReviews(); break;
             }
         });
     });
 }
 
-// ORDER MANAGEMENT
+// ---------------- ORDER MANAGEMENT ----------------
 async function loadOrders() {
     try {
         const statusFilter = document.getElementById('order-status-filter').value;
         const result = await AdminService.getAllOrders(1, 50, statusFilter);
-        const orders = result.orders || [];
+        const orders = result.orders || result.data?.items || result.data || [];
         const body = document.getElementById('order-list-body');
 
         if (!body) return;
@@ -59,10 +61,8 @@ async function loadOrders() {
                 hour: '2-digit', minute: '2-digit'
             });
             
-            const total = order.total_amount.toLocaleString('vi-VN') + ' ₫';
-            
-            // Format order items summary
-            const itemsSummary = order.items.map(item => 
+            const total = (order.total_amount || 0).toLocaleString('vi-VN') + ' ₫';
+            const itemsSummary = (order.items || []).map(item => 
                 `${item.product_name} (${item.size}, ${item.color}) x${item.quantity}`
             ).join('<br>');
 
@@ -71,7 +71,7 @@ async function loadOrders() {
                 <td>#${order.id}</td>
                 <td>
                     <div class="fw-bold">${order.user_full_name || 'Khách hàng #' + order.user_id}</div>
-                    <small class="text-muted">Người nhận: ${order.delivery_address.recipient_name || 'N/A'}</small>
+                    <small class="text-muted">Người nhận: ${order.delivery_address?.recipient_name || 'N/A'}</small>
                 </td>
                 <td><small>${date}</small></td>
                 <td class="text-danger fw-bold">${total}</td>
@@ -81,7 +81,7 @@ async function loadOrders() {
                     </span>
                 </td>
                 <td>
-                    <select class="form-select form-select-sm status-select" 
+                    <select class="form-select form-select-sm" 
                         onchange="changeOrderStatus(${order.id}, this.value)"
                         style="width: 140px; border-color: ${getOrderStatusColor(order.status)}">
                         <option value="pending" ${order.status === 'pending' ? 'selected' : ''}>Chờ xử lý</option>
@@ -92,20 +92,16 @@ async function loadOrders() {
                     </select>
                 </td>
                 <td>
-                    <button class="btn btn-sm btn-outline-info" title="Xem chi tiết" 
-                        onclick="showOrderDetail(${order.id})">
-                        <i class="fas fa-eye"></i>
-                    </button>
+                    <button class="btn btn-sm btn-outline-info" onclick="showOrderDetail(${order.id})"><i class="fas fa-eye"></i></button>
                     <div id="order-items-${order.id}" class="d-none mt-2 small p-2 bg-light rounded border">
                         ${itemsSummary}
                         <hr class="my-1">
-                        <strong>Địa chỉ:</strong> ${order.delivery_address.street_address}, ${order.delivery_address.ward || ''}, ${order.delivery_address.province_city}
+                        <strong>Địa chỉ:</strong> ${order.delivery_address?.street_address}, ${order.delivery_address?.ward || ''}, ${order.delivery_address?.province_city}
                         <br>
-                        <strong>SĐT:</strong> ${order.delivery_address.recipient_phone || 'N/A'}
+                        <strong>SĐT:</strong> ${order.delivery_address?.recipient_phone || 'N/A'}
                     </div>
                 </td>
-            </tr>
-            `;
+            </tr>`;
         }).join('');
     } catch (error) {
         console.error("Load Orders Error:", error);
@@ -113,237 +109,278 @@ async function loadOrders() {
 }
 
 async function changeOrderStatus(orderId, newStatus) {
+    if (!confirm(`Bạn có chắc muốn chuyển đơn hàng #${orderId} sang trạng thái "${newStatus}"?`)) {
+        loadOrders();
+        return;
+    }
     try {
         await AdminService.updateOrderStatus(orderId, newStatus);
-        alert(`Cập nhật trạng thái đơn hàng #${orderId} thành công!`);
+        alert(`Cập nhật thành công!`);
         loadOrders();
     } catch (error) {
-        console.error("Update Order Status Error:", error);
-        alert("Lỗi khi cập nhật trạng thái đơn hàng!");
-        loadOrders(); // Refresh to reset select
+        alert("Lỗi: " + (error.detail || "Không thể cập nhật"));
+        loadOrders();
     }
 }
 
 function showOrderDetail(orderId) {
-    const detailDiv = document.getElementById(`order-items-${orderId}`);
-    if (detailDiv) {
-        detailDiv.classList.toggle('d-none');
-    }
+    document.getElementById(`order-items-${orderId}`)?.classList.toggle('d-none');
 }
 
 function getPaymentStatusClass(status) {
-    switch(status) {
-        case 'completed': return 'bg-success';
-        case 'pending': return 'bg-warning text-dark';
-        case 'failed': return 'bg-danger';
-        default: return 'bg-secondary';
-    }
+    return status === 'completed' ? 'bg-success' : (status === 'pending' ? 'bg-warning text-dark' : 'bg-danger');
 }
-
 function formatPaymentStatus(status) {
-    switch(status) {
-        case 'completed': return 'Đã thanh toán';
-        case 'pending': return 'Chờ thanh toán';
-        case 'failed': return 'Thất bại';
-        default: return status;
-    }
+    return status === 'completed' ? 'Đã thanh toán' : (status === 'pending' ? 'Chờ thanh toán' : 'Thất bại');
 }
-
 function getOrderStatusColor(status) {
-    switch(status) {
-        case 'pending': return '#ffc107';
-        case 'processing': return '#0dcaf0';
-        case 'shipped': return '#0d6efd';
-        case 'delivered': return '#198754';
-        case 'cancelled': return '#dc3545';
-        default: return '#6c757d';
-    }
+    const colors = { pending: '#ffc107', processing: '#0dcaf0', shipped: '#0d6efd', delivered: '#198754', cancelled: '#dc3545' };
+    return colors[status] || '#6c757d';
 }
 
-// Local Cache for mapping IDs to names
-let categoryMap = {};
-let brandMap = {};
+// ---------------- METADATA & REVIEWS ----------------
+let categoryMap = {}, brandMap = {};
 
-// METADATA (Category, Brand)
-async function loadMetadata(selectedCatId = null, selectedBrandId = null) {
+async function loadMetadata() {
     try {
-        const [catsResult, brandsResult] = await Promise.all([
-            AdminService.getCategories(),
-            AdminService.getBrands()
-        ]);
-
-        const catSelect = document.getElementById('prodCategory');
-        const brandSelect = document.getElementById('prodBrand');
-
-        const cats = catsResult.data?.items || catsResult.data || catsResult || [];
-        const brands = brandsResult.data?.items || brandsResult.data || brandsResult || [];
-
-        // Update Maps
+        const [catsRes, brandsRes] = await Promise.all([AdminService.getCategories(), AdminService.getBrands()]);
+        const cats = catsRes.data?.items || catsRes.data || catsRes || [];
+        const brands = brandsRes.data?.items || brandsRes.data || brandsRes || [];
+        
         cats.forEach(c => categoryMap[c.id] = c.name);
         brands.forEach(b => brandMap[b.id] = b.brand_name || b.name);
 
-        catSelect.innerHTML = '<option value="">-- Chọn danh mục --</option>' + 
-            cats.map(c => `<option value="${c.id}" ${selectedCatId == c.id ? 'selected' : ''}>${c.name}</option>`).join('');
-            
-        brandSelect.innerHTML = '<option value="">-- Chọn thương hiệu --</option>' + 
-            brands.map(b => `<option value="${b.id}" ${selectedBrandId == b.id ? 'selected' : ''}>${b.brand_name || b.name}</option>`).join('');
-
-        // Render danh sách trong các Tab khác
-        const catContainer = document.getElementById('category-list-container');
-        const brandContainer = document.getElementById('brand-list-container');
-
-        if(catContainer) {
-            catContainer.innerHTML = `
-                <div class="card"><div class="card-body p-0">
-                    <table class="table table-hover mb-0">
-                        <thead class="table-light"><tr><th>ID</th><th>Tên Danh Mục</th><th>Mô Tả</th></tr></thead>
-                        <tbody>${cats.map(c => `<tr><td>${c.id}</td><td>${c.name}</td><td>${c.description || ''}</td></tr>`).join('')}</tbody>
-                    </table>
-                </div></div>`;
-        }
-        if(brandContainer) {
-            brandContainer.innerHTML = `
-                <div class="card"><div class="card-body p-0">
-                    <table class="table table-hover mb-0">
-                        <thead class="table-light"><tr><th>ID</th><th>Tên Thương Hiệu</th></tr></thead>
-                        <tbody>${brands.map(b => `<tr><td>${b.id}</td><td>${b.brand_name || b.name}</td></tr>`).join('')}</tbody>
-                    </table>
-                </div></div>`;
-        }
-    } catch (error) {
-        console.error("Lỗi tải metadata:", error);
-    }
+        const catSelect = document.getElementById('prodCategory');
+        const brandSelect = document.getElementById('prodBrand');
+        if (catSelect) catSelect.innerHTML = '<option value="">-- Danh mục --</option>' + cats.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+        if (brandSelect) brandSelect.innerHTML = '<option value="">-- Thương hiệu --</option>' + brands.map(b => `<option value="${b.id}">${b.brand_name || b.name}</option>`).join('');
+    } catch (e) { console.error("Metadata load error", e); }
 }
 
-// CATEGORY & BRAND OPERATIONS
-let categoryModal, brandModal;
+// ---------------- CATEGORY MANAGEMENT ----------------
+async function loadCategories() {
+    try {
+        const res = await AdminService.getCategories();
+        const cats = res.data?.items || res.data || res || [];
+        const body = document.getElementById('category-list-body');
+        if (!body) return;
 
-function openCategoryModal() {
+        body.innerHTML = cats.map(c => `
+            <tr>
+                <td>#${c.id}</td>
+                <td class="fw-bold">${c.name}</td>
+                <td>${c.description || ''}</td>
+                <td><small>${new Date(c.created_at).toLocaleDateString('vi-VN')}</small></td>
+                <td>
+                    <button class="btn btn-sm btn-outline-primary" onclick='editCategory(${JSON.stringify(c)})'><i class="fas fa-edit"></i></button>
+                    <button class="btn btn-sm btn-outline-danger" onclick="deleteCategory(${c.id})"><i class="fas fa-trash"></i></button>
+                </td>
+            </tr>
+        `).join('');
+    } catch(e) { console.error(e); }
+}
+
+window.openCategoryModal = function() {
     document.getElementById('categoryForm').reset();
+    document.getElementById('catId').value = '';
+    document.getElementById('categoryModalTitle').innerText = 'Thêm Danh Mục Mới';
     if (!categoryModal) categoryModal = new bootstrap.Modal(document.getElementById('categoryModal'));
     categoryModal.show();
 }
 
-async function saveCategory() {
-    const data = {
-        name: document.getElementById('catName').value,
-        description: document.getElementById('catDesc').value
-    };
-
-    try {
-        const res = await AdminService.createCategory(data);
-        alert("Thêm danh mục thành công!");
-        if (categoryModal) categoryModal.hide();
-        
-        const newId = res.data?.id || null;
-        loadMetadata(newId, document.getElementById('prodBrand').value); 
-    } catch (error) {
-        console.error("Save Category Error:", error);
-        const msg = error.detail || error.message || JSON.stringify(error);
-        alert("Lỗi thêm danh mục: " + (typeof msg === 'object' ? JSON.stringify(msg) : msg));
-    }
+window.editCategory = function(c) {
+    window.openCategoryModal();
+    document.getElementById('categoryModalTitle').innerText = 'Sửa Danh Mục #' + c.id;
+    document.getElementById('catId').value = c.id;
+    document.getElementById('catName').value = c.name;
+    document.getElementById('catDesc').value = c.description || '';
 }
 
-function openBrandModal() {
+window.saveCategory = async function() {
+    const id = document.getElementById('catId').value;
+    const data = { name: document.getElementById('catName').value, description: document.getElementById('catDesc').value };
+    try {
+        if (id) await AdminService.updateCategory(id, data);
+        else await AdminService.createCategory(data);
+        alert("Thành công!");
+        categoryModal.hide();
+        loadCategories();
+        loadMetadata();
+    } catch (e) { alert("Lỗi: " + (e.detail || "Không thể lưu")); }
+}
+
+window.deleteCategory = async function(id) {
+    if (!confirm("Xác nhận xóa danh mục này?")) return;
+    try {
+        await AdminService.deleteCategory(id);
+        loadCategories();
+    } catch (e) { alert("Lỗi: " + (e.detail || "Không thể xóa")); }
+}
+
+// ---------------- BRAND MANAGEMENT ----------------
+async function loadBrands() {
+    try {
+        const res = await AdminService.getBrands();
+        const brands = res.data?.items || res.data || res || [];
+        const body = document.getElementById('brand-list-body');
+        if (!body) return;
+
+        body.innerHTML = brands.map(b => `
+            <tr>
+                <td>#${b.id}</td>
+                <td class="fw-bold">${b.brand_name || b.name}</td>
+                <td>${b.description || ''}</td>
+                <td><small>${new Date(b.created_at).toLocaleDateString('vi-VN')}</small></td>
+                <td>
+                    <button class="btn btn-sm btn-outline-primary" onclick='editBrand(${JSON.stringify(b)})'><i class="fas fa-edit"></i></button>
+                    <button class="btn btn-sm btn-outline-danger" onclick="deleteBrand(${b.id})"><i class="fas fa-trash"></i></button>
+                </td>
+            </tr>
+        `).join('');
+    } catch(e) { console.error(e); }
+}
+
+window.openBrandModal = function() {
     document.getElementById('brandForm').reset();
+    document.getElementById('brandId').value = '';
+    document.getElementById('brandModalTitle').innerText = 'Thêm Thương Hiệu Mới';
     if (!brandModal) brandModal = new bootstrap.Modal(document.getElementById('brandModal'));
     brandModal.show();
 }
 
-async function saveBrand() {
-    const data = { 
-        brand_name: document.getElementById('brand_name').value,
-        description: document.getElementById('brandDesc').value
-    };
+window.editBrand = function(b) {
+    window.openBrandModal();
+    document.getElementById('brandModalTitle').innerText = 'Sửa Thương Hiệu #' + b.id;
+    document.getElementById('brandId').value = b.id;
+    document.getElementById('brand_name').value = b.brand_name || b.name;
+    document.getElementById('brandDesc').value = b.description || '';
+}
 
+window.saveBrand = async function() {
+    const id = document.getElementById('brandId').value;
+    const data = { brand_name: document.getElementById('brand_name').value, description: document.getElementById('brandDesc').value };
     try {
-        const res = await AdminService.createBrand(data);
-        alert("Thêm thương hiệu thành công!");
-        if (brandModal) brandModal.hide();
-        
-        const newId = res.data?.id || null;
-        loadMetadata(document.getElementById('prodCategory').value, newId);
-    } catch (error) {
-        console.error("Save Brand Error:", error);
-        const msg = error.detail || error.message || JSON.stringify(error);
-        alert("Lỗi thêm thương hiệu: " + (typeof msg === 'object' ? JSON.stringify(msg) : msg));
-    }
+        if (id) await AdminService.updateBrand(id, data);
+        else await AdminService.createBrand(data);
+        alert("Thành công!");
+        brandModal.hide();
+        loadBrands();
+        loadMetadata();
+    } catch (e) { alert("Lỗi: " + (e.detail || "Không thể lưu")); }
 }
 
-// LOAD PRODUCTS
+window.deleteBrand = async function(id) {
+    if (!confirm("Xác nhận xóa thương hiệu này?")) return;
+    try {
+        await AdminService.deleteBrand(id);
+        loadBrands();
+    } catch (e) { alert("Lỗi: " + (e.detail || "Không thể xóa")); }
+}
+
+// ---------------- REVIEWS MANAGEMENT ----------------
+async function loadReviews() {
+    try {
+        const res = await AdminService.getAllReviews(1, 100);
+        const reviews = res.data || [];
+        const body = document.getElementById('review-list-body');
+        if (!body) return;
+
+        body.innerHTML = reviews.map(r => `
+            <tr>
+                <td>#${r.id}</td>
+                <td><small class="fw-bold">${r.product_name || 'N/A'}</small><br><small class="text-muted">ID: ${r.product_id}</small></td>
+                <td>${r.user_name || 'User #' + r.user_id}</td>
+                <td><span class="text-warning"><i class="fas fa-star"></i> ${r.rating}</span></td>
+                <td><small>${r.comment || ''}</small></td>
+                <td><small>${new Date(r.created_at).toLocaleDateString('vi-VN')}</small></td>
+                <td>
+                    <button class="btn btn-sm btn-outline-danger" onclick="deleteReview(${r.id})"><i class="fas fa-trash"></i></button>
+                </td>
+            </tr>
+        `).join('');
+    } catch (e) { console.error("Review load error", e); }
+}
+
+window.deleteReview = async function(id) {
+    if (!confirm("Xác nhận xóa đánh giá này?")) return;
+    try {
+        await AdminService.deleteReview(id);
+        alert("Đã xóa!");
+        loadReviews();
+    } catch (e) { alert("Lỗi khi xóa đánh giá"); }
+}
+
+// ---------------- PRODUCT MANAGEMENT ----------------
 async function loadProducts() {
-    const result = await AdminService.getProducts();
-    const products = result.data.items || result.data || [];
-    const body = document.getElementById('product-list-body');
+    try {
+        const result = await AdminService.getProducts(1, 100);
+        const products = result.data.items || result.data || [];
+        const body = document.getElementById('product-list-body');
+        if (!body) return;
 
-    body.innerHTML = products.map(p => {
-        const isLocked = p.status !== 'active';
-        
-        // 1. Lấy tên Danh mục (Thử Map trước, sau đó thử các trường khác)
-        let catName = categoryMap[p.category_id] || 'N/A';
-        if (catName === 'N/A') {
-            if (p.category) {
-                catName = typeof p.category === 'object' ? (p.category.name || p.category.category_name) : p.category;
-            } else if (p.category_name) {
-                catName = p.category_name;
-            }
-        }
-        
-        // 2. Lấy tên Thương hiệu
-        let brandName = brandMap[p.brand_id] || 'N/A';
-        if (brandName === 'N/A') {
-            if (p.brand) {
-                brandName = typeof p.brand === 'object' ? (p.brand.brand_name || p.brand.name) : p.brand;
-            } else if (p.brand_name) {
-                brandName = p.brand_name;
-            }
-        }
-        
-        // 3. Tóm tắt biến thể
-        const variantSummary = p.variants && p.variants.length > 0 
-            ? p.variants.map(v => `${v.color}-${v.size}(${v.stock_quantity})`).join(', ')
-            : 'N/A';
+        body.innerHTML = products.map(p => {
+            const isLocked = p.status !== 'active';
+            const variantSummary = (p.variants || []).map(v => `${v.color}-${v.size}(${v.stock_quantity})`).join(', ');
 
-        return `
-        <tr>
-            <td>#${p.id}</td>
-            <td><img src="${p.image_url || (p.image_urls && p.image_urls[0]?.url) || 'https://theme.hstatic.net/1000230642/1001205219/14/no-image.jpg'}" alt=""></td>
-            <td class="fw-semibold">${p.name}</td>
-            <td>${catName}</td>
-            <td>${brandName}</td>
-            <td><small class="text-muted" style="font-size: 11px;">${variantSummary}</small></td>
-            <td class="text-danger fw-bold">${p.price.toLocaleString('vi-VN')} ₫</td>
-            <td><span class="badge ${!isLocked ? 'badge-active' : 'badge-inactive'}">${!isLocked ? 'Kinh doanh' : 'Khóa'}</span></td>
-            <td>
-                <button class="btn btn-sm btn-outline-primary me-1" title="Sửa" onclick='editProduct(${JSON.stringify(p).replace(/'/g, "&apos;")})'><i class="fas fa-edit"></i></button>
-                <button class="btn btn-sm ${isLocked ? 'btn-outline-success' : 'btn-outline-warning'}" 
-                    title="${isLocked ? 'Mở khóa' : 'Khóa'}" 
-                    onclick="toggleProductStatus(${p.id}, '${p.status}')">
-                    <i class="fas ${isLocked ? 'fa-unlock' : 'fa-lock'}"></i>
-                </button>
-            </td>
-        </tr>
-    `}).join('');
+            return `
+            <tr>
+                <td>#${p.id}</td>
+                <td><img src="${p.image_url || (p.image_urls?.[0]?.url) || 'https://via.placeholder.com/50'}" style="width:50px; height:50px; object-fit:cover; border-radius:4px;"></td>
+                <td class="fw-semibold">${p.name}</td>
+                <td>${categoryMap[p.category_id] || 'N/A'}</td>
+                <td>${brandMap[p.brand_id] || 'N/A'}</td>
+                <td><small class="text-muted" style="font-size: 11px;">${variantSummary}</small></td>
+                <td class="text-danger fw-bold">${(p.price || 0).toLocaleString('vi-VN')} ₫</td>
+                <td><span class="badge ${isLocked ? 'bg-secondary' : 'bg-success'}">${isLocked ? 'Khóa' : 'Kinh doanh'}</span></td>
+                <td>
+                    <button class="btn btn-sm btn-outline-primary" onclick='editProduct(${JSON.stringify(p).replace(/'/g, "&apos;")})'><i class="fas fa-edit"></i></button>
+                    <button class="btn btn-sm ${isLocked ? 'btn-outline-success' : 'btn-outline-warning'}" onclick="toggleProductStatus(${p.id}, '${p.status}')">
+                        <i class="fas ${isLocked ? 'fa-unlock' : 'fa-lock'}"></i>
+                    </button>
+                </td>
+            </tr>`;
+        }).join('');
+    } catch(e) { console.error(e); }
 }
 
-// IMAGE PREVIEW & SELECTION
-let selectedFiles = [];
+window.openProductModal = function() {
+    document.getElementById('productForm').reset();
+    document.getElementById('productId').value = '';
+    document.getElementById('modalTitle').innerText = 'Thêm Sản Phẩm Mới';
+    document.getElementById('variant-inputs').innerHTML = ''; 
+    document.getElementById('image-previews').innerHTML = '';
+    selectedFiles = [];
+    addVariantField();
+    if (!productModal) productModal = new bootstrap.Modal(document.getElementById('productModal'));
+    productModal.show();
+}
 
-function previewImages(input) {
+window.addVariantField = function(v = null) {
+    const container = document.getElementById('variant-inputs');
+    const div = document.createElement('div');
+    div.className = 'row g-2 mb-2 p-2 variant-row align-items-center bg-light rounded';
+    div.innerHTML = `
+        <div class="col-md-4"><input type="text" class="form-control form-control-sm var-color" placeholder="Màu" value="${v?.color || ''}"></div>
+        <div class="col-md-3"><input type="number" class="form-control form-control-sm var-size" placeholder="Size" value="${v?.size || ''}"></div>
+        <div class="col-md-3"><input type="number" class="form-control form-control-sm var-stock" placeholder="Kho" value="${v?.stock_quantity || ''}"></div>
+        <div class="col-md-2 text-end"><button class="btn btn-sm btn-link text-danger" type="button" onclick="this.closest('.variant-row').remove()"><i class="fas fa-times"></i></button></div>
+    `;
+    container.appendChild(div);
+}
+
+// IMAGE HANDLING
+window.previewImages = function(input) {
     const files = Array.from(input.files);
-    // Accumulate files instead of replacing
     files.forEach(file => {
         if (!selectedFiles.some(f => f.name === file.name && f.size === file.size)) {
             selectedFiles.push(file);
         }
     });
-    
-    // Clear input so onchange triggers even if same file is picked again
     input.value = ''; 
     renderPreviews();
 }
 
-function removeSelectedFile(index) {
+window.removeSelectedFile = function(index) {
     selectedFiles.splice(index, 1);
     renderPreviews();
 }
@@ -351,128 +388,71 @@ function removeSelectedFile(index) {
 function renderPreviews() {
     const container = document.getElementById('image-previews');
     container.innerHTML = '';
-    
     selectedFiles.forEach((file, index) => {
         const reader = new FileReader();
-        reader.onload = function (e) {
+        reader.onload = (e) => {
             const div = document.createElement('div');
             div.className = 'position-relative';
-            div.style.width = '100px';
-            div.style.height = '100px';
+            div.style.width = '80px'; div.style.height = '80px';
             div.innerHTML = `
                 <img src="${e.target.result}" class="img-thumbnail w-100 h-100" style="object-fit:cover;">
                 <span class="position-absolute top-0 end-0 badge rounded-pill bg-danger" 
                     onclick="removeSelectedFile(${index})" style="cursor:pointer; transform: translate(30%, -30%);">
                     <i class="fas fa-times"></i>
-                </span>
-            `;
+                </span>`;
             container.appendChild(div);
         }
         reader.readAsDataURL(file);
     });
 }
 
-// PRODUCT OPERATIONS
-function openProductModal() {
-    document.getElementById('productForm').reset();
-    document.getElementById('productId').value = '';
-    document.getElementById('modalTitle').innerText = 'Thêm Sản Phẩm Mới';
-    document.getElementById('variant-inputs').innerHTML = ''; 
-    document.getElementById('image-previews').innerHTML = '';
-    selectedFiles = [];
-
-    if (!productModal) productModal = new bootstrap.Modal(document.getElementById('productModal'));
-    productModal.show();
-}
-
-function addVariantField(variant = null) {
-    const container = document.getElementById('variant-inputs');
-    const div = document.createElement('div');
-    div.className = 'row g-2 mb-2 p-3 variant-row align-items-center';
-    div.innerHTML = `
-        <div class="col-md-4"><input type="text" class="form-control var-color" placeholder="Màu sắc" value="${variant?.color || ''}"></div>
-        <div class="col-md-3"><input type="number" class="form-control var-size" placeholder="Size" value="${variant?.size || ''}"></div>
-        <div class="col-md-3"><input type="number" class="form-control var-stock" placeholder="Số lượng" value="${variant?.stock_quantity || ''}"></div>
-        <div class="col-md-2 text-end"><button class="btn btn-sm btn-danger" type="button" onclick="this.closest('.variant-row').remove()"><i class="fas fa-times"></i></button></div>
-    `;
-    container.appendChild(div);
-}
-
-async function saveProduct() {
+window.saveProduct = async function() {
     const id = document.getElementById('productId').value;
-    const name = document.getElementById('prodName').value;
-    const price = parseInt(document.getElementById('prodPrice').value) || 0;
-    const description = document.getElementById('prodDesc').value;
-    const category_id = parseInt(document.getElementById('prodCategory').value) || 0;
-    const brand_id = parseInt(document.getElementById('prodBrand').value) || 0;
-    const status = document.getElementById('prodStatus').value;
-    
-    // Thu thập biến thể
-    const variantRows = document.querySelectorAll('.variant-row');
-    const variants = Array.from(variantRows).map(row => ({
-        color: row.querySelector('.var-color').value,
-        size: parseInt(row.querySelector('.var-size').value) || 0,
-        stock_quantity: parseInt(row.querySelector('.var-stock').value) || 0
-    }));
-
     const saveBtn = document.getElementById('saveProductBtn');
     const originalBtnText = saveBtn.innerHTML;
 
     try {
         saveBtn.disabled = true;
-        
         let finalImageUrls = [];
         
-        // BƯỚC 1: Nếu có file mới được chọn, upload lên Cloudinary trước
         if (selectedFiles.length > 0) {
-            saveBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span> Đang upload ảnh lên Cloudinary...`;
+            saveBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span> Đang tải ảnh...`;
             const uploadData = new FormData();
             selectedFiles.forEach(file => uploadData.append('files', file));
-            
             const uploadRes = await AdminService.uploadFiles(uploadData);
-            // Ánh xạ kết quả trả về từ upload_router.py (public_id, url)
-            finalImageUrls = uploadRes.map(img => ({
-                public_id: img.public_id,
-                url: img.url
-            }));
+            finalImageUrls = uploadRes.map(img => ({ public_id: img.public_id, url: img.url }));
         }
 
-        // BƯỚC 2: Gửi JSON sản phẩm (bao gồm mảng image_urls vừa lấy được)
-        saveBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span> Đang lưu thông tin sản phẩm...`;
-        
-        const productPayload = {
-            name,
-            description,
-            price,
-            category_id,
-            brand_id,
-            status,
-            variants: variants,
-            image_urls: finalImageUrls 
+        const body = {
+            name: document.getElementById('prodName').value,
+            price: parseInt(document.getElementById('prodPrice').value),
+            description: document.getElementById('prodDesc').value,
+            category_id: parseInt(document.getElementById('prodCategory').value),
+            brand_id: parseInt(document.getElementById('prodBrand').value),
+            status: document.getElementById('prodStatus').value,
+            variants: Array.from(document.querySelectorAll('.variant-row')).map(row => ({
+                color: row.querySelector('.var-color').value,
+                size: parseInt(row.querySelector('.var-size').value),
+                stock_quantity: parseInt(row.querySelector('.var-stock').value)
+            })),
+            image_urls: finalImageUrls.length > 0 ? finalImageUrls : undefined
         };
 
-        let response;
-        if (id) {
-            // Khi update, Backend có thể cần logic gộp ảnh cũ/mới, hiện tại gửi mảng ảnh mới
-            response = await AdminService.updateProduct(id, productPayload);
-        } else {
-            response = await AdminService.createProduct(productPayload);
-        }
+        if (id) await AdminService.updateProduct(id, body);
+        else await AdminService.createProduct(body);
 
-        alert("Lưu sản phẩm thành công!");
+        alert("Thành công!");
         productModal.hide();
         loadProducts();
-    } catch (error) {
-        console.error("Save Product Error:", error);
-        const msg = error.detail || error.message || JSON.stringify(error);
-        alert("Lỗi lưu sản phẩm: " + (typeof msg === 'object' ? JSON.stringify(msg) : msg));
-    } finally {
+    } catch (e) { alert("Lỗi: " + (e.detail || "Không thể lưu")); }
+    finally {
         saveBtn.disabled = false;
         saveBtn.innerHTML = originalBtnText;
     }
 }
 
-function editProduct(p) {
+window.editProduct = function(p) {
+    window.openProductModal();
     document.getElementById('productId').value = p.id;
     document.getElementById('prodName').value = p.name;
     document.getElementById('prodPrice').value = p.price;
@@ -480,51 +460,30 @@ function editProduct(p) {
     document.getElementById('prodBrand').value = p.brand_id;
     document.getElementById('prodStatus').value = p.status;
     document.getElementById('prodDesc').value = p.description || '';
+    document.getElementById('modalTitle').innerText = 'Sửa Sản Phẩm #' + p.id;
     
-    document.getElementById('modalTitle').innerText = 'Chỉnh Sửa Sản Phẩm #' + p.id;
-
-    // Previews for existing images (Optional: Show them but they are not files)
+    // Existing images preview
     const imgContainer = document.getElementById('image-previews');
-    imgContainer.innerHTML = '';
-    selectedFiles = []; // Reset selected files on edit
-    
     if (p.image_urls) {
         p.image_urls.forEach(img => {
             const div = document.createElement('div');
-            div.style.width = '80px';
-            div.innerHTML = `<img src="${img.url}" class="img-thumbnail" style="width:80px;height:80px;object-fit:cover;">`;
+            div.style.width = '60px';
+            div.innerHTML = `<img src="${img.url}" class="img-thumbnail" style="width:60px;height:60px;object-fit:cover;">`;
             imgContainer.appendChild(div);
         });
     }
 
-    // Load Variants
     const varContainer = document.getElementById('variant-inputs');
     varContainer.innerHTML = '';
-    if (p.variants && p.variants.length > 0) {
-        p.variants.forEach(v => addVariantField(v));
-    } else {
-        addVariantField();
-    }
-
-    if (!productModal) productModal = new bootstrap.Modal(document.getElementById('productModal'));
-    productModal.show();
+    if (p.variants?.length) p.variants.forEach(v => addVariantField(v));
+    else addVariantField();
 }
 
-async function toggleProductStatus(id, currentStatus) {
-    const newStatus = currentStatus === 'active' ? 'locked' : 'active';
-    const actionText = newStatus === 'active' ? 'Mở khóa' : 'Khóa';
-    
-    if (!confirm(`Bạn có chắc chắn muốn ${actionText.toLowerCase()} sản phẩm #${id}?`)) return;
-    
+window.toggleProductStatus = async function(id, current) {
+    const next = current === 'active' ? 'locked' : 'active';
+    if (!confirm(`Xác nhận ${next === 'active' ? 'mở khóa' : 'khóa'} sản phẩm này?`)) return;
     try {
-        // We use a partial update or updateProduct to change status
-        // Create a basic payload with only status if backend supports it, 
-        // otherwise we might need the full object. Assuming partial update works or we use a custom method.
-        await AdminService.updateProductStatus(id, newStatus);
-        alert(`${actionText} thành công!`);
+        await AdminService.updateProductStatus(id, next);
         loadProducts();
-    } catch (error) {
-        console.error("Toggle Status Error:", error);
-        alert("Lỗi khi thay đổi trạng thái!");
-    }
+    } catch (e) { alert("Lỗi hệ thống"); }
 }
