@@ -46,7 +46,7 @@ label {
 .layout-account .customers_accountForm .large_form {
   display: flex;
   flex-direction: column;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   position: relative;
 }
 

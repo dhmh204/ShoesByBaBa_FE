@@ -865,58 +865,68 @@
                 </div>
             </div>
             <div id="customer-login" class="customers_accountForm customer_login">
-                    <div id="login">
-                        <form id="login-form">
-                            <div class="clearfix large_form">
-                                <label for="customer_email" class="icon-field">Email:</label>
-                                <input required type="email" name="customer[email]" id="customer_email" placeholder="Vui lòng nhập email của bạn" class="text">
-                            </div>
-                            
-                            <div class="clearfix large_form large_form-mrb">
-                                <label for="customer_password" class="icon-field">Mật khẩu:</label>
-                                <input required type="password" name="customer[password]" id="customer_password" placeholder="Vui lòng nhập mật khẩu" class="text" size="16">      
-                            </div>
-                            
-                            <div class="clearfix custommer_account_action">    
-                                <div class="clearfix action_bottom">
-                                    <input class="btn btn-signin" type="submit" value="Đăng nhập">
-                                </div>
-                                </div>  
-                        </form>
-
-                        <div class="divider"><span>Hoặc</span></div>
+                <div id="login">
+                    <form id="login-form">
+                        <div class="clearfix large_form">
+                            <label for="customer_email" class="icon-field">Email:</label>
+                            <input required type="email" name="customer[email]" id="customer_email" placeholder="Vui lòng nhập email của bạn" class="text">
+                        </div>
                         
-                        <div class="login-social">
-                            <div class="btn-social facebook" id="btn-facebook-login">
-                                <i class="fa-brands fa-facebook-f"></i> Đăng nhập với Facebook
+                        <div class="clearfix large_form large_form-mrb">
+                            <label for="customer_password" class="icon-field">Mật khẩu:</label>
+                            <input required type="password" name="customer[password]" id="customer_password" placeholder="Vui lòng nhập mật khẩu" class="text" size="16">      
+                        </div>
+                        <div id="error" class="clearfix large_form large_form-mrb d-none" style="align-items: center;">
+                            <label id="error-text" style="color: #FE0000">Đăng nhập thất bại!</label>
+                        </div>
+                        
+                        <div class="clearfix custommer_account_action">    
+                            <div class="clearfix action_bottom">
+                                <input class="btn btn-signin" type="submit" value="Đăng nhập">
                             </div>
-                            <div class="btn-social google" id="btn-google-login">
-                                <i class="fa-brands fa-google"></i> Đăng nhập với Google
+                                <div class="req_pass">
+                                Bạn chưa có tài khoản? <a href="./register.html " title="Đăng ký">Đăng ký ngay</a><br>
                             </div>
+                            <div class="req_pass">
+                                Bạn quên mật khẩu? <a href="./forgotPassword.html">Khôi phục mật khẩu</a>
+                            </div>
+                        </div>  
+                            
+                    </form>
+
+                    <div class="divider"><span>Hoặc</span></div>
+                    
+                    <div class="login-social">
+                        <div class="btn-social facebook" id="btn-facebook-login">
+                            <i class="fa-brands fa-facebook-f"></i> Đăng nhập với Facebook
+                        </div>
+                        <div class="btn-social google" id="btn-google-login">
+                            <i class="fa-brands fa-google"></i> Đăng nhập với Google
                         </div>
                     </div>
-
-                    <!-- -------------- -->
-                    <!-- <div id="recover-password" style="display: none;">
-                        <div class="accounttype"><h2>Khôi phục mật khẩu</h2></div>		
-                        <form accept-charset="UTF-8" action="/account/recover" method="post">
-                        <input name="form_type" type="hidden" value="recover_customer_password">
-                        <input name="utf8" type="hidden" value="✓">
-                        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8FyFPV59mBtNhmQGz0fYZt9YEgrj4gVARp08mNXOyazz_oQ3bgyauMhGgnd2Ag8p3G72hfgw84avcz-fMyyHWA7_1xQLLdzxmyLIWIlSC_CMdgJ_60TblXx3UXVOguTw66-HEXWEX_XKECSEvnle5ak">
-        
-                        <div class="clearfix large_form large_form-mrb">
-                            <label for="email" class="icon-field">Email:</label>
-                            <input type="email" value="" size="30" name="email" placeholder="Email" id="recover-email" class="text">
-                        </div>
-                      
-                        <div class="clearfix custommer_account_action">
-                            <input class="btn" type="submit" value="Hủy">
-                            <input class="btn" type="submit" value="Gửi">
-                        </div>
-                        </form>
-                    </div> -->
-                    
                 </div>
+
+                <!-- -------------- -->
+                <div id="recover-password" style="display: none;">
+                    <div class="accounttype"><h2>Khôi phục mật khẩu</h2></div>		
+                    <form accept-charset="UTF-8" action="/account/recover" method="post">
+                    <input name="form_type" type="hidden" value="recover_customer_password">
+                    <input name="utf8" type="hidden" value="✓">
+                    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8FyFPV59mBtNhmQGz0fYZt9YEgrj4gVARp08mNXOyazz_oQ3bgyauMhGgnd2Ag8p3G72hfgw84avcz-fMyyHWA7_1xQLLdzxmyLIWIlSC_CMdgJ_60TblXx3UXVOguTw66-HEXWEX_XKECSEvnle5ak">
+    
+                    <div class="clearfix large_form large_form-mrb">
+                        <label for="email" class="icon-field">Email:</label>
+                        <input type="email" value="" size="30" name="email" placeholder="Email" id="recover-email" class="text">
+                    </div>
+                    
+                    <div class="clearfix custommer_account_action">
+                        <input class="btn" type="submit" value="Hủy">
+                        <input class="btn" type="submit" value="Gửi">
+                    </div>
+                    </form>
+                </div>
+                    
+            </div>
         </div>
     </div>
 </main>

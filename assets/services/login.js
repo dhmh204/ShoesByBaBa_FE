@@ -1,35 +1,43 @@
 document.addEventListener('DOMContentLoaded', function () {
     const loginForm = document.getElementById('login-form');
+    const errorDiv = document.getElementById('error');
+    const errorText = document.getElementById('error-text');
 
-    if (loginForm) {
-        loginForm.addEventListener('submit', async function (e) {
-            e.preventDefault();
+    if (!loginForm) return;
 
-            const emailInput = document.getElementById('customer_email');
-            const passwordInput = document.getElementById('customer_password');
+    loginForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
 
-            const loginData = {
-                email: emailInput.value.trim(),
-                password: passwordInput.value
-            };
-            try {
-                const response = await fetch('http://localhost:8000/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify(loginData)
-                });
+        const email = document.getElementById('customer_email').value.trim();
+        const password = document.getElementById('customer_password').value;
 
-                if (!response.ok) {
-                    const errorDetail = await response.text();
-                    alert("Lỗi hệ thống: " + response.status);
+        if (errorDiv) errorDiv.classList.add('d-none');
+
+        try {
+            const response = await fetch('http://localhost:8000/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+
+            const result = await response.json();
+
+        
+            if (response.ok && result.code === "200" && result.data) {
+                const { access_token, role } = result.data;
+
+                if (!access_token) {
+                    showError("Dữ liệu đăng nhập không hợp lệ!");
                     return;
                 }
 
-                const result = await response.json();
+                localStorage.setItem('token', access_token);
+                localStorage.setItem('role', role);
 
+<<<<<<< HEAD
                 if (result.code === "200") {
                     console.log("Dữ liệu nhận được:", result.data);
                     
@@ -56,15 +64,35 @@ document.addEventListener('DOMContentLoaded', function () {
                     } else {
                         alert("Đăng nhập thành công nhưng không nhận được token từ Server.");
                     }
+=======
+                if (role === "admin") {
+                    window.location.href = "admin.html";
+                } else if (role === "user") {
+                    window.location.href = "index.html";
+>>>>>>> 1dd9b37 (update)
                 } else {
-                     alert("Lỗi: " + result.message);
+                    showError("Vai trò không hợp lệ!");
                 }
-
-            } catch (error) {
-                console.error('Lỗi kết nối:', error);
-                alert("Không thể kết nối tới Server. Kiểm tra lại CORS và trạng thái Backend!");
+            } 
+           
+            else {
+                showError("Email hoặc mật khẩu không đúng!");
             }
-        });
+
+        } catch (error) {
+            console.error("Lỗi kết nối:", error);
+            showError("Không thể kết nối tới server!");
+        }
+    });
+
+    function showError(message) {
+        if (errorDiv && errorText) {
+            errorText.textContent = message;
+            errorDiv.classList.remove('d-none');
+            errorDiv.style.display = "flex";
+        } else {
+            alert(message);
+        }
     }
 
     // Pass redirect param to register link
