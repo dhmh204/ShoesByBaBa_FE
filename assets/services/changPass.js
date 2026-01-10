@@ -1,3 +1,8 @@
+document.querySelector('.btn-cancel').addEventListener('click', function () {
+    window.location.href = 'login.html';
+});
+// ==============================
+
 document.addEventListener('DOMContentLoaded', function () {
     const changePasswordForm = document.getElementById('extraInfo');
     const errorDiv = document.getElementById('error');
