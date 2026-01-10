@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
             } 
            
             else {
-                showError("Email hoặc mật khẩu không đúng!");
+                showError(result.message || "Email hoặc mật khẩu không đúng!");
             }
 
         } catch (error) {
