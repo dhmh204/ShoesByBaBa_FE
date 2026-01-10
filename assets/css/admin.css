@@ -1,33 +1,165 @@
-body {
-    font-family: 'Segoe UI', sans-serif;
-    padding-bottom: 50px;
+:root {
+    --sidebar-width: 260px;
+    --primary-color: #ec1c24;
+    --dark-bg: #1a1a1a;
 }
 
-.nav-pills .nav-link {
-    border-radius: 50px;
-    padding: 10px 20px;
-    margin: 0 5px;
-    background-color: #e9ecef;
-    color: #495057;
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8f9fa;
+}
+
+.sidebar {
+    width: var(--sidebar-width);
+    height: 100vh;
+    position: fixed;
+    background: var(--dark-bg);
+    color: white;
+    padding-top: 20px;
+}
+
+.main-content {
+    margin-left: var(--sidebar-width);
+    padding: 30px;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.7);
+    padding: 12px 25px;
+    font-weight: 500;
     transition: 0.3s;
 }
 
-.nav-pills .nav-link.active {
-    background-color: #0d6efd;
-    color: #fff;
-    box-shadow: 0 4px 6px rgba(13, 110, 253, 0.3);
+.nav-link:hover,
+.nav-link.active {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    border-left: 4px solid var(--primary-color);
 }
 
 .card {
     border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
     border-radius: 12px;
 }
 
-.small-list li {
-    font-size: 0.9rem;
-    padding: 8px 15px;
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
-.img-thumbnail {
-    border-radius: 8px;
+.btn-primary:hover {
+    background-color: #c9181d;
+    border-color: #c9181d;
 }
+
+.table img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.badge-active {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.badge-inactive {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* MODAL PREMIUM STYLES */
+.modal-content {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.modal-header {
+    background: #fff;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 1.5rem;
+    border-radius: 16px 16px 0 0;
+}
+
+.modal-title {
+    font-weight: 700;
+    color: var(--dark-bg);
+}
+
+.modal-footer {
+    border-top: 1px solid #f0f0f0;
+    padding: 1.25rem;
+}
+
+/* Fix for nested modals z-index */
+.modal {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+#categoryModal, #brandModal {
+    z-index: 1060 !important;
+}
+
+/* Quick add buttons inside product modal */
+.input-group .btn-outline-secondary {
+    border-color: #dee2e6;
+    background: #f8f9fa;
+    color: #6c757d;
+    font-weight: bold;
+}
+
+.input-group .btn-outline-secondary:hover {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+
+/* Variant & Image Fields styling */
+.input-group-text {
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+}
+
+.variant-row {
+    background: #f8f9fa;
+    border: 1px dashed #ced4da;
+    margin-bottom: 10px;
+    padding: 15px;
+    transition: 0.2s;
+}
+
+.variant-row:hover {
+    border-color: var(--primary-color);
+    background: #fff;
+}
+
+.admin-tab.d-none {
+    display: none !important;
+}
+
+/* Order Management Styles */
+.status-select {
+    border-left: 4px solid #ced4da;
+    font-weight: 500;
+}
+
+.badge {
+    padding: 6px 12px;
+    font-weight: 500;
+    border-radius: 6px;
+}
+
+#order-list-body .btn-outline-info {
+    border-color: #0dcaf0;
+    color: #0dcaf0;
+}
+
+#order-list-body .btn-outline-info:hover {
+    background-color: #0dcaf0;
+    color: white;
+}
+
