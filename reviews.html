@@ -1,53 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=2"
-/>
-<meta name="revisit-after" content="1 day" />
-<meta name="HandheldFriendly" content="true" />
-<link
-    rel="shortcut icon"
-    href="//theme.hstatic.net/1000230642/1001205219/14/favicon-new.png?v=9515"
-    type="image/png"
-/>
-<title>Biti's Hunter - Trang Chủ</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2" />
+    <meta name="revisit-after" content="1 day" />
+    <meta name="HandheldFriendly" content="true" />
+    <link rel="shortcut icon" href="//theme.hstatic.net/1000230642/1001205219/14/favicon-new.png?v=9515" type="image/png" />
+    <title>Đánh giá sản phẩm - Biti's Hunter</title>
 
-<link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-/>
-<link rel="stylesheet" href="assets/css/cart.css" />
-<link rel="stylesheet" href="assets/css/style.css" />
-
-<meta
-    name="description"
-    content="Trang bán hàng chính thức trực thuộc công ty TNHH Bình Tiên (Biti’s), kênh bán hàng trực tuyến sản phẩm giày dép Biti's Việt Nam"
-/>
-<link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-/>
-<link
-    href="//theme.hstatic.net/1000230642/1001205219/14/plugin-style.css?v=9515"
-    rel="preload stylesheet"
-    as="style"
-    type="text/css"
-/>
-<link
-    href="//theme.hstatic.net/1000230642/1001205219/14/style-themes.scss.css?v=9515"
-    rel="preload stylesheet"
-    as="style"
-    type="text/css"
-/>
-<link
-    href="https://file.hstatic.net/200000525917/file/jquery-script_a06dbb9a942a4a2c8e459410c8a19bc1.js"
-    rel="preload"
-    as="script"
-    type="text/javascript"
-/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/reviews.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link href="//theme.hstatic.net/1000230642/1001205219/14/plugin-style.css?v=9515" rel="preload stylesheet" as="style" type="text/css" />
+    <link href="//theme.hstatic.net/1000230642/1001205219/14/style-themes.scss.css?v=9515" rel="preload stylesheet" as="style" type="text/css" />
 </head>
 <body>
 <!--START HEADER -->
@@ -162,7 +128,7 @@
                     </div>
                     <div class="header-wrap-logo">
                         <div class="wrap-logo" itemscope="" itemtype="http://schema.org/Organization">
-                            <a href="https://bitis.com.vn" itemprop="url" arial-label="Biti's" title="Logo Bitis">
+                            <a href="index.html" itemprop="url" arial-label="Biti's" title="Logo Bitis">
                                 <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 408.11 257.56">
                                     <defs>
@@ -886,133 +852,110 @@
 </div>
 <!--END HEADER -->
 
-<!-- START MAIN -->
-<div class="main-container cart-page-wrapper">
+<div class="review-page-wrapper">
     <div class="container">
-        <div class="row mb-3">
-            <div class="col-12">
-                <div class="cart-header-title">
-                    <h2>Giỏ hàng (<span id="cart-count-label">0</span> sản phẩm)</h2>
-                </div>
-            </div>
-        </div>
-
-        <div class="row cart-body-row">
-            <div class="col-lg-8 col-md-12 col-12">
-                <div class="cart-list-container">
-                    <div class="cart-table-header d-none d-md-flex row">
-                        <div class="col-5">Sản phẩm</div>
-                        <div class="col-2 text-center">Đơn giá</div>
-                        <div class="col-3 text-center">Số lượng</div>
-                        <div class="col-2 text-center">Thành tiền</div>
-                    </div>
-
-                    <div id="cart-items-wrapper">
-                        <div class="text-center py-5">Đang tải giỏ hàng...</div>
-                    </div>
+        <div class="review-container">
+            <div class="product-summary">
+                <img id="product-img" src="https://via.placeholder.com/100" alt="Product" />
+                <div>
+                    <h2 id="product-name">Đang tải sản phẩm...</h2>
+                    <p id="product-price">0 ₫</p>
+                    <a href="#" id="back-to-product" class="back-link"><i class="fa-solid fa-arrow-left"></i> Quay lại sản phẩm</a>
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-12 col-12">
-                <div class="cart-summary-block">
-                    <div class="summary-title">Thông tin đơn hàng</div>
-                    
-                    <div class="mb-3">
-                        <label class="form-label small fw-bold">Thông tin giao hàng:</label>
-                        <input type="text" id="customerName" class="form-control mb-2" placeholder="Họ và tên">
-                        <input type="text" id="customerPhone" class="form-control mb-2" placeholder="Số điện thoại">
-                        <input id="customerAddress" class="form-control" style="margin-bottom: 8px;" rows="2" placeholder="Địa chỉ"></input>
-                        <input id="customerWard" class="form-control" style="margin-bottom: 8px;" rows="2" placeholder="Xã/ Phường"></input>
-                        <input id="customerCity" class="form-control" style="margin-bottom: 8px;" rows="2" placeholder="Tỉnh/ Thành Phố"></input>
+            <div class="rating-section">
+                <h3>Đánh giá của bạn</h3>
+                <div class="star-rating">
+                    <i class="fa-regular fa-star" data-value="1"></i>
+                    <i class="fa-regular fa-star" data-value="2"></i>
+                    <i class="fa-regular fa-star" data-value="3"></i>
+                    <i class="fa-regular fa-star" data-value="4"></i>
+                    <i class="fa-regular fa-star" data-value="5"></i>
+                </div>
+                
+                <form id="review-form">
+                    <div class="comment-box">
+                        <textarea id="review-comment" placeholder="Chia sẻ cảm nhận của bạn về sản phẩm này..."></textarea>
                     </div>
-                    <hr>
+                    <button type="submit" class="btn-submit-review">GỬI ĐÁNH GIÁ</button>
+                </form>
+            </div>
 
-                    <div class="summary-line">
-                        <span>Tạm tính:</span>
-                        <span id="cart-subtotal">0 ₫</span>
-                    </div>
-                    <div class="summary-line total">
-                        <span>Tổng tiền:</span>
-                        <span class="price-total" id="cart-total-final">0 ₫</span>
-                    </div>
-                    <div class="summary-note">(Đã bao gồm VAT nếu có)</div>
-                    
-                    <button class="btn-checkout" onclick="handleCheckout()">THANH TOÁN</button>
-                    
-                    <a href="index.html" class="link-continue">
-                       <i class="fa-solid fa-arrow-left"></i>   Tiếp tục mua hàng
-                    </a>
+            <div class="existing-reviews">
+                <div class="existing-reviews-title">Nhận xét từ khách hàng</div>
+                <div id="reviews-list">
+                    <p style="text-align: center; padding: 20px;">Đang tải đánh giá...</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- END MAIN -->
 
-<!--  START SECTION FOOTER-->
+<!-- START SECTION FOOTER-->
 <section class="section-footer-gallery">
     <div class="wraplist-container-gallery">	
         <div class="rowFlex-gallery">
             <div class="gallery-item ">
-                <a class="groupbanner-hover" href="https://bitis.com.vn/collections/balo-tui-xach" target="_blank" rel="noreferrer">
+                <a class="groupbanner-hover" target="_blank" rel="noreferrer">
                     <img class="dt-width-100 lazyload bigloaded" width="320" height="320" alt="Gallery 1" src="https://file.hstatic.net/1000230642/file/balo__1_.png" data-src="https://file.hstatic.net/1000230642/file/balo__1_.png" data-mobile="https://file.hstatic.net/1000230642/file/balo.png">
                 </a>
             </div>			
 
 
             <div class="gallery-item ">
-                <a class="groupbanner-hover" href="https://bitis.com.vn/collections/effortless-collection" target="_blank" rel="noreferrer">
+                <a class="groupbanner-hover" target="_blank" rel="noreferrer">
                     <img class="dt-width-100 lazyload bigloaded" width="320" height="320" alt="Gallery 2" src="https://file.hstatic.net/1000230642/file/efffortless__1_.png" data-src="https://file.hstatic.net/1000230642/file/efffortless__1_.png" data-mobile="https://file.hstatic.net/1000230642/file/efffortless.png">
                 </a>
             </div>			
 
 
             <div class="gallery-item ">
-                <a class="groupbanner-hover" href="https://bitis.com.vn/collections/cac-san-pham-thuoc-nhan-hieu-embrace" target="_blank" rel="noreferrer">
+                <a class="groupbanner-hover" target="_blank" rel="noreferrer">
                     <img class="dt-width-100 lazyload bigloaded" width="320" height="320" alt="Gallery 3" src="https://file.hstatic.net/1000230642/file/embrace__1_.png" data-src="https://file.hstatic.net/1000230642/file/embrace__1_.png" data-mobile="https://file.hstatic.net/1000230642/file/embrace.png">
                 </a>
             </div>			
 
 
             <div class="gallery-item ">
-                <a class="groupbanner-hover" href="https://bitis.com.vn/collections/balo-tui-xach-gosto" target="_blank" rel="noreferrer">
+                <a class="groupbanner-hover" target="_blank" rel="noreferrer">
                     <img class="dt-width-100 lazyload bigloaded" width="320" height="320" alt="Gallery 4" src="https://file.hstatic.net/1000230642/file/gosto__1_.png" data-src="https://file.hstatic.net/1000230642/file/gosto__1_.png" data-mobile="https://file.hstatic.net/1000230642/file/gosto.png">
                 </a>
             </div>			
 
 
             <div class="gallery-item ">
-                <a class="groupbanner-hover" href="https://bitis.com.vn/collections/helio" target="_blank" rel="noreferrer">
+                <a class="groupbanner-hover" target="_blank" rel="noreferrer">
                     <img class="dt-width-100 lazyload bigloaded" width="320" height="320" alt="Gallery 5" src="https://file.hstatic.net/1000230642/file/helio__1_.png" data-src="https://file.hstatic.net/1000230642/file/helio__1_.png" data-mobile="https://file.hstatic.net/1000230642/file/helio.png">
                 </a>
             </div>			
 
 
             <div class="gallery-item ">
-                <a class="groupbanner-hover" href="https://bitis.com.vn/collections/litebound" target="_blank" rel="noreferrer">
+                <a class="groupbanner-hover" target="_blank" rel="noreferrer">
                     <img class="dt-width-100 lazyload bigloaded" width="320" height="320" alt="Gallery 6" src="https://file.hstatic.net/1000230642/file/litebound__1_.png" data-src="https://file.hstatic.net/1000230642/file/litebound__1_.png" data-mobile="https://file.hstatic.net/1000230642/file/litebound.png">
                 </a>
             </div>			
 
 
             <div class="gallery-item ">
-                <a class="groupbanner-hover" href="https://bitis.com.vn/collections/ucare-dep-y-te-dep-banh-mi" target="_blank" rel="noreferrer">
+                <a class="groupbanner-hover" target="_blank" rel="noreferrer">
                     <img class="dt-width-100 lazyload bigloaded" width="320" height="320" alt="Gallery 7" src="https://file.hstatic.net/1000230642/file/ucare__1_.png" data-src="https://file.hstatic.net/1000230642/file/ucare__1_.png" data-mobile="https://file.hstatic.net/1000230642/file/ucare.png">
                 </a>
             </div>			
 
 
             <div class="gallery-item ">
-                <a class="groupbanner-hover" href="https://bitis.com.vn/products/sandal-da-that-gosto-sparkle-curve-gfw018288den-den" target="_blank" rel="noreferrer">
+                <a class="groupbanner-hover" target="_blank" rel="noreferrer">
                     <img class="dt-width-100 lazyload bigloaded" width="320" height="320" alt="Gallery 8" src="https://file.hstatic.net/200000522597/file/240x240_8_bfbc1f9a56f24921979f053befbb7d67.jpg" data-src="https://file.hstatic.net/200000522597/file/240x240_8_bfbc1f9a56f24921979f053befbb7d67.jpg" data-mobile="https://file.hstatic.net/200000522597/file/190x190_8_4a95e039257f4ec4be1bacf5a78eb476.jpg">
                 </a>
             </div>			
   		</div>
 	</div>
 </section>
-<!--  END SECTION FOOTER-->
+<!--  SECTION FOOTER-->
 
-<!-- START FOOTER -->
+<!--START FOOTER -->
 <footer class="mainFooter ">
 	<div class="footer-container">
 		<div class="footer-expand-title">
@@ -1133,8 +1076,8 @@
 							</div>
 							<div class="lineItemAddress">
 								<ul>
-                                    <li data-order="7" data-vn="&lt;b&gt;Hotline:&lt;/b&gt; &lt;a href='tel:0966158666 '&gt;0966158666&lt;/a&gt;"><b>Hotline:</b> <a href="tel:0966158666 ">0966158666</a></li>
-                                    <li data-order="8" data-vn="&lt;b&gt;Thời gian tư vấn:&lt;/b&gt; 8h – 21h30 các ngày trong tuần (trừ ngày Lễ, Tết)"><b>Thời gian tư vấn:</b> 8h – 21h30 các ngày trong tuần (trừ ngày Lễ, Tết)</li>
+										<li data-order="7" data-vn="&lt;b&gt;Hotline:&lt;/b&gt; &lt;a href='tel:0966158666 '&gt;0966158666&lt;/a&gt;"><b>Hotline:</b> <a href="tel:0966158666 ">0966158666</a></li>
+										<li data-order="8" data-vn="&lt;b&gt;Thời gian tư vấn:&lt;/b&gt; 8h – 21h30 các ngày trong tuần (trừ ngày Lễ, Tết)"><b>Thời gian tư vấn:</b> 8h – 21h30 các ngày trong tuần (trừ ngày Lễ, Tết)</li>
 								</ul>
 							</div>
 						</div>
@@ -1147,9 +1090,9 @@
 						<div class="footerBottom-left col-12 col-lg-4">
 							<div class="menuFooter-bottom">
 								<ul class="d-flex flex-wrap">
-										<li><a href="/" data-vn="Điều khoản"><span>Điều khoản</span></a></li>
-										<li><a href="/" data-vn="Chính sách bảo mật"><span>Chính sách bảo mật</span></a></li>
-										<li><a href="/" data-vn="Hướng dẫn sử dụng"><span>Hướng dẫn sử dụng</span></a></li>
+                                    <li><a href="/" data-vn="Điều khoản"><span>Điều khoản</span></a></li>
+                                    <li><a href="/" data-vn="Chính sách bảo mật"><span>Chính sách bảo mật</span></a></li>
+                                    <li><a href="/" data-vn="Hướng dẫn sử dụng"><span>Hướng dẫn sử dụng</span></a></li>
 								</ul>
 							</div>
 							<div class="copyright-footer">
@@ -1174,8 +1117,8 @@
     </div>    
 </footer>
 <!-- END FOOTER -->
+
+<script src="assets/services/reviews.js"></script>
 <script src="assets/js/header.js"></script>
-<script src="assets/js/cart.js"></script>
 </body>
 </html>
-

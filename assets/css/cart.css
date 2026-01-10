@@ -75,28 +75,49 @@ body {
 
 /* Bộ đếm số lượng */
 .qty-control {
-    display: inline-flex;
+    display: inline-flex !important;
+    align-items: center;
     border: 1px solid #ddd;
     border-radius: 4px;
+    overflow: hidden;
+    background: #fff;
+    width: fit-content;
 }
 
 .qty-control button {
-    background: #fff;
-    border: none;
-    width: 30px;
-    height: 30px;
+    background: #fff !important;
+    border: none !important;
+    width: 32px !important;
+    height: 32px !important;
     cursor: pointer;
     font-weight: bold;
+    color: #333 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 18px;
+    transition: background 0.2s;
+}
+
+.qty-control button:hover {
+    background: #f0f0f0 !important;
 }
 
 .qty-control input {
-    width: 40px;
-    height: 30px;
-    border: none;
-    border-left: 1px solid #ddd;
-    border-right: 1px solid #ddd;
+    width: 45px !important;
+    height: 32px !important;
+    border: none !important;
+    border-left: 1px solid #ddd !important;
+    border-right: 1px solid #ddd !important;
     text-align: center;
-    outline: none;
+    outline: none !important;
+    background: #fff;
+    font-weight: 500;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
 }
 
 .item-price {

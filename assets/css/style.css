@@ -153,3 +153,14 @@ label {
 .header-action__dropdown.active {
     display: block;
 }
+
+/* Product Item Link */
+.product-item-link {
+    text-decoration: none !important;
+    color: inherit !important;
+    display: block;
+}
+
+.product-item-link:hover {
+    color: inherit !important;
+}

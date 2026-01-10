@@ -145,7 +145,13 @@ document.addEventListener('DOMContentLoaded', function () {
                         localStorage.setItem('role', loginResult.data.role);
                         
                         setTimeout(() => {
-                            window.location.href = "index.html";
+                            const urlParams = new URLSearchParams(window.location.search);
+                            const redirect = urlParams.get('redirect');
+                            if (redirect) {
+                                window.location.href = decodeURIComponent(redirect);
+                            } else {
+                                window.location.href = "index.html"; 
+                            }
                         }, 2000);
                     }
                 } else {

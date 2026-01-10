@@ -45,8 +45,14 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                         
                         alert("Đăng nhập thành công!");
-                      
-                        window.location.href = "index.html"; 
+                        
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const redirect = urlParams.get('redirect');
+                        if (redirect) {
+                            window.location.href = decodeURIComponent(redirect);
+                        } else {
+                            window.location.href = "index.html"; 
+                        }
                     } else {
                         alert("Đăng nhập thành công nhưng không nhận được token từ Server.");
                     }
@@ -59,6 +65,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 alert("Không thể kết nối tới Server. Kiểm tra lại CORS và trạng thái Backend!");
             }
         });
+    }
+
+    // Pass redirect param to register link
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirect = urlParams.get('redirect');
+    if (redirect) {
+        const registerLink = document.querySelector('h2.color_grey a');
+        if (registerLink) {
+            registerLink.href = `register.html?redirect=${encodeURIComponent(redirect)}`;
+        }
     }
 });
 
