@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (errorDiv) errorDiv.classList.add('d-none');
 
         try {
-            const response = await fetch('http://localhost:8000/login', {
+            const response = await fetch('http://127.0.0.1:8000/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -37,39 +37,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 localStorage.setItem('token', access_token);
                 localStorage.setItem('role', role);
 
-<<<<<<< HEAD
-                if (result.code === "200") {
-                    console.log("Dữ liệu nhận được:", result.data);
-                    
-                    if (result.data && result.data.access_token) {
-                        
-                        localStorage.setItem('token', result.data.access_token);
-
-                        const tokenType = result.data.token_type || 'Bearer';
-                        localStorage.setItem('token_type', tokenType);
-                        
-                        if (result.data.user) {
-                            localStorage.setItem('user_info', JSON.stringify(result.data.user));
-                        }
-                        
-                        alert("Đăng nhập thành công!");
-                        
-                        const urlParams = new URLSearchParams(window.location.search);
-                        const redirect = urlParams.get('redirect');
-                        if (redirect) {
-                            window.location.href = decodeURIComponent(redirect);
-                        } else {
-                            window.location.href = "index.html"; 
-                        }
-                    } else {
-                        alert("Đăng nhập thành công nhưng không nhận được token từ Server.");
-                    }
-=======
                 if (role === "admin") {
                     window.location.href = "admin.html";
                 } else if (role === "user") {
                     window.location.href = "index.html";
->>>>>>> 1dd9b37 (update)
                 } else {
                     showError("Vai trò không hợp lệ!");
                 }
@@ -94,58 +65,48 @@ document.addEventListener('DOMContentLoaded', function () {
             alert(message);
         }
     }
-
-    // Pass redirect param to register link
-    const urlParams = new URLSearchParams(window.location.search);
-    const redirect = urlParams.get('redirect');
-    if (redirect) {
-        const registerLink = document.querySelector('h2.color_grey a');
-        if (registerLink) {
-            registerLink.href = `register.html?redirect=${encodeURIComponent(redirect)}`;
-        }
-    }
 });
 
 // -------------------------LOGIN BY GOOGLE---------------------------
-document.addEventListener('DOMContentLoaded', function () {
-    const googleLoginBtn = document.getElementById('btn-google-login');
+// document.addEventListener('DOMContentLoaded', function () {
+//     const googleLoginBtn = document.getElementById('btn-google-login');
 
-    if (googleLoginBtn) {
-        googleLoginBtn.addEventListener('click', function () {
-            window.location.href = 'http://localhost:8000/login/google';
-        });
-    }
-    handleGoogleCallback();
-});
+//     if (googleLoginBtn) {
+//         googleLoginBtn.addEventListener('click', function () {
+//             window.location.href = 'http://localhost:8000/login/google';
+//         });
+//     }
+//     handleGoogleCallback();
+// });
 
-async function handleGoogleCallback() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('code');
+// async function handleGoogleCallback() {
+//     const urlParams = new URLSearchParams(window.location.search);
+//     const code = urlParams.get('code');
 
-    if (code) {
-        console.log("Đã nhận code từ Google, đang gửi sang Backend...");
+//     if (code) {
+//         console.log("Đã nhận code từ Google, đang gửi sang Backend...");
         
-        try {
-            const response = await fetch(`http://localhost:8000/login/oauth2/code/google?code=${code}`, {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
+//         try {
+//             const response = await fetch(`http://localhost:8000/login/oauth2/code/google?code=${code}`, {
+//                 method: 'GET',
+//                 headers: {
+//                     'Accept': 'application/json'
+//                 }
+//             });
 
-            const result = await response.json();
+//             const result = await response.json();
 
-            if (response.ok && (result.code === "200" || result.status === "success")) {
-                const data = result.data;
-                localStorage.setItem('token', data.access_token);
-                window.history.replaceState({}, document.title, window.location.pathname);
-                alert("Đăng nhập thành công!");
-                window.location.href = "index.html"; 
-            } else {
-                alert("Lỗi từ server: " + (result.message || "Xác thực thất bại"));
-            }
-        } catch (error) {
-            console.error("Lỗi kết nối:", error);
-        }
-    }
-}
+//             if (response.ok && (result.code === "200" || result.status === "success")) {
+//                 const data = result.data;
+//                 localStorage.setItem('token', data.access_token);
+//                 window.history.replaceState({}, document.title, window.location.pathname);
+//                 alert("Đăng nhập thành công!");
+//                 window.location.href = "index.html"; 
+//             } else {
+//                 alert("Lỗi từ server: " + (result.message || "Xác thực thất bại"));
+//             }
+//         } catch (error) {
+//             console.error("Lỗi kết nối:", error);
+//         }
+//     }
+// }
