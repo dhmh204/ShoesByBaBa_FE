@@ -18,26 +18,44 @@
     justify-content: space-between;
 }
 
+/* Tìm và thay thế các class tương ứng trong file CSS của bạn */
+
 .stepper-line {
     position: absolute;
-    top: 12px;
+    top: 12px; /* Phải bằng 1/2 chiều cao của .step-circle (24px / 2) */
     left: 0;
     right: 0;
     height: 2px;
     background-color: var(--pending-color);
     z-index: 1;
+    transform: translateY(-50%); /* Đảm bảo căn giữa tuyệt đối */
 }
 
 .stepper-line-progress {
     position: absolute;
-    top: 12px;
+    top: 12px; /* Phải bằng 1/2 chiều cao của .step-circle */
     left: 0;
-    width: 33.33%; 
+    width: 0%; /* Khởi tạo là 0% */
     height: 2px;
     background-color: var(--primary-color);
     z-index: 2;
+    transform: translateY(-50%);
+    transition: width 0.5s ease; /* Hiệu ứng chạy thanh màu xanh mượt hơn */
 }
 
+.step-circle {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    z-index: 3; /* Đảm bảo chấm tròn nằm đè lên thanh line */
+    background-color: var(--pending-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
 .step {
     display: flex;
     flex-direction: column;

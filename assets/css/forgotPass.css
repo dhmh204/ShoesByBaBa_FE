@@ -1,0 +1,54 @@
+#recover-password {
+    width: 100%;
+    margin: 64px;
+}
+
+.forgot_account_action {
+    display: flex;
+    justify-content: center;
+}
+.forgot_account_action input:first-child,
+.action_update input {
+    margin-right: 16px;
+}
+.forgot_account_action input {
+    width: 160px !important;
+}
+/* ========================== */
+.update_account {
+    justify-content: center;
+    margin: 64px;
+} 
+#recoverPass {
+    margin: auto;
+    width: 500px;
+}
+
+.recover input{
+    height: 55px;
+    color: #5c5c5c;
+    font-weight: 500;
+    border: 1px solid transparent;
+    background: #ededed;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+}
+.action_update input {
+    background-color: #1b4ea0;
+    border-radius: 8px;
+    padding: 10px 32px;
+    color: #fff;
+    font-size: 1rem;
+    text-transform: none;
+}
+
+
+.update_account {
+    display: none;
+}
+.update_account.active {
+    display: block;
+}
