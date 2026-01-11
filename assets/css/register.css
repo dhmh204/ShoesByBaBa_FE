@@ -28,26 +28,26 @@
     height: 2px;
     background-color: var(--pending-color);
     z-index: 1;
-    transform: translateY(-50%); /* Đảm bảo căn giữa tuyệt đối */
+    transform: translateY(-50%);
 }
 
 .stepper-line-progress {
     position: absolute;
-    top: 12px; /* Phải bằng 1/2 chiều cao của .step-circle */
+    top: 12px; 
     left: 0;
-    width: 0%; /* Khởi tạo là 0% */
+    width: 0%; 
     height: 2px;
     background-color: var(--primary-color);
     z-index: 2;
     transform: translateY(-50%);
-    transition: width 0.5s ease; /* Hiệu ứng chạy thanh màu xanh mượt hơn */
+    transition: width 0.5s ease;
 }
 
 .step-circle {
     width: 24px;
     height: 24px;
     position: relative;
-    z-index: 3; /* Đảm bảo chấm tròn nằm đè lên thanh line */
+    z-index: 3;
     background-color: var(--pending-color);
     border-radius: 50%;
     display: flex;
@@ -224,13 +224,12 @@
 }
 
 .btn-auth {
-    margin: 30px;
+    margin: 30px 0;
     border-radius: 8px;
     padding: 8px 32px;
     background: var(--primary-color);
     color: #fff;
 }
-
 /* ------------------------------------------ */
 .success-container{
     justify-items: center;

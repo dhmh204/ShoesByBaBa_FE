@@ -1,11 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
     const tableBody = document.querySelector('.table-customers tbody');
-    const token = localStorage.getItem('token'); // Lấy token từ localStorage
+    const token = localStorage.getItem('token'); 
 
-    // Kiểm tra nếu chưa đăng nhập thì chuyển hướng hoặc báo lỗi
     if (!token) {
         console.error("Người dùng chưa đăng nhập!");
-        // window.location.href = "login.html"; 
         return;
     }
 
@@ -14,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const response = await fetch('http://localhost:8000/api/orders?page=1&limit=10', {
                 method: 'GET',
                 headers: {
-                    'Authorization': `Bearer ${token}`, // Gửi token theo chuẩn Bearer
+                    'Authorization': `Bearer ${token}`, 
                     'Content-Type': 'application/json'
                 }
             });
@@ -22,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const result = await response.json();
 
             if (response.ok) {
-                renderOrders(result.orders); // Giả sử API trả về object có field 'orders'
+                renderOrders(result.orders); 
             } else {
                 console.error("Lỗi lấy dữ liệu:", result.message);
             }
@@ -32,7 +30,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function renderOrders(orders) {
-        // Xóa dữ liệu mẫu hiện có trong bảng
         tableBody.innerHTML = '';
 
         if (orders.length === 0) {
@@ -54,12 +51,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Hàm hỗ trợ định dạng tiền tệ (Ví dụ: 1295000 -> 1,295,000 ₫)
     function formatCurrency(amount) {
         return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
     }
 
-    // Hàm hỗ trợ định dạng ngày tháng
     function formatDate(dateString) {
         const date = new Date(dateString);
         return date.toLocaleString('vi-VN');
