@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
             errorDiv.classList.remove('d-none');
             errorDiv.style.display = "flex";
         } else {
-            alert(message);
+            Toast.error(message);
         }
     }
 
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const otpValue = Array.from(otpInputs).map(input => input.value).join('');
 
             if (otpValue.length < 6) {
-                alert("Vui lòng nhập đủ 6 số OTP.");
+                Toast.error("Vui lòng nhập đủ 6 số OTP.");
                 return;
             }
 
@@ -178,11 +178,11 @@ document.addEventListener('DOMContentLoaded', function () {
                         }, 2000);
                     }
                 } else {
-                    alert(verifyResult.message || "Mã OTP không hợp lệ.");
+                    Toast.error(verifyResult.message || "Mã OTP không hợp lệ.");
                 }
             } catch (error) {
                 console.error("Verification error:", error);
-                alert("Lỗi hệ thống xác thực.");
+                Toast.error("Lỗi hệ thống xác thực.");
             }
         });
     }

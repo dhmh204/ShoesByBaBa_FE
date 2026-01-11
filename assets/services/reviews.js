@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const productId = urlParams.get('product_id');
 
     if (!productId) {
-        alert("Không tìm thấy ID sản phẩm để đánh giá!");
+        if (typeof Toast !== 'undefined') Toast.error("Không tìm thấy ID sản phẩm để đánh giá!");
         window.location.href = 'index.html';
         return;
     }
@@ -54,14 +54,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             e.preventDefault();
             const token = localStorage.getItem('token');
             if (!token) {
-                alert("Vui lòng đăng nhập để gửi đánh giá!");
+                Toast.error("Vui lòng đăng nhập để gửi đánh giá!");
                 window.location.href = 'login.html';
                 return;
             }
 
             const comment = document.getElementById('review-comment').value.trim();
             if (selectedRating === 0) {
-                alert("Vui lòng chọn mức độ đánh giá (sao)!");
+                Toast.error("Vui lòng chọn mức độ đánh giá (sao)!");
                 return;
             }
 
@@ -81,14 +81,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 const result = await response.json();
                 if (response.ok && (result.code === "201" || result.status === "success")) {
-                    alert("Cảm ơn bạn đã đánh giá!");
-                    window.location.href = `productDetails.html?id=${productId}`;
+                    Toast.success("Cảm ơn bạn đã đánh giá!");
+                    setTimeout(() => {
+                        window.location.href = `productDetails.html?id=${productId}`;
+                    }, 1500);
                 } else {
-                    alert("Lỗi: " + (result.message || result.detail || "Không thể gửi đánh giá"));
+                    Toast.error("Lỗi: " + (result.message || result.detail || "Không thể gửi đánh giá"));
                 }
             } catch (error) {
                 console.error("Submit Review Error:", error);
-                alert("Lỗi kết nối máy chủ.");
+                Toast.error("Lỗi kết nối máy chủ.");
             }
         });
     }

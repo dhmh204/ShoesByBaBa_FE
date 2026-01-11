@@ -2,42 +2,86 @@ let userEmail = "";
 let userOTP = "";
 const API_BASE_URL = "http://127.0.0.1:8000";
 
-/* ================= MODAL ================= */
-function showModal(message, callback = null) {
-    const modalEl = document.getElementById('notifyModal');
-    const messageEl = document.getElementById('modalMessage');
+// --- 1. BƯỚC 1: GỬI EMAIL ---
+const recoverForm = document.querySelector('.customers_accountForm form');
+if (recoverForm) {
+    recoverForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        userEmail = document.getElementById('recover-email').value.trim();
 
-    if (!modalEl || !messageEl) {
-        console.error("Không tìm thấy modal");
-        return;
-    }
+        if (!userEmail) {
+            Toast.error("Vui lòng nhập email");
+            return;
+        }
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/forgot-password`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: userEmail })
+            });
 
     messageEl.innerText = message;
 
-    const modal = new bootstrap.Modal(modalEl);
-    modal.show();
-
-    if (callback) {
-        modalEl.addEventListener(
-            'hidden.bs.modal',
-            () => callback(),
-            { once: true }
-        );
-    }
+            if (response.ok || result.code === "200") {
+                Toast.success("Mã OTP đã được gửi đến email của bạn!");
+                showStep(2); // Chuyển sang bước 2
+            } else {
+                Toast.error("Lỗi: " + (result.message || "Không thể gửi mã"));
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            Toast.error("Lỗi kết nối đến server.");
+        }
+    });
 }
 
-/* ================= LOAD PROFILE ================= */
-document.addEventListener('DOMContentLoaded', async function () {
-    // SEND EMAIL
-    const recoverForm = document.querySelector('.customers_accountForm form');
-    if (recoverForm) {
-        recoverForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
+// --- 2. BƯỚC 2: XÁC THỰC OTP ---
+const btnVerifyOtp = document.querySelector('.btn-auth');
+if (btnVerifyOtp) {
+    btnVerifyOtp.addEventListener('click', function() {
+        const inputs = document.querySelectorAll('.otp-inputs input');
+        userOTP = Array.from(inputs).map(i => i.value).join('');
 
-            userEmail = document.getElementById('recover-email').value.trim();
-            if (!userEmail) {
-                showModal("Vui lòng nhập email");
-                return;
+        if (userOTP.length < 6) {
+            Toast.error("Vui lòng nhập đủ 6 số OTP");
+            return;
+        }
+        showStep(3); // Chuyển sang bước 3
+    });
+}
+
+// --- 3. BƯỚC 3: ĐỔI MẬT KHẨU ---
+const resetPassForm = document.getElementById('recoverPass');
+if (resetPassForm) {
+    resetPassForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const newPass = document.getElementById('current_pass').value;
+        const confirmPass = document.getElementById('new_pass').value;
+
+        if (newPass !== confirmPass) {
+            Toast.error("Mật khẩu xác nhận không khớp!");
+            return;
+        }
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/reset-password-otp`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: userEmail,
+                    otp: userOTP,
+                    new_password: newPass
+                })
+            });
+
+            const result = await response.json();
+            if (result.code === "200") {
+                Toast.success("Đổi mật khẩu thành công!");
+                setTimeout(() => window.location.href = "login.html", 2000);
+            } else {
+                Toast.error("Lỗi: " + result.message);
+                if (result.message.toLowerCase().includes("otp")) showStep(2);
             }
 
             try {

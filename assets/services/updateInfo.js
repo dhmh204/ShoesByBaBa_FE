@@ -53,10 +53,8 @@ document.getElementById('extraInfo').addEventListener('submit', async function(e
         
         const errorDiv = document.getElementById('error');
         if (response.ok) {
-            if (response.ok) {
-                showModal("Cập nhật thông tin thành công!");
-                errorDiv.classList.add('d-none');
-            }
+            Toast.success("Cập nhật thông tin thành công!");
+            errorDiv.classList.add('d-none');
         } else {
             errorDiv.classList.remove('d-none');
             errorDiv.innerText = result.detail || "Có lỗi xảy ra";

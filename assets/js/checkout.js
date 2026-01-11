@@ -39,10 +39,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const phone = document.querySelector('input[placeholder="Số điện thoại"]').value;
         
         if(!name || !phone) {
-            alert("Vui lòng nhập đầy đủ Họ tên và Số điện thoại!");
+            Toast.error("Vui lòng nhập đầy đủ Họ tên và Số điện thoại!");
             return;
         }
 
-        alert("Đặt hàng THÀNH CÔNG! Mã đơn hàng của bạn là #BITIS" + Math.floor(Math.random() * 10000));
+        Toast.success("Đặt hàng THÀNH CÔNG! Mã đơn hàng của bạn là #BITIS" + Math.floor(Math.random() * 10000));
+        setTimeout(() => window.location.href = 'index.html', 2000);
     });
 });

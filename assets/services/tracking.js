@@ -11,13 +11,13 @@ async function trackOrder() {
     const token = localStorage.getItem('token');
 
     if (!token) {
-        alert("Vui lòng đăng nhập để tra cứu!");
+        Toast.error("Vui lòng đăng nhập để tra cứu!");
         return;
     }
 
     const orderId = orderIdInput.replace('#', '');
     if (!orderId) {
-        alert("Vui lòng nhập mã đơn hàng");
+        Toast.error("Vui lòng nhập mã đơn hàng");
         return;
     }
 
@@ -32,7 +32,7 @@ async function trackOrder() {
 
         if (!response.ok) {
             const errorData = await response.json();
-            alert(errorData.detail || "Không tìm thấy đơn hàng.");
+            Toast.error(errorData.detail || "Không tìm thấy đơn hàng.");
             return;
         }
 
@@ -93,6 +93,6 @@ async function trackOrder() {
 
     } catch (error) {
         console.error("Lỗi kết nối:", error);
-        alert("Có lỗi xảy ra khi kết nối máy chủ.");
+        Toast.error("Có lỗi xảy ra khi kết nối máy chủ.");
     }
 }

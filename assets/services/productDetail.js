@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const productId = urlParams.get('id');
 
     if (!productId) {
-        alert("Không tìm thấy ID sản phẩm!");
-        window.location.href = 'index.html';
+        Toast.error("Không tìm thấy ID sản phẩm!");
+        setTimeout(() => window.location.href = 'index.html', 1500);
         return;
     }
 
@@ -23,11 +23,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             fetchAndRenderReviews(productId);
         } else {
             console.error("Lỗi API:", result);
-            alert("Không thể tải thông tin sản phẩm!");
+            Toast.error("Không thể tải thông tin sản phẩm!");
         }
     } catch (error) {
         console.error("Fetch Error:", error);
-        alert("Lỗi kết nối Server!");
+        Toast.error("Lỗi kết nối Server!");
     }
 });
 
@@ -134,13 +134,13 @@ function getColorHex(colorName) {
 async function handleAddToCart() {
     const token = localStorage.getItem('token');
     if (!token) {
-        showToast("Vui lòng đăng nhập để thêm vào giỏ hàng!", "error");
+        Toast.error("Vui lòng đăng nhập để thêm vào giỏ hàng!");
         setTimeout(() => window.location.href = 'login.html', 1500);
         return;
     }
 
     if (!selectedColor || !selectedSize) {
-        showToast("Vui lòng chọn màu sắc và kích thước!", "error");
+        Toast.error("Vui lòng chọn màu sắc và kích thước!");
         return;
     }
 
@@ -166,27 +166,27 @@ async function handleAddToCart() {
         const result = await response.json();
 
         if (response.ok) {
-            showToast("Đã thêm vào giỏ hàng thành công!", "success");
+            Toast.success("Đã thêm vào giỏ hàng thành công!");
             if (typeof updateHeaderCart === 'function') updateHeaderCart();
         } else {
-            showToast(result.detail || result.message || "Không thể thêm vào giỏ hàng!", "error");
+            Toast.error(result.detail || result.message || "Không thể thêm vào giỏ hàng!");
         }
     } catch (error) {
         console.error("Add to cart error:", error);
-        showToast("Lỗi kết nối Server!", "error");
+        Toast.error("Lỗi kết nối Server!");
     }
 }
 
 function handleBuyNow() {
     const token = localStorage.getItem('token');
     if (!token) {
-        showToast("Vui lòng đăng nhập để thực hiện mua hàng!", "error");
+        Toast.error("Vui lòng đăng nhập để thực hiện mua hàng!");
         setTimeout(() => window.location.href = 'login.html', 1500);
         return;
     }
 
     if (!selectedColor || !selectedSize) {
-        showToast("Vui lòng chọn màu sắc và kích thước trước khi mua!", "error");
+        Toast.error("Vui lòng chọn màu sắc và kích thước trước khi mua!");
         return;
     }
 
@@ -207,7 +207,7 @@ async function confirmBuyNowOrder() {
     const city = document.getElementById('bn-city').value.trim();
 
     if (!name || !phone || !address) {
-        alert("Vui lòng điền đầy đủ thông tin giao hàng!");
+        Toast.error("Vui lòng điền đầy đủ thông tin giao hàng!");
         return;
     }
 
@@ -270,14 +270,14 @@ async function confirmBuyNowOrder() {
         const result = await response.json();
 
         if (response.ok) {
-            alert("Đặt hàng thành công! Cảm ơn bạn đã tin dùng Biti's.");
-            window.location.href = 'index.html';
+            Toast.success("Đặt hàng thành công! Cảm ơn bạn đã tin dùng Biti's.");
+            setTimeout(() => window.location.href = 'index.html', 2000);
         } else {
-            alert("Lỗi đặt hàng: " + (result.detail || result.message || "Không thể xử lý"));
+            Toast.error("Lỗi đặt hàng: " + (result.detail || result.message || "Không thể xử lý"));
         }
     } catch (error) {
         console.error("Buy now error:", error);
-        alert("Lỗi: " + error.message);
+        Toast.error("Lỗi: " + error.message);
     } finally {
         if (confirmBtn) {
             confirmBtn.disabled = false;
@@ -286,22 +286,7 @@ async function confirmBuyNowOrder() {
     }
 }
 
-function showToast(message, type = "success") {
-    const container = document.getElementById('toast-container');
-    if (!container) return;
-
-    const toast = document.createElement('div');
-    toast.className = `toast-msg ${type}`;
-    toast.innerHTML = `
-        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
-        <span>${message}</span>
-    `;
-    container.appendChild(toast);
-
-    setTimeout(() => {
-        toast.remove();
-    }, 3000);
-}
+// Toast is now handled by global notifications.js
 
 function toggleWishlist() {
     const icon = document.getElementById('wishlist-icon');
