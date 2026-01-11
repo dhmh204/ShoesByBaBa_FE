@@ -19,6 +19,8 @@
 <link rel="stylesheet" href="./assets/css/style.css">
 <link rel="stylesheet" href="./assets/css/accountSidebar.css">
 <link rel="stylesheet" href="./assets/css/settingAccount.css">
+<link rel="stylesheet" href="./assets/css/historyOrder.css">
+<link rel="stylesheet" href="./assets/css/notifications.css">
 </head>
 <body>
 <!--START HEADER -->
@@ -870,34 +872,17 @@
                         <h2 class="title-detail">lịch sử đặt hàng</h2>
                     </div>
                     <div class="col-12 wrap_orderAccount" id="customer_orders">	
-                        <div class="customer-table-wrap">							
-                            <div class="customer_order customer-table-bg">		
-                                <div class="table-responsive-overflow">
-                                    <div class="table-responsive">
-                                        <table class="table table-customers">
-                                            <thead>
-                                                <tr>
-                                                    <th class="order_number text-center">Mã đơn hàng</th>
-                                                    <th class="date text-center">Ngày đặt</th>
-                                                    <th class="total text-right">Thành tiền</th>
-                                                    <th class="payment_status text-center">Trạng thái thanh toán</th>
-                                                    <th class="fulfillment_status text-center">Vận chuyển</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr data-name="#660438" data-id="1752449157" class="">
-                                                    <td class="text-center"><a href="/account?orderid=1752449157&amp;view=order"></a></td>
-                                                    <td class="text-center"><span></span></td>
-                                                    <td class="text-right"><span class="total money"></span>
-                                                    </td><td class="text-center"><span class="status"></span></td>
-                                                    <td class="text-center"><span class="delivery"></span></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                        <div class="order-history-wrapper">							
+                            <div id="order-history-container">
+                                <!-- Orders will be rendered here by JS -->
+                                <div class="text-center p-5">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Đang tải...</span>
                                     </div>
+                                    <p class="mt-2">Đang tải lịch sử đơn hàng...</p>
                                 </div>
-                                <div class="paginate-list-order d-none"></div>
                             </div>
+                            <div class="paginate-list-order d-none"></div>
                         </div>
                     </div>
                 </div>
@@ -1135,12 +1120,9 @@
 </div>    
 </footer>
 <!--END FOOTER -->
+<script src="./assets/js/notifications.js"></script>
 <script src="./assets/js/header.js"></script>
 <script src="./assets/services/historyOrder.js"></script>
-<<<<<<< HEAD
 <script src="./assets/services/settingAccount.js"></script>
-=======
-<!-- <script src="./assets/services/settingAcount.js"></script> -->
->>>>>>> 1dd9b37 (update)
 </body>
 </html>

@@ -295,8 +295,15 @@ function checkLoginStatus() {
             e.preventDefault();
             localStorage.removeItem('token');
             localStorage.removeItem('user_info');
-            alert("Đã đăng xuất!");
-            window.location.reload();
+            localStorage.removeItem('role');
+            
+            if (typeof Toast !== 'undefined') {
+                Toast.success("Đã đăng xuất thành công!");
+            }
+            
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
         });
     } else {
         if (accountTitle) accountTitle.innerText = 'Tài khoản';

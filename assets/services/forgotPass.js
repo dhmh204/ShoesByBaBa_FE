@@ -10,7 +10,7 @@ if (recoverForm) {
         userEmail = document.getElementById('recover-email').value.trim();
 
         if (!userEmail) {
-            alert("Vui lòng nhập email");
+            Toast.error("Vui lòng nhập email");
             return;
         }
 
@@ -24,14 +24,14 @@ if (recoverForm) {
             const result = await response.json();
 
             if (response.ok || result.code === "200") {
-                alert("Mã OTP đã được gửi!");
+                Toast.success("Mã OTP đã được gửi đến email của bạn!");
                 showStep(2); // Chuyển sang bước 2
             } else {
-                alert("Lỗi: " + (result.message || "Không thể gửi mã"));
+                Toast.error("Lỗi: " + (result.message || "Không thể gửi mã"));
             }
         } catch (error) {
             console.error("Error:", error);
-            alert("Lỗi kết nối đến server.");
+            Toast.error("Lỗi kết nối đến server.");
         }
     });
 }
@@ -44,7 +44,7 @@ if (btnVerifyOtp) {
         userOTP = Array.from(inputs).map(i => i.value).join('');
 
         if (userOTP.length < 6) {
-            alert("Vui lòng nhập đủ 6 số OTP");
+            Toast.error("Vui lòng nhập đủ 6 số OTP");
             return;
         }
         showStep(3); // Chuyển sang bước 3
@@ -60,7 +60,7 @@ if (resetPassForm) {
         const confirmPass = document.getElementById('new_pass').value;
 
         if (newPass !== confirmPass) {
-            alert("Mật khẩu xác nhận không khớp!");
+            Toast.error("Mật khẩu xác nhận không khớp!");
             return;
         }
 
@@ -77,10 +77,10 @@ if (resetPassForm) {
 
             const result = await response.json();
             if (result.code === "200") {
-                alert("Đổi mật khẩu thành công!");
-                window.location.href = "login.html";
+                Toast.success("Đổi mật khẩu thành công!");
+                setTimeout(() => window.location.href = "login.html", 2000);
             } else {
-                alert("Lỗi: " + result.message);
+                Toast.error("Lỗi: " + result.message);
                 if (result.message.toLowerCase().includes("otp")) showStep(2);
             }
         } catch (error) {

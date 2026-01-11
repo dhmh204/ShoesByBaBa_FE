@@ -56,7 +56,7 @@ document.getElementById('extraInfo').addEventListener('submit', async function(e
         
         const errorDiv = document.getElementById('error');
         if (response.ok) {
-            alert("Cập nhật thành công!");
+            Toast.success("Cập nhật thông tin thành công!");
             errorDiv.classList.add('d-none');
         } else {
             errorDiv.classList.remove('d-none');

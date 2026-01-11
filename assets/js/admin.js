@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
     const token = localStorage.getItem('token');
     if (!token) {
-        alert("Bạn cần đăng nhập để truy cập trang quản trị!");
-        window.location.href = "login.html";
+        Toast.error("Bạn cần đăng nhập để truy cập trang quản trị!");
+        setTimeout(() => window.location.href = "login.html", 1500);
         return;
     }
 
@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     setupTabSwitching();
 });
+
+// Toast and showConfirm are now loaded globally from notifications.js
 
 let productModal, categoryModal, brandModal;
 let selectedFiles = [];
@@ -109,16 +111,16 @@ async function loadOrders() {
 }
 
 async function changeOrderStatus(orderId, newStatus) {
-    if (!confirm(`Bạn có chắc muốn chuyển đơn hàng #${orderId} sang trạng thái "${newStatus}"?`)) {
+    if (!await showConfirm(`Bạn có chắc muốn chuyển đơn hàng #${orderId} sang trạng thái "${newStatus}"?`)) {
         loadOrders();
         return;
     }
     try {
         await AdminService.updateOrderStatus(orderId, newStatus);
-        alert(`Cập nhật thành công!`);
+        Toast.success(`Cập nhật đơn hàng #${orderId} thành công!`);
         loadOrders();
     } catch (error) {
-        alert("Lỗi: " + (error.detail || "Không thể cập nhật"));
+        Toast.error("Lỗi: " + (error.detail || "Không thể cập nhật"));
         loadOrders();
     }
 }
@@ -202,19 +204,20 @@ window.saveCategory = async function() {
     try {
         if (id) await AdminService.updateCategory(id, data);
         else await AdminService.createCategory(data);
-        alert("Thành công!");
+        Toast.success("Lưu danh mục thành công!");
         categoryModal.hide();
         loadCategories();
         loadMetadata();
-    } catch (e) { alert("Lỗi: " + (e.detail || "Không thể lưu")); }
+    } catch (e) { Toast.error("Lỗi: " + (e.detail || "Không thể lưu")); }
 }
 
 window.deleteCategory = async function(id) {
-    if (!confirm("Xác nhận xóa danh mục này?")) return;
+    if (!await showConfirm("Xác nhận xóa danh mục này?")) return;
     try {
         await AdminService.deleteCategory(id);
+        Toast.success("Đã xóa danh mục!");
         loadCategories();
-    } catch (e) { alert("Lỗi: " + (e.detail || "Không thể xóa")); }
+    } catch (e) { Toast.error("Lỗi: " + (e.detail || "Không thể xóa")); }
 }
 
 // ---------------- BRAND MANAGEMENT ----------------
@@ -262,19 +265,20 @@ window.saveBrand = async function() {
     try {
         if (id) await AdminService.updateBrand(id, data);
         else await AdminService.createBrand(data);
-        alert("Thành công!");
+        Toast.success("Lưu thương hiệu thành công!");
         brandModal.hide();
         loadBrands();
         loadMetadata();
-    } catch (e) { alert("Lỗi: " + (e.detail || "Không thể lưu")); }
+    } catch (e) { Toast.error("Lỗi: " + (e.detail || "Không thể lưu")); }
 }
 
 window.deleteBrand = async function(id) {
-    if (!confirm("Xác nhận xóa thương hiệu này?")) return;
+    if (!await showConfirm("Xác nhận xóa thương hiệu này?")) return;
     try {
         await AdminService.deleteBrand(id);
+        Toast.success("Đã xóa thương hiệu!");
         loadBrands();
-    } catch (e) { alert("Lỗi: " + (e.detail || "Không thể xóa")); }
+    } catch (e) { Toast.error("Lỗi: " + (e.detail || "Không thể xóa")); }
 }
 
 // ---------------- REVIEWS MANAGEMENT ----------------
@@ -302,12 +306,12 @@ async function loadReviews() {
 }
 
 window.deleteReview = async function(id) {
-    if (!confirm("Xác nhận xóa đánh giá này?")) return;
+    if (!await showConfirm("Xác nhận xóa đánh giá này?")) return;
     try {
         await AdminService.deleteReview(id);
-        alert("Đã xóa!");
+        Toast.success("Đã xóa đánh giá!");
         loadReviews();
-    } catch (e) { alert("Lỗi khi xóa đánh giá"); }
+    } catch (e) { Toast.error("Lỗi khi xóa đánh giá"); }
 }
 
 // ---------------- PRODUCT MANAGEMENT ----------------
@@ -441,10 +445,10 @@ window.saveProduct = async function() {
         if (id) await AdminService.updateProduct(id, body);
         else await AdminService.createProduct(body);
 
-        alert("Thành công!");
+        Toast.success("Lưu sản phẩm thành công!");
         productModal.hide();
         loadProducts();
-    } catch (e) { alert("Lỗi: " + (e.detail || "Không thể lưu")); }
+    } catch (e) { Toast.error("Lỗi: " + (e.detail || "Không thể lưu")); }
     finally {
         saveBtn.disabled = false;
         saveBtn.innerHTML = originalBtnText;
@@ -481,9 +485,19 @@ window.editProduct = function(p) {
 
 window.toggleProductStatus = async function(id, current) {
     const next = current === 'active' ? 'locked' : 'active';
-    if (!confirm(`Xác nhận ${next === 'active' ? 'mở khóa' : 'khóa'} sản phẩm này?`)) return;
+    if (!await showConfirm(`Xác nhận ${next === 'active' ? 'mở khóa' : 'khóa'} sản phẩm này?`)) return;
     try {
         await AdminService.updateProductStatus(id, next);
+        Toast.success("Đã cập nhật trạng thái sản phẩm!");
         loadProducts();
-    } catch (e) { alert("Lỗi hệ thống"); }
+    } catch (e) { Toast.error("Lỗi hệ thống khi cập nhật trạng thái"); }
+}
+
+window.logout = function() {
+    showConfirm("Bạn có chắc chắn muốn đăng xuất?").then(ok => {
+        if (ok) {
+            localStorage.removeItem('token');
+            window.location.href = "login.html";
+        }
+    });
 }
