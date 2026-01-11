@@ -90,7 +90,7 @@ async function loadFullCart() {
 
 async function updateItemQty(productId, delta, color, size) {
     const token = localStorage.getItem('token');
-    
+
     // Disable all buttons to prevent double clicks during loading
     const buttons = document.querySelectorAll('.qty-control button');
     buttons.forEach(btn => btn.disabled = true);
@@ -136,7 +136,7 @@ async function updateItemQty(productId, delta, color, size) {
 async function removeFromCart(itemId) {
     if (!await showConfirm("Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?")) return;
     const token = localStorage.getItem('token');
-    
+
     try {
         const response = await fetch(`${CART_BASE_URL}/api/cart/items/${itemId}`, {
             method: 'DELETE',
@@ -193,19 +193,10 @@ async function handleCheckout() {
         const intentData = await intentRes.json();
         if (!intentRes.ok) throw new Error(intentData.detail || "Không thể tạo mã thanh toán");
 
-        const paymentIntentId = intentData.payment_intent_id;
+        const clientSecret = intentData.client_secret;
 
-        // STEP 2: Test Confirm (Mock Stripe Confirmation)
-        const confirmRes = await fetch(`${CART_BASE_URL}/api/payments/test-confirm/${paymentIntentId}`, {
-            method: 'POST',
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
-        const confirmData = await confirmRes.json();
-        if (!confirmRes.ok) throw new Error(confirmData.detail || "Xác nhận thanh toán thất bại");
-
-        // STEP 3: Create Order in DB
-        const payload = {
-            payment_intent_id: paymentIntentId,
+        // STEP 2: Store Order Data in Session for later confirmation
+        const orderPayload = {
             delivery_address: {
                 street_address: address,
                 ward: ward,
@@ -214,24 +205,12 @@ async function handleCheckout() {
                 recipient_phone: phone
             }
         };
+        sessionStorage.setItem('pending_order_payload', JSON.stringify(orderPayload));
+        sessionStorage.setItem('pending_order_total', amount);
 
-        const response = await fetch(`${CART_BASE_URL}/api/payments/confirm-from-cart`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-        });
+        // STEP 3: Redirect to Stripe Payment Page
+        window.location.href = `payment-stripe.html?client_secret=${clientSecret}&type=cart`;
 
-        const result = await response.json();
-
-        if (response.ok) {
-            Toast.success("Đặt hàng thành công! Cảm ơn bạn đã mua sắm.");
-            setTimeout(() => window.location.href = 'index.html', 2000); 
-        } else {
-            Toast.error("Lỗi tạo đơn hàng: " + (result.detail || result.message || "Không thể xử lý"));
-        }
     } catch (error) {
         console.error("Checkout error:", error);
         Toast.error("Lỗi: " + error.message);

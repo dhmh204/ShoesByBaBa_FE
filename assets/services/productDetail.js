@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const result = await response.json();
 
         if (response.ok && (result.code === "200" || result.status === "success" || result.id)) {
-            currentProduct = result.data || result; 
+            currentProduct = result.data || result;
             renderProductDetail(currentProduct);
             fetchAndRenderReviews(productId);
         } else {
@@ -37,7 +37,7 @@ function renderProductDetail(product) {
     document.getElementById('detail-price').innerText = product.price.toLocaleString('vi-VN') + ' ₫';
     document.getElementById('detail-code').innerText = product.id;
     document.getElementById('detail-description').innerHTML = product.description || '<p>Đang cập nhật...</p>';
-    
+
     // 1.5 Update Review Link
     const reviewBtn = document.getElementById('btn-write-review');
     if (reviewBtn) {
@@ -47,13 +47,13 @@ function renderProductDetail(product) {
     // 2. Images
     const mainImg = document.getElementById('detail-main-image');
     const thumbList = document.getElementById('detail-thumb-list');
-    
+
     // Primary image
     const images = product.image_urls || product.images || [];
-    const primaryImage = images.length > 0 
-        ? images[0].url || images[0].image_url 
+    const primaryImage = images.length > 0
+        ? images[0].url || images[0].image_url
         : (product.image_url || 'https://theme.hstatic.net/1000230642/1001205219/14/no-image.jpg');
-    
+
     mainImg.src = primaryImage;
 
     // Thumbnails
@@ -71,7 +71,7 @@ function renderProductDetail(product) {
     // 3. Variants (Colors & Sizes)
     const colorContainer = document.getElementById('detail-color-container');
     const sizeContainer = document.getElementById('detail-size-container');
-    
+
     if (!product.variants || product.variants.length === 0) {
         colorContainer.innerHTML = 'N/A';
         sizeContainer.innerHTML = 'N/A';
@@ -79,7 +79,7 @@ function renderProductDetail(product) {
     }
 
     const colors = [...new Set(product.variants.map(v => v.color))].filter(Boolean);
-    const sizes = [...new Set(product.variants.map(v => v.size))].filter(Boolean).sort((a,b) => a-b);
+    const sizes = [...new Set(product.variants.map(v => v.size))].filter(Boolean).sort((a, b) => a - b);
 
     colorContainer.innerHTML = colors.map(color => `
         <div class="color-text-item" onclick="selectDetailColor('${color}', this)">${color}</div>
@@ -145,7 +145,7 @@ async function handleAddToCart() {
     }
 
     const qty = parseInt(document.getElementById('qtyInput').value);
-    
+
     const cartData = {
         product_id: parseInt(currentProduct.id),
         quantity: qty,
@@ -228,26 +228,17 @@ async function confirmBuyNowOrder() {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         const intentData = await intentRes.json();
-        if (!intentRes.ok) throw new Error(intentData.detail || "Không thể khởi tạo thanh toán");
+        if (!intentRes.ok) throw new Error(intentData.detail || "Không thể tạo mã thanh toán");
 
-        const paymentIntentId = intentData.payment_intent_id;
+        const clientSecret = intentData.client_secret;
 
-        // STEP 2: Test Confirm
-        const confirmRes = await fetch(`${BASE_URL}/api/payments/test-confirm/${paymentIntentId}`, {
-            method: 'POST',
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
-        const confirmData = await confirmRes.json();
-        if (!confirmRes.ok) throw new Error(confirmData.detail || "Xác nhận thanh toán thất bại");
-
-        // STEP 3: Create Order
-        const payload = {
-            payment_intent_id: paymentIntentId,
+        // STEP 2: Store Order Data in Session for later confirmation
+        const orderPayload = {
             items: [{
                 product_id: parseInt(currentProduct.id),
                 quantity: qty,
-                size: parseInt(selectedSize),
-                color: String(selectedColor)
+                color: String(selectedColor),
+                size: parseInt(selectedSize)
             }],
             delivery_address: {
                 street_address: address,
@@ -257,27 +248,15 @@ async function confirmBuyNowOrder() {
                 recipient_phone: phone
             }
         };
+        sessionStorage.setItem('pending_order_payload', JSON.stringify(orderPayload));
+        sessionStorage.setItem('pending_order_total', amount);
 
-        const response = await fetch(`${BASE_URL}/api/payments/confirm-from-products`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-        });
+        // STEP 3: Redirect to Stripe Payment Page
+        window.location.href = `payment-stripe.html?client_secret=${clientSecret}&type=buy-now`;
 
-        const result = await response.json();
-
-        if (response.ok) {
-            Toast.success("Đặt hàng thành công! Cảm ơn bạn đã tin dùng Biti's.");
-            setTimeout(() => window.location.href = 'index.html', 2000);
-        } else {
-            Toast.error("Lỗi đặt hàng: " + (result.detail || result.message || "Không thể xử lý"));
-        }
     } catch (error) {
-        console.error("Buy now error:", error);
-        Toast.error("Lỗi: " + error.message);
+        console.error("Buy Now Error:", error);
+        alert("Lỗi: " + error.message);
     } finally {
         if (confirmBtn) {
             confirmBtn.disabled = false;
@@ -323,7 +302,7 @@ async function fetchAndRenderReviews(productId, page = 1) {
         if (response.ok) {
             const reviews = result.data || [];
             const total = (result.pagination && result.pagination.total) || 0;
-            
+
             reviewCountSpan.innerText = total;
             renderReviews(reviews, reviewListContainer);
             renderReviewPagination(total, size, page, productId, paginationContainer);
@@ -344,7 +323,7 @@ function renderReviews(reviews, container) {
     }
 
     container.innerHTML = reviews.map(review => {
-        const stars = Array(5).fill(0).map((_, i) => 
+        const stars = Array(5).fill(0).map((_, i) =>
             `<i class="${i < review.rating ? 'fa-solid' : 'fa-regular'} fa-star"></i>`
         ).join('');
 
