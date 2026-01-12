@@ -121,6 +121,10 @@ body {
   color: #00b894;
   font-weight: bold;
 }
+.sold-count {
+  font-size: 14px;
+  color: #888;
+}
 
 .divider {
   border: 0;

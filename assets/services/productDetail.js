@@ -36,6 +36,7 @@ function renderProductDetail(product) {
     document.getElementById('detail-title').innerText = product.name;
     document.getElementById('detail-price').innerText = product.price.toLocaleString('vi-VN') + ' ₫';
     document.getElementById('detail-code').innerText = product.id;
+    document.getElementById('detail-sold-count').innerText = `Đã bán ${product.sold_count ?? 0}`;
     document.getElementById('detail-description').innerHTML = product.description || '<p>Đang cập nhật...</p>';
 
     // 1.5 Update Review Link
@@ -79,15 +80,26 @@ function renderProductDetail(product) {
     }
 
     const colors = [...new Set(product.variants.map(v => v.color))].filter(Boolean);
+<<<<<<< HEAD
+    
+=======
     const sizes = [...new Set(product.variants.map(v => v.size))].filter(Boolean).sort((a, b) => a - b);
 
+>>>>>>> dc30580872b0d9ea5cbe3bd1fee5067111cf67af
     colorContainer.innerHTML = colors.map(color => `
         <div class="color-text-item" onclick="selectDetailColor('${color}', this)">${color}</div>
     `).join('');
 
-    sizeContainer.innerHTML = sizes.map(size => `
-        <div class="size-item" onclick="selectDetailSize('${size}', this)">${size}</div>
-    `).join('');
+    // Initalize: select first color and it will automatically render sizes
+    if (colors.length > 0) {
+        // Use a small delay to ensure DOM is updated before selecting color
+        setTimeout(() => {
+            const firstColorEl = colorContainer.querySelector('.color-text-item');
+            if (firstColorEl) selectDetailColor(colors[0], firstColorEl);
+        }, 50);
+    } else {
+        sizeContainer.innerHTML = 'N/A';
+    }
 }
 
 // UI Helpers
@@ -102,6 +114,30 @@ function selectDetailColor(color, el) {
     document.getElementById('selected-color-name').innerText = color;
     document.querySelectorAll('.color-text-item').forEach(c => c.classList.remove('active'));
     el.classList.add('active');
+    
+    // Update sizes based on the selected color
+    renderSizesByColor(color);
+}
+
+function renderSizesByColor(color) {
+    const sizeContainer = document.getElementById('detail-size-container');
+    if (!currentProduct || !currentProduct.variants) return;
+
+    // Filter variants that have the selected color and get their unique sizes
+    const availableSizes = [...new Set(currentProduct.variants
+        .filter(v => v.color === color)
+        .map(v => v.size))]
+        .filter(Boolean)
+        .sort((a, b) => a - b);
+
+    sizeContainer.innerHTML = availableSizes.map(size => `
+        <div class="size-item ${selectedSize == size ? 'active' : ''}" onclick="selectDetailSize('${size}', this)">${size}</div>
+    `).join('');
+
+    // If pre-selected size is not available in the new color, reset it
+    if (selectedSize && !availableSizes.some(s => String(s) === String(selectedSize))) {
+        selectedSize = null;
+    }
 }
 
 function selectDetailSize(size, el) {
