@@ -137,7 +137,7 @@ function renderProductGrid(container, products) {
                         <h3 class="prod-title">${product.name}</h3>
                         <div class="prod-price">
                             <span class="curr-price">${price} ₫</span>
-                            <span class="sold-count">Đã bán ${product.sold_count || Math.floor(Math.random() * 50)}</span>
+                            <span class="sold-count">Đã bán ${product.sold_count ?? 0}</span>
                         </div>
                     </div>
                 </div>
