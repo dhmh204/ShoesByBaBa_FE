@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', async function() {
-    // 1. Gọi API để lấy thông tin cá nhân hiện tại
     try {
-        const response = await fetch('http://127.0.0.1:8000/profile', { // Giả định endpoint lấy profile là /users/me
+        const response = await fetch('http://127.0.0.1:8000/profile', { 
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -10,9 +9,8 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         if (response.ok) {
             const res = await response.json();
-            const userData = res.data; // Tùy vào cấu trúc response của bạn
+            const userData = res.data; 
 
-            // 2. Điền dữ liệu vào các ô input
             if (userData) {
                 document.getElementById('last_name').value = userData.full_name || "";
                 document.getElementById('email').value = userData.email || "";
@@ -29,7 +27,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 });
 
-// 2. Phần xử lý Submit Form (Giữ nguyên logic của bạn nhưng tối ưu hơn)
 document.getElementById('extraInfo').addEventListener('submit', async function(e) {
     e.preventDefault();
     
@@ -60,7 +57,6 @@ document.getElementById('extraInfo').addEventListener('submit', async function(e
             errorDiv.classList.add('d-none');
         } else {
             errorDiv.classList.remove('d-none');
-            // Hiển thị lỗi chi tiết từ Backend (ví dụ: Email đã tồn tại)
             errorDiv.innerText = result.detail || "Có lỗi xảy ra";
         }
     } catch (err) {

@@ -1,18 +1,15 @@
 async function loadUserProfile() {
-    // 1. SỬA LẠI KEY: Phải là 'token' mới khớp với file Login của bạn
-    let token = localStorage.getItem("token"); 
+   let token = localStorage.getItem("token"); 
     
     console.log("Token lấy được từ Storage:", token);
 
     if (!token || token === "undefined" || token === "null") {
         console.warn("Không tìm thấy token, yêu cầu đăng nhập.");
-        // Nếu không có token thì mới redirect về login
         window.location.href = "./login.html";
         return;
     }
 
     try {
-        // 2. Gọi API (Lưu ý: URL phải khớp với Backend, ví dụ /profile hoặc /users/profile)
         const response = await fetch("http://localhost:8000/profile", { 
             method: "GET",
             headers: {
@@ -34,16 +31,12 @@ async function loadUserProfile() {
         const result = await response.json();
         console.log("Dữ liệu nhận về:", result);
 
-        // API của bạn trả về { code: "200", data: { ... } }
         if (response.ok && result.data) {
             const userData = result.data;
 
-            // 3. Hiển thị dữ liệu lên HTML
-            // Lời chào Sidebar
             const userNameEl = document.getElementById("userName");
             if (userNameEl) userNameEl.innerText = userData.full_name;
 
-            // Chi tiết thông tin
             const fullNameEl = document.getElementById("fullName");
             if (fullNameEl) fullNameEl.innerText = userData.full_name;
 
@@ -55,7 +48,6 @@ async function loadUserProfile() {
 
             const addressEl = document.getElementById("address");
             if (addressEl) {
-                // Nếu có địa chỉ trong data, bạn cộng chuỗi lại
                 if (userData.province_city) {
                     addressEl.innerText = `${userData.street_address || ''}, ${userData.ward || ''}, ${userData.province_city}`;
                 } else {
@@ -63,7 +55,6 @@ async function loadUserProfile() {
                 }
             }
 
-            // Xử lý Avatar (Chữ cái đầu)
             const avatarBox = document.querySelector(".AccountAvatar");
             if (avatarBox && userData.full_name) {
                 avatarBox.innerText = userData.full_name.split(" ").pop().substring(0, 2).toUpperCase();
@@ -77,5 +68,4 @@ async function loadUserProfile() {
     }
 }
 
-// Chạy khi trang load xong
 document.addEventListener("DOMContentLoaded", loadUserProfile);

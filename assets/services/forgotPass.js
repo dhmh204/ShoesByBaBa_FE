@@ -21,7 +21,7 @@ if (recoverForm) {
                 body: JSON.stringify({ email: userEmail })
             });
 
-            const result = await response.json();
+    messageEl.innerText = message;
 
             if (response.ok || result.code === "200") {
                 Toast.success("Mã OTP đã được gửi đến email của bạn!");
@@ -83,104 +83,151 @@ if (resetPassForm) {
                 Toast.error("Lỗi: " + result.message);
                 if (result.message.toLowerCase().includes("otp")) showStep(2);
             }
-        } catch (error) {
-            console.error("Error:", error);
-        }
-    });
-}
 
-/**
- * HÀM ĐIỀU KHIỂN HIỂN THỊ (FIX THEO CSS CỦA BẠN)
- * Bước 1 dùng .hidden
- * Bước 2, 3 dùng .active
- */
-function showStep(step) {
-    const step1Box = document.querySelector('.customers_accountForm');
-    const step2Box = document.querySelector('.auth-container');
-    const step3Box = document.querySelector('.update_account');
+            try {
+                const response = await fetch(`${API_BASE_URL}/forgot-password`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: userEmail })
+                });
 
-    // 1. Reset trạng thái
-    if (step1Box) step1Box.classList.remove('hidden');
-    if (step2Box) step2Box.classList.remove('active');
-    if (step3Box) step3Box.classList.remove('active');
+                const result = await response.json();
 
-    // 2. Kích hoạt đúng box theo bước
-    if (step === 1) {
-        // Mặc định hiện step 1
-    } else if (step === 2) {
-        if (step1Box) step1Box.classList.add('hidden'); // Ẩn bước 1
-        if (step2Box) step2Box.classList.add('active'); // Hiện bước 2
-    } else if (step === 3) {
-        if (step1Box) step1Box.classList.add('hidden'); // Ẩn bước 1
-        if (step3Box) step3Box.classList.add('active'); // Hiện bước 3
-    }
-
-    // 3. Cập nhật Stepper (Dấu chấm tiến trình)
-    const steps = document.querySelectorAll('.stepper-container .step');
-    steps.forEach((s, index) => {
-        if (index < step) s.classList.add('active');
-        else s.classList.remove('active');
-    });
-
-    // 4. Cập nhật thanh line chạy
-const progressLine = document.querySelector('.stepper-line-progress');
-if (progressLine) {
-    // Nếu ở bước 1 thì 0%, bước 2 thì 50%, bước 3 thì 100%
-    const totalSteps = steps.length;
-    let percent = 0;
-    
-    if (step > 1) {
-        percent = ((step - 1) / (totalSteps - 1)) * 100;
-    }
-
-    progressLine.style.width = percent + "%";
-}
-}
-// ====================================
-const otpInputs = document.querySelectorAll('.otp-inputs input');
-
-otpInputs.forEach((input, index) => {
-    // 1. Nhấn Enter để sang ô tiếp theo
-    input.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            if (index < otpInputs.length - 1) {
-                otpInputs[index + 1].focus();
-            } else {
-                // Nếu là ô cuối cùng thì kích hoạt nút xác nhận
-                document.querySelector('.btn-auth').click();
+                if (response.ok || result.code === "200") {
+                    showModal("📩 Mã OTP đã được gửi đến email của bạn!", () => {
+                        showStep(2);
+                    });
+                } else {
+                    showModal("❌ " + (result.message || "Không thể gửi mã OTP"));
+                }
+            } catch (error) {
+                console.error(error);
+                showModal("⚠️ Không thể kết nối đến máy chủ");
             }
-        }
-        
-        // Nhấn Backspace để quay lại ô trước
-        if (e.key === 'Backspace' && !input.value && index > 0) {
-            otpInputs[index - 1].focus();
-        }
-    });
+        });
+    }
 
-    // 2. Tự động nhảy ô khi nhập số
-    input.addEventListener('input', (e) => {
-        if (e.target.value && index < otpInputs.length - 1) {
-            otpInputs[index + 1].focus();
-        }
-    });
+    // VERIFY OTP
+    const btnVerifyOtp = document.querySelector('.btn-confirm');
+    if (btnVerifyOtp) {
+        btnVerifyOtp.addEventListener('click', function () {
+            const inputs = document.querySelectorAll('.otp-inputs input');
+            userOTP = Array.from(inputs).map(i => i.value).join('');
 
-    // 3. Xử lý DÁN MÃ (PASTE)
-    input.addEventListener('paste', (e) => {
-        e.preventDefault();
-        const data = e.clipboardData.getData('text').trim();
-        if (!/^\d+$/.test(data)) return; // Chỉ nhận số
+            if (userOTP.length < 6) {
+                showModal("Vui lòng nhập đủ 6 số OTP");
+                return;
+            }
 
-        const chars = data.split('');
-        chars.forEach((char, i) => {
-            if (otpInputs[index + i]) {
-                otpInputs[index + i].value = char;
+            showStep(3);
+        });
+    }
+
+    // RESET PASSWORD
+    const resetPassForm = document.getElementById('recoverPass');
+    if (resetPassForm) {
+        resetPassForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const newPass = document.getElementById('current_pass').value;
+            const confirmPass = document.getElementById('new_pass').value;
+
+            if (newPass !== confirmPass) {
+                showModal("❌ Mật khẩu xác nhận không khớp!");
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/reset-password-otp`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: userEmail,
+                        otp: userOTP,
+                        new_password: newPass
+                    })
+                });
+
+                const result = await response.json();
+
+                if (response.ok || result.code === "200") {
+                    showModal("🎉 Đổi mật khẩu thành công!", () => {
+                        window.location.href = "login.html";
+                    });
+                } else {
+                    showModal("❌ " + (result.message || "Đổi mật khẩu thất bại"));
+                    if (result.message?.toLowerCase().includes("otp")) {
+                        showStep(2);
+                    }
+                }
+            } catch (error) {
+                console.error(error);
+                showModal("⚠️ Không thể kết nối đến máy chủ");
+            }
+        });
+    }
+
+    // OTP INPUT UX
+    const otpInputs = document.querySelectorAll('.otp-inputs input');
+    otpInputs.forEach((input, index) => {
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                if (index < otpInputs.length - 1) {
+                    otpInputs[index + 1].focus();
+                } else {
+                    document.querySelector('.btn-confirm')?.click();
+                }
+            }
+
+            if (e.key === 'Backspace' && !input.value && index > 0) {
+                otpInputs[index - 1].focus();
             }
         });
 
-        // Focus vào ô tiếp theo sau khi dán hoặc ô cuối cùng
-        const nextFocus = Math.min(index + chars.length, otpInputs.length - 1);
-        otpInputs[nextFocus].focus();
+        input.addEventListener('input', () => {
+            if (input.value && index < otpInputs.length - 1) {
+                otpInputs[index + 1].focus();
+            }
+        });
+
+        input.addEventListener('paste', (e) => {
+            e.preventDefault();
+            const data = e.clipboardData.getData('text').trim();
+            if (!/^\d+$/.test(data)) return;
+
+            data.split('').forEach((char, i) => {
+                if (otpInputs[index + i]) {
+                    otpInputs[index + i].value = char;
+                }
+            });
+
+            const nextFocus = Math.min(index + data.length, otpInputs.length - 1);
+            otpInputs[nextFocus].focus();
+        });
     });
 });
 
+/* ================= STEP UI ================= */
+function showStep(step) {
+    const step1 = document.querySelector('.customers_accountForm');
+    const step2 = document.querySelector('.auth-container');
+    const step3 = document.querySelector('.update_account');
+
+    step1?.classList.add('hidden');
+    step2?.classList.remove('active');
+    step3?.classList.remove('active');
+
+    if (step === 2) step2?.classList.add('active');
+    if (step === 3) step3?.classList.add('active');
+
+    const steps = document.querySelectorAll('.stepper-container .step');
+    steps.forEach((s, i) => {
+        s.classList.toggle('active', i < step);
+    });
+
+    const progress = document.querySelector('.stepper-line-progress');
+    if (progress && steps.length > 1) {
+        progress.style.width = ((step - 1) / (steps.length - 1)) * 100 + "%";
+    }
+}

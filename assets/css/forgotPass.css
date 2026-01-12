@@ -45,7 +45,11 @@
     text-transform: none;
 }
 
-
+#recover-password .btn-cancel-mail {
+    background-color: #1b4ea0;
+    color: #fff;
+    border-radius: 8px;
+}
 .update_account {
     display: none;
 }
