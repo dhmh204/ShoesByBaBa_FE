@@ -6,6 +6,33 @@ document.addEventListener('DOMContentLoaded', function () {
     const errorDiv = document.getElementById('error');
     const errorText = document.getElementById('error-text');
 
+    async function handleRefreshToken() {
+        const refreshToken = localStorage.getItem('refresh_token');
+        if (!refreshToken) return null;
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/refresh-token?refresh_token=${refreshToken}`, {
+                method: 'POST',
+                headers: { 'Accept': 'application/json' }
+            });
+
+            const result = await response.json();
+            if (response.ok && result.code === "200") {
+                localStorage.setItem('token', result.data.access_token);
+                if (result.data.refresh_token) {
+                    localStorage.setItem('refresh_token', result.data.refresh_token);
+                }
+                return result.data.access_token;
+            } else {
+                logout();
+                return null;
+            }
+        } catch (error) {
+            console.error("Lỗi refresh token:", error);
+            return null;
+        }
+    }
+
     // 1. Handle regular login
     if (loginForm) {
         loginForm.addEventListener('submit', async function (e) {
@@ -18,23 +45,17 @@ document.addEventListener('DOMContentLoaded', function () {
             try {
                 const response = await fetch(`${API_BASE_URL}/login`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                     body: JSON.stringify({ email, password })
                 });
 
                 const result = await response.json();
 
                 if (response.ok && result.code === "200" && result.data) {
-                    const { access_token, role } = result.data;
-                    if (!access_token) {
-                        showError("Dữ liệu đăng nhập không hợp lệ!");
-                        return;
-                    }
-
+                    const { access_token, refresh_token, role } = result.data;
+                    
                     localStorage.setItem('token', access_token);
+                    if (refresh_token) localStorage.setItem('refresh_token', refresh_token);
                     localStorage.setItem('role', role);
                     
                     Toast.success("Đăng nhập thành công!");
@@ -45,7 +66,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     showError(result.message || "Email hoặc mật khẩu không đúng!");
                 }
             } catch (error) {
-                console.error("Lỗi kết nối:", error);
                 showError("Không thể kết nối tới server!");
             }
         });
@@ -54,12 +74,11 @@ document.addEventListener('DOMContentLoaded', function () {
     // 2. Handle Google Login Initiation
     if (googleLoginBtn) {
         googleLoginBtn.addEventListener('click', function () {
-            // Redirect to backend endpoint that initiates Google OAuth
             window.location.href = `${API_BASE_URL}/login/google`;
         });
     }
 
-    // 3. Handle Google Redirect Callback (if redirected here with ?code=...)
+    // 3. Handle Google Redirect Callback
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
     if (code) {
@@ -68,50 +87,37 @@ document.addEventListener('DOMContentLoaded', function () {
 
     async function handleGoogleCallback(code) {
         try {
-            if (errorDiv && errorText) {
-                errorText.textContent = "Đang xác thực với Google...";
-                errorDiv.classList.remove('d-none');
-                errorDiv.style.display = "flex";
-                errorText.style.color = "#034ea1"; 
-            }
-
             const response = await fetch(`${API_BASE_URL}/login/oauth2/code/google?code=${code}`, {
                 method: 'GET',
-                headers: {
-                    'Accept': 'application/json'
-                }
+                headers: { 'Accept': 'application/json' }
             });
 
             const result = await response.json();
 
             if (response.ok && result.code === "200" && result.data) {
-                const { access_token, role } = result.data;
+                const { access_token, refresh_token, role } = result.data;
                 localStorage.setItem('token', access_token);
+                if (refresh_token) localStorage.setItem('refresh_token', refresh_token);
                 localStorage.setItem('role', role || 'user');
                 
-                // Remove code from URL
                 window.history.replaceState({}, document.title, window.location.pathname);
                 
-                if (typeof Toast !== 'undefined') {
-                    Toast.success("Đăng nhập Google thành công!");
-                }
+                if (typeof Toast !== 'undefined') Toast.success("Đăng nhập Google thành công!");
                 
                 setTimeout(() => {
                     window.location.href = (role === "admin") ? "admin.html" : "index.html";
                 }, 1000);
             } else {
-                if (errorDiv && errorText) {
-                    errorText.textContent = result.message || "Xác thực Google thất bại!";
-                    errorText.style.color = "#FE0000";
-                }
+                showError(result.message || "Xác thực Google thất bại!");
             }
         } catch (error) {
-            console.error("Lỗi Google Login:", error);
-            if (errorDiv && errorText) {
-                errorText.textContent = "Lỗi kết nối khi xác thực Google!";
-                errorText.style.color = "#FE0000";
-            }
+            showError("Lỗi kết nối khi xác thực Google!");
         }
+    }
+
+    function logout() {
+        localStorage.clear();
+        window.location.href = "login.html";
     }
 
     function showError(message) {
@@ -120,8 +126,6 @@ document.addEventListener('DOMContentLoaded', function () {
             errorDiv.classList.remove('d-none');
             errorDiv.style.display = "flex";
             errorText.style.color = "#FE0000";
-        } else if (typeof Toast !== 'undefined') {
-            Toast.error(message);
         }
     }
 });
