@@ -82,7 +82,6 @@ function renderSection(title, products) {
                         <div class="prod-image-wrap">
                             <img class="img-front" src="${image}" alt="${product.name}" onerror="this.onerror=null; this.src='https://theme.hstatic.net/1000230642/1001205219/14/no-image.jpg'">
                             ${image2 ? `<img class="img-back" src="${image2}" alt="${product.name}" onerror="this.onerror=null; this.style.display='none'">` : ''}
-                            <div class="btn-wishlist"><i class="fa-regular fa-heart"></i></div>
                         </div>
                         <div class="prod-details">
                             <div class="prod-meta">

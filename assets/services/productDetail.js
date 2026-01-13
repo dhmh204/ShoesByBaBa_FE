@@ -81,6 +81,9 @@ function renderProductDetail(product) {
 
     const colors = [...new Set(product.variants.map(v => v.color))].filter(Boolean);
     
+
+    const sizes = [...new Set(product.variants.map(v => v.size))].filter(Boolean).sort((a, b) => a - b);
+
     colorContainer.innerHTML = colors.map(color => `
         <div class="color-text-item" onclick="selectDetailColor('${color}', this)">${color}</div>
     `).join('');
