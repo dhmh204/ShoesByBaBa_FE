@@ -80,6 +80,7 @@ function renderProductDetail(product) {
     }
 
     const colors = [...new Set(product.variants.map(v => v.color))].filter(Boolean);
+    
 
     const sizes = [...new Set(product.variants.map(v => v.size))].filter(Boolean).sort((a, b) => a - b);
 
