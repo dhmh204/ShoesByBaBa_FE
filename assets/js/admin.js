@@ -42,6 +42,7 @@ function setupTabSwitching() {
                 case 'brands': loadBrands(); break;
                 case 'orders': loadOrders(); break;
                 case 'reviews': loadReviews(); break;
+                case 'users': loadUsers(); break;
             }
         });
     });
@@ -500,4 +501,76 @@ window.logout = function() {
             window.location.href = "login.html";
         }
     });
+}
+
+// ---------------- USER MANAGEMENT ----------------
+async function loadUsers() {
+    try {
+        console.log("Loading users...");
+        const result = await AdminService.getUsers(1, 100);
+        console.log("Users result:", result);
+        
+        const users = result.data?.items || (Array.isArray(result.data) ? result.data : []);
+        const body = document.getElementById('user-list-body');
+        if (!body) return;
+
+        if (users.length === 0) {
+            body.innerHTML = '<tr><td colspan="7" class="text-center">Không có người dùng nào hoặc bạn không có quyền xem.</td></tr>';
+            return;
+        }
+
+        body.innerHTML = users.map(u => {
+            // Flexible check for status (could be 1/0 or true/false)
+            const isActive = u.status == 1 || u.status === true;
+            const statusClass = isActive ? 'bg-success' : 'bg-danger';
+            const statusText = isActive ? 'Hoạt động' : 'Bị khóa';
+            const roleText = u.role_id === 1 ? 'Admin' : 'User';
+
+            return `
+            <tr>
+                <td>#${u.id}</td>
+                <td class="fw-bold">${u.full_name || 'N/A'}</td>
+                <td>${u.email}</td>
+                <td>${u.phone_number || 'N/A'}</td>
+                <td><span class="badge bg-info">${roleText}</span></td>
+                <td><span class="badge ${statusClass}">${statusText}</span></td>
+                <td>
+                    <button class="btn btn-sm ${isActive ? 'btn-outline-warning' : 'btn-outline-success'}" 
+                        onclick="toggleUserStatus(${u.id}, ${u.status})" title="${isActive ? 'Khóa' : 'Mở khóa'}">
+                        <i class="fas ${isActive ? 'fa-user-slash' : 'fa-user-check'}"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" onclick="deleteUser(${u.id})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            </tr>`;
+        }).join('');
+    } catch (e) {
+        console.error("Load Users Error:", e);
+        if (e.status === 403 || e.code === "403") {
+            Toast.error("Bạn không có quyền truy cập thông tin này!");
+        } else {
+            Toast.error("Lỗi khi tải danh sách người dùng. Vui lòng kiểm tra console.");
+        }
+    }
+}
+
+window.toggleUserStatus = async function(id, currentStatus) {
+    const nextStatus = currentStatus === 1 ? 0 : 1;
+    const action = nextStatus === 1 ? 'mở khóa' : 'khóa';
+    if (!await showConfirm(`Xác nhận ${action} người dùng này?`)) return;
+    try {
+        await AdminService.updateUserStatus(id, nextStatus);
+        Toast.success(`Đã ${action} người dùng thành công!`);
+        loadUsers();
+    } catch (e) { Toast.error("Lỗi: " + (e.detail || "Không thể cập nhật")); }
+}
+
+window.deleteUser = async function(id) {
+    if (!await showConfirm("Xác nhận xóa người dùng này? Thao tác này không thể hoàn tác!")) return;
+    try {
+        await AdminService.deleteUser(id);
+        Toast.success("Đã xóa người dùng thành công!");
+        loadUsers();
+    } catch (e) { Toast.error("Lỗi: " + (e.detail || "Không thể xóa")); }
 }

@@ -207,5 +207,29 @@ const AdminService = {
             headers: this.getHeaders()
         });
         return await this.handleResponse(response);
+    },
+
+    // USERS
+    async getUsers(page = 1, pageSize = 20) {
+        const response = await fetch(`${BASE_URL}/admin/all?page=${page}&limit=${pageSize}`, {
+            headers: this.getHeaders()
+        });
+        return await this.handleResponse(response);
+    },
+
+    async updateUserStatus(userId, status) {
+        const response = await fetch(`${BASE_URL}/admin/${userId}/status?status=${status}`, {
+            method: 'PUT',
+            headers: this.getHeaders()
+        });
+        return await this.handleResponse(response);
+    },
+
+    async deleteUser(userId) {
+        const response = await fetch(`${BASE_URL}/admin/${userId}`, {
+            method: 'DELETE',
+            headers: this.getHeaders()
+        });
+        return await this.handleResponse(response);
     }
 };
